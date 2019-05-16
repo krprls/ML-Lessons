@@ -8,7 +8,7 @@ def get_prediction(data = {"data":"10,5,5.41"}):
     url = 'https://48s9ydg0ob.execute-api.us-east-1.amazonaws.com/Test'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
-    print(response)
+    #print(response)
     if np.float(response) == 0:
         print("a child!")
     else:
