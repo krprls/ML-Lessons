@@ -1,20 +1,19 @@
 import requests
 import json as json
-
+import numpy as np
 
 #calculate and print out the prediction
 def get_prediction(data = {"data":"10,5,5.41"}):
     # data = data.encode('utf-8')
-    url = 'https://bg3h8g0h66.execute-api.us-east-1.amazonaws.com/Test'
+    url = 'https://oei75omw16.execute-api.us-east-1.amazonaws.com/Test'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     print(response)
-    if response == 0:
+    if np.float(response) == 0:
         print("a child!")
     else:
         print("an adult!")
     return response
-
 
 
 if __name__ == "__main__":
