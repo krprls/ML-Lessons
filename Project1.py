@@ -3,12 +3,16 @@ import json as json
 
 
 #calculate and print out the prediction
-def get_prediction(data='10,5,5.41'):
+def get_prediction(data = {"data":"10,5,5.41"}):
     # data = data.encode('utf-8')
     url = 'https://p5bthjd4yc.execute-api.us-east-1.amazonaws.com/Test'
     r = requests.post(url, data=json.dumps(data))
-    response = getattr(r,'_content')
-    print(response)
+
+    response = getattr(r,'_content').decode("utf-8")
+    if response == 0:
+        print("a child!")
+    else:
+        print("an adult!")
     return response
 
 
@@ -28,7 +32,8 @@ if __name__ == "__main__":
     type(height)
 
     #pass in the data
-    data = visitedCountries + ',' + yearsInSchool + ',' + height
+    data = {"data": visitedCountries + ',' + yearsInSchool + ',' + height}
+    print("Hey " + name + ", we think that you are...")
     get_prediction(data)
 
 
