@@ -2,7 +2,7 @@
 
 import numpy as np
 
-def generate_score_first_data(total_samples=2001):
+def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv"):
 
     #sample number should be greater than 10
     if total_samples <= 10:
@@ -17,15 +17,21 @@ def generate_score_first_data(total_samples=2001):
     score = np.concatenate((np.random.uniform(0,4,(num_samples_kids,1)), np.random.uniform(5,9,(num_samples_adults,1))))
 
 
-    #height follows a gassian distribution
-    height = np.array([np.random.normal(0,4) if i<=3 else np.random.randint(0,20) for i in score]).reshape(-1,1)
+    #height follows a gaussian distribution
+    height = np.array([np.random.normal(5.5,0.3) if i<=4 else np.random.uniform(2,6) for i in score]).reshape(-1,1)
+    num_countries = np.array([np.random.randint(0,4) if i<=4 else np.random.randint(0,20) for i in score]).reshape(-1,1)
+    years_school = np.array([np.random.randint(0,11) if i<=4 else np.random.randint(0,100) for i in score]).reshape(-1,1)
 
+    #reshaping data
+    height.shape
+    years_school.shape
+    num_countries.shape
 
-    num_countries = np.array([np.random.randint(0,4) if i<=3 else np.random.randint(0,20) for i in height ]).reshape(-1,1)
-    years_school = np.array([np.random.randint(0,i) if i<3.5 else np.random.randint(0,15) for i in height]).reshape(-1,1)
-
-
-
+    dataset = np.concatenate((num_countries, years_school, height, score),axis=1)
+    np.random.shuffle(dataset)
+    data_header = 'num_countries,years_school,height,adult'
+    np.savetxt('Kids_score_first_datasets/' + file_name ,dataset,header=data_header,fmt='%.2f',delimiter=',')
+    print(file_name + " data saved")
 
     #print(score)
 
