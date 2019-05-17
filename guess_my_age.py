@@ -1,15 +1,41 @@
 
+
 import numpy as np
 
-def generate_data_age_first():
+def generate_score_first_data(total_samples=2001):
 
-    # There will be 1000 samples for kids and 1000 for adults. Kids are aged 0 - 17, and 
-    # adults are 18 or older. 
+    #sample number should be greater than 10
+    if total_samples <= 10:
+        print("Please choose a number of samples greater than 10")
+        return
+
     #We will make half of the data kids and the other half adults.
+    num_samples_kids = int((total_samples)/2)
+    num_samples_adults = total_samples - num_samples_kids
 
-    num_samples_kids = 1000
-    num_samples_adults = 1000
-    adult = np.concatenate((np.random.uniform(0,17,(num_samples_kids,1)), np.random.uniform(19,90,(num_samples_adults,1))))
+    #generate the score first
+    score = np.concatenate((np.random.uniform(0,4,(num_samples_kids,1)), np.random.uniform(5,9,(num_samples_adults,1))))
+
+
+    #height follows a gassian distribution
+    height = np.array([np.random.normal(0,4) if i<=3 else np.random.randint(0,20) for i in score]).reshape(-1,1)
+
+
+    num_countries = np.array([np.random.randint(0,4) if i<=3 else np.random.randint(0,20) for i in height ]).reshape(-1,1)
+    years_school = np.array([np.random.randint(0,i) if i<3.5 else np.random.randint(0,15) for i in height]).reshape(-1,1)
+
+
+
+
+    #print(score)
+
+    #for the kids
+
+    #for the adults
+    
+    #adult = np.concatenate((np.random.uniform(0,17,(num_samples_kids,1)), np.random.uniform(19,90,(num_samples_adults,1))))
+
+    
 
 
 def generate_data(num_samples_1=1400, num_samples_2=600, file_name = "large_sample.csv"):
@@ -30,9 +56,11 @@ def generate_data(num_samples_1=1400, num_samples_2=600, file_name = "large_samp
     dataset = np.concatenate((num_countries, years_school, height, score),axis=1)
 
     score[score<=4] = 0
-    score[score>4] = 1
     score[height<4.5] = 0
     score[years_school>=11] = 1
+
+
+    print("score is " + str(np.sum(score)))
     dataset = np.concatenate((num_countries, years_school, height, score),axis=1)
     np.random.shuffle(dataset)
     data_header = 'num_countries,years_school,height,adult'
@@ -46,4 +74,7 @@ if __name__ == "__main__":
     generate_data(350,150, "medium_sample.csv") #500 in total
     generate_data(1400,600, "large_sample.csv") #2000 in total
     generate_data(3500,1500, "jumbo_sample.csv") #5000 in total
+    generate_data(70000,30000, "gigantic_sample.csv") #100000 in total
+    generate_score_first_data()
+
 
