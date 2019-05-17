@@ -23,16 +23,15 @@ def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv")
     years_school = np.array([np.random.randint(0,11) if i<=4 else np.random.randint(0,100) for i in score]).reshape(-1,1)
 
     #reshaping arrays 
-
     height.shape
     years_school.shape
     num_countries.shape
 
+    #child if score is less than 0, otherwise adult
     score[score <= 4] = 0
     score[score > 4] = 1
 
     #print("height is " + str(height))
-
 
     dataset = np.concatenate((num_countries, years_school, height, score),axis=1)
     np.random.shuffle(dataset)
@@ -42,15 +41,6 @@ def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv")
     np.savetxt('score_first_data/' + file_name ,dataset,header=data_header,fmt='%.2f',delimiter=',')
     print(file_name + " data saved")
 
-
-
-    #print(score)
-
-    #for the kids
-
-    #for the adults
-    
-    #adult = np.concatenate((np.random.uniform(0,17,(num_samples_kids,1)), np.random.uniform(19,90,(num_samples_adults,1))))
 
     
 
