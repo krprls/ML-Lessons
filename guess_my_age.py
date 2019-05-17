@@ -28,9 +28,9 @@ def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv")
     num_countries.shape
 
     #child if score is less than 0, otherwise adult
-    score[score <= 4] = 0
-
-    score[height < 4.5] = 0
+    score[score<=4] = 0
+    score[height<4.5] = 0
+    score[years_school>=11] = 1
     score[height >= 7] = 1
     score[num_countries > 10] = 1
 
