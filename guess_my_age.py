@@ -19,8 +19,8 @@ def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv")
 
     #height follows a gaussian distribution
     height = np.array([np.random.normal(5.5,0.3) if i<=4 else np.random.uniform(2,6) for i in score]).reshape(-1,1)
-    num_countries = np.array([np.random.randint(0,4) if i<=4 else np.random.randint(0,20) for i in score]).reshape(-1,1)
-    years_school = np.array([np.random.randint(0,11) if i<=4 else np.random.randint(0,100) for i in score]).reshape(-1,1)
+    num_countries = np.array([np.random.randint(0,10) if i<=4 else np.random.randint(0,100) for i in score]).reshape(-1,1)
+    years_school = np.array([np.random.randint(0,11) if i<=4 else np.random.randint(0,20) for i in score]).reshape(-1,1)
 
     #reshaping arrays 
     height.shape
@@ -32,6 +32,7 @@ def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv")
     score[height < 4.5] = 0
     score[height >= 7] = 1
     score[score > 4] = 1
+    score[num_countries >= 20] = 1
 
     #print("height is " + str(height))
 
