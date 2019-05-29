@@ -40,7 +40,7 @@ def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv")
 
 
     data_header = 'num_countries,years_school,height,adult'
-    np.savetxt('score_first_data/' + file_name ,dataset,header=data_header,fmt='%.2f',delimiter=',')
+    np.savetxt('data1/' + file_name ,dataset,header=data_header,fmt='%.2f',delimiter=',')
     print(file_name + " data saved")
     # print(dataset)
 
