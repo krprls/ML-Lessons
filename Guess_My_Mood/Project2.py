@@ -27,5 +27,5 @@ if __name__ == "__main__":
 
     #pass in the data
     data = {"data": mood}
-    print("Hmm, it seems like you are...")
+    print("Hmm, it seems like...")
     get_prediction(data)
