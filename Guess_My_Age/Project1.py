@@ -5,7 +5,7 @@ import numpy as np
 #calculate and print out the prediction
 def get_prediction(data = {"data":"10,5,5.41"}):
     # data = data.encode('utf-8')
-    url = 'https://rwvfdoggal.execute-api.us-east-1.amazonaws.com/Test'
+    url = 'https://xso2pdzyu0.execute-api.us-east-1.amazonaws.com/Test'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     #print(response)
