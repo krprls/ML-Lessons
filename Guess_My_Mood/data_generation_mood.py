@@ -16,11 +16,14 @@ def extract_columns(dataset="data2/text_emotion.csv"):
 
 
 def generate_data(total_samples=2001, file_name = "medium_data.csv"):
-    print("hello")
+    data = pd.read_csv("data2/mood_data.csv")
+    data = data.sample(n=total_samples, replace=False).reset_index(drop=True)
+    print(data)
+    
 
 
 if __name__ == "__main__":
-    extract_columns()  
+    generate_data()
     
 
 
