@@ -86,11 +86,11 @@ if __name__ == "__main__":
     # generate_data(3500,1500, "jumbo_sample.csv") #5000 in total
     # generate_data(70000,30000, "gigantic_sample.csv") #100000 in total
 
-    generate_score_first_data(50, "small_sample.csv") #50 in total
-    generate_score_first_data(500, "medium_sample.csv") #500 in total
-    generate_score_first_data(2000, "large_sample.csv") #2000 in total
-    generate_score_first_data(5000, "jumbo_sample.csv") #5000 in total
-    generate_score_first_data(100000, "gigantic_sample.csv") #100000 in total
+    generate_score_first_data(50, "guess_age_1.csv") #50 in total
+    generate_score_first_data(500, "guess_age_2.csv") #500 in total
+    generate_score_first_data(2000, "guess_age_3.csv") #2000 in total
+    generate_score_first_data(5000, "guess_age_4.csv") #5000 in total
+    generate_score_first_data(100000, "guess_age_5.csv") #100000 in total
    
 
 
