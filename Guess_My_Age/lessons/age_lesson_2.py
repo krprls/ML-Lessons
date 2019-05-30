@@ -53,14 +53,15 @@ if __name__ == "__main__":
         print("Hey " + name + ", we think that you are...")
         get_ML_prediction(data)
         get_conditional_prediction(visitedCountries, yearsInSchool, height)
-        correctResponse = input("Which prediction was correct? (ML/conditional/both) ")
+        correctResponse = input("Which prediction was correct? (ML/conditional/both/neither) ")
         if correctResponse == "ML":
             mlCount+= 1
         elif correctResponse == "conditional":
             condCount+=1
-        else: #both responses are correct
+        elif correctResponse == "both": #both responses are correct
             mlCount+= 1
             condCount+=1
+            
 
         print("Correct ML responses: " + str(mlCount))
         print("Correct conditional responses: " + str(condCount))
