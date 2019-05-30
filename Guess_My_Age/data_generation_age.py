@@ -40,7 +40,7 @@ def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv")
 
 
     data_header = 'num_countries,years_school,height,adult'
-    np.savetxt('score_first_data/' + file_name ,dataset,header=data_header,fmt='%.2f',delimiter=',')
+    np.savetxt('data1/' + file_name ,dataset,header=data_header,fmt='%.2f',delimiter=',')
     print(file_name + " data saved")
     # print(dataset)
 
@@ -74,7 +74,7 @@ def generate_data(num_samples_1=1400, num_samples_2=600, file_name = "large_samp
     dataset = np.concatenate((num_countries, years_school, height, score),axis=1)
     np.random.shuffle(dataset)
     data_header = 'num_countries,years_school,height,adult'
-    np.savetxt('Kids_datasets/' + file_name ,dataset,header=data_header,fmt='%.2f',delimiter=',')
+    np.savetxt('data1/' + file_name ,dataset,header=data_header,fmt='%.2f',delimiter=',')
     print(file_name + " data saved")
 
 
@@ -86,11 +86,11 @@ if __name__ == "__main__":
     # generate_data(3500,1500, "jumbo_sample.csv") #5000 in total
     # generate_data(70000,30000, "gigantic_sample.csv") #100000 in total
 
-    generate_score_first_data(50, "small_sample.csv") #50 in total
-    generate_score_first_data(500, "medium_sample.csv") #500 in total
-    generate_score_first_data(2000, "large_sample.csv") #2000 in total
-    generate_score_first_data(5000, "jumbo_sample.csv") #5000 in total
-    generate_score_first_data(100000, "gigantic_sample.csv") #100000 in total
+    generate_score_first_data(50, "guess_age_1.csv") #50 in total
+    generate_score_first_data(500, "guess_age_2.csv") #500 in total
+    generate_score_first_data(2000, "guess_age_3.csv") #2000 in total
+    generate_score_first_data(5000, "guess_age_4.csv") #5000 in total
+    generate_score_first_data(100000, "guess_age_5.csv") #100000 in total
    
 
 
