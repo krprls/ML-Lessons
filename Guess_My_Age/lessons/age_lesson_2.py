@@ -61,6 +61,8 @@ if __name__ == "__main__":
         elif correctResponse == "both": #both responses are correct
             mlCount+= 1
             condCount+=1
+        else:
+            print("Looks like we couldn't predict this correctly, oops!")
             
 
         print("Correct ML responses: " + str(mlCount))
