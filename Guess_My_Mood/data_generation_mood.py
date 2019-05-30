@@ -16,8 +16,8 @@ def generate_data(total_samples=2001, file_name="guess_mood_0.csv", fileRead = "
     data.to_csv('data2/' + file_name, index = None, header=True) #Don't forget to add '.csv' at the end of the path
 
 if __name__ == "__main__":
-    generate_data(5, "guess_mood_2.csv") #lesson 2
-    addQuotes("guess_mood_2.csv")
+    generate_data(5, "guess_mood_1.csv") #lesson 2
+    addQuotes("guess_mood_1.csv")
     
 
 
