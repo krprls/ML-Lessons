@@ -3,6 +3,9 @@ import json as json
 import numpy as np
 
 
+mlCount = 0
+condCount = 0
+
 #calculate and print out the prediction based on ML
 def get_ML_prediction(data = {"data":"10,5,5.41"}):
     # data = data.encode('utf-8')
@@ -48,6 +51,16 @@ if __name__ == "__main__":
         get_ML_prediction(data)
         get_conditional_prediction(visitedCountries, yearsInSchool, height)
         correctResponse = input("Which prediction was correct (ML/conditional/both)?")
+        if correctResponse == "ML":
+            mlCount+= 1
+        elif correctResponse == "conditional":
+            condCount+=1
+        else: #both responses are correct
+            mlCount+= 1
+            condCount+=1
+
+        print("Correct ML responses: " + mlCount)
+        print("Correct conditional responses: " + condCount)
         
         play = input("Want to play again?(yes/no)")
         type(play)
