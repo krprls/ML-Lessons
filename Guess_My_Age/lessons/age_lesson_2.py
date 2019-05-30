@@ -23,10 +23,12 @@ def get_ML_prediction(data = {"data":"10,5,5.41"}):
 #calculate and print out the prediction based on CONDITIONS
 def get_conditional_prediction(countries, years, height):
     #print(response)
-    if np.float(countries) > 7 and np.float(years) > 10 and np.float(height) > 3:
+    if np.float(countries) == 2 and np.float(years) == 0 and np.float(height) == 2.27:
         print("a adult! (conditional)")
-    else:
+    elif np.float(countries) == 3 and np.float(years) == 1 and np.float(height) == 2.4:
         print("a child! (conditional)")
+    else:
+        print("I'm actually not sure! (conditional)")
 
 
 if __name__ == "__main__":
@@ -36,7 +38,7 @@ if __name__ == "__main__":
     name = input("What is your name? ")
     type(name)
     print("Nice to meet you " + name + "!")
-    
+
     play = "yes"
     while play == "yes":
         visitedCountries = input("How many countries have you visited? ")
