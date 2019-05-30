@@ -21,13 +21,13 @@ if __name__ == "__main__":
     #getting player input 
     play = "yes"
     while play == "yes":
-        print("Hello! Today we are going to guess whether you are a child or an adult!")
-        name = input("What is your name?")
+        print("Hello! Today we are going to guess whether you are a child or an adult! ")
+        name = input("What is your name? ")
         type(name)
         print("Nice to meet you " + name + "!")
-        visitedCountries = input("How many countries have you visited?")
+        visitedCountries = input("How many countries have you visited? ")
         type(visitedCountries)
-        yearsInSchool = input("How many years did you spend in school?")
+        yearsInSchool = input("How many years did you spend in school? ")
         type(yearsInSchool)
         height = input("What is your height?")
         type(height)
@@ -35,7 +35,7 @@ if __name__ == "__main__":
         data = {"data": visitedCountries + ',' + yearsInSchool + ',' + height}
         print("Hey " + name + ", we think that you are...")
         get_prediction(data)
-        play = input("Thank you for playing! Want to try again? (yes/no)")
+        play = input("Thank you for playing! Want to try again? (yes/no) ")
         type(play)
 
 

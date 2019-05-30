@@ -34,15 +34,15 @@ if __name__ == "__main__":
     #getting player input 
     play = "yes"
     while play == "yes":
-        print("Hello! Today we are going to guess whether you are a child or an adult!")
-        name = input("What is your name?")
+        print("Hello! Today we are going to guess whether you are a child or an adult! ")
+        name = input("What is your name? ")
         type(name)
         print("Nice to meet you " + name + "!")
-        visitedCountries = input("How many countries have you visited?")
+        visitedCountries = input("How many countries have you visited? ")
         type(visitedCountries)
-        yearsInSchool = input("How many years did you spend in school?")
+        yearsInSchool = input("How many years did you spend in school? ")
         type(yearsInSchool)
-        height = input("What is your height?")
+        height = input("What is your height? ")
         type(height)
 
         #pass in the data
@@ -50,7 +50,7 @@ if __name__ == "__main__":
         print("Hey " + name + ", we think that you are...")
         get_ML_prediction(data)
         get_conditional_prediction(visitedCountries, yearsInSchool, height)
-        correctResponse = input("Which prediction was correct (ML/conditional/both)?")
+        correctResponse = input("Which prediction was correct? (ML/conditional/both) ")
         if correctResponse == "ML":
             mlCount+= 1
         elif correctResponse == "conditional":
@@ -59,10 +59,10 @@ if __name__ == "__main__":
             mlCount+= 1
             condCount+=1
 
-        print("Correct ML responses: " + mlCount)
-        print("Correct conditional responses: " + condCount)
+        print("Correct ML responses: " + str(mlCount))
+        print("Correct conditional responses: " + str(condCount))
         
-        play = input("Want to play again?(yes/no)")
+        play = input("Want to play again? (yes/no) ")
         type(play)
 
     
