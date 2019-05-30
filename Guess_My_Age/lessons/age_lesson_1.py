@@ -37,6 +37,7 @@ if __name__ == "__main__":
         get_prediction(data)
         play = input("Thank you for playing! Want to try again? (yes/no) ")
         type(play)
+    print("Have a great day!")
 
 
 

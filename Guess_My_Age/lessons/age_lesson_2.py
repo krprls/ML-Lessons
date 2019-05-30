@@ -64,6 +64,7 @@ if __name__ == "__main__":
         
         play = input("Want to play again? (yes/no) ")
         type(play)
+    print("Have a great day!")
 
     
 

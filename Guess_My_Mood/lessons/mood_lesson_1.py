@@ -9,7 +9,7 @@ def get_prediction(data = {"data":"I am happy"}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     #print(response)
-    if np.float(response) == 0:
+    if "0.0" in response:
         print("you're happy! :) ")
     else:
         print("you're sad. :(")
@@ -20,12 +20,18 @@ def get_prediction(data = {"data":"I am happy"}):
 
 if __name__ == "__main__":
 
-    #getting player input 
-    print("Hello! Today we will guess how you are feeling!")
-    mood = input("Type anything on your mind!")
-    type(mood)
+    play = "yes"
+    while play == "yes":
+        #getting player input 
+        print("Hello! Today we will guess how you are feeling!")
+        mood = input("Type anything on your mind!")
+        type(mood)
 
-    #pass in the data
-    data = {"data": mood}
-    print("Hmm, it seems like...")
-    get_prediction(data)
+        #pass in the data
+        data = {"data": mood}
+        print("Hmm, it seems like...")
+        get_prediction(data)
+        play = input("Thank you for playing! Want to try again? (yes/no) ")
+        type(play)
+    
+    print("Have a great day!")
