@@ -2,11 +2,10 @@ import pandas as pd
 import csv
 
 def addQuotes(fileName="Guess_My_Mood_Dataset.csv"):
-    data = pd.read_csv('data2/' + fileName)
-    data.to_csv('data2/' + fileName, index = None, header=True, quoting=csv.QUOTE_NONNUMERIC)
+    train_data = pd.read_csv("data2/" + fileName)
+    train_data.update(train_data[['sentence']].applymap(' "{}"'.format)) 
+    train_data.to_csv('data2/' + fileName,index=False, quoting=csv.QUOTE_NONE,escapechar='')
     print("quotes added")
-
-
 
 #generate datasets
 #number of lines, file to save, file to read from
