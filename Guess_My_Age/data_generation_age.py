@@ -1,6 +1,26 @@
-
-
 import numpy as np
+import pandas as pd
+
+#LESSON 4--FLIP DATA POINTS
+def flip_data(file_name="age_lesson_3_full.csv", file_save="age_lesson_4_corrupted.csv"):
+     data = pd.read_csv("data1/" + file_name)
+     data.loc[data['who_am_I'] == 'adult', 'who_am_I'] = 'a'
+     data.loc[data['who_am_I'] == 'child', 'who_am_I'] = 'adult'
+     data.loc[data['who_am_I'] == 'a', 'who_am_I'] = 'child'
+     data_header = 'num_countries,years_school,height,who_am_I'
+     np.savetxt('data1/' + file_save ,data,header=data_header, fmt='%s', delimiter=',')
+     print(file_save+ " data saved")
+
+
+#LESSON 3---RETAIN ONLY X % OF ADULTS
+def extract_fraction(file_name="age_lesson_3_full.csv", file_save="age_lesson_3_one_adult.csv", number=1):
+    data = pd.read_csv("data1/" + file_name)
+    data = data.drop(data.query('who_am_I == "adult"').sample(int(len(data.index)/2 - number)).index)
+    #np.random.shuffle(data)
+    data_header = 'num_countries,years_school,height,who_am_I'
+    np.savetxt('data1/' + file_save ,data,header=data_header, fmt='%s', delimiter=',')
+    print(file_save+ " data saved")
+
 
 def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv"):
 
@@ -17,7 +37,6 @@ def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv")
     score = np.concatenate((np.zeros((num_samples_kids,1)), np.ones((num_samples_adults,1))))
     #convert score to integers
     score = score.astype(int)
-    #print(score)
 
     #height follows a gaussian distribution
     height = np.array([np.random.normal(5.5,0.3) if i==1 else np.random.uniform(2,6) for i in score]).reshape(-1,1)
@@ -32,22 +51,28 @@ def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv")
     #child if score is less than 0, otherwise adult
     height[height < 2] = 2
     height[height > 7] = 7
+    height = np.round(height,2)
 
-    #print("height is " + str(height))
+
+    score = score.astype(str)
+    score[score == '1'] = 'adult'
+    score[score == '0'] = 'child'
 
     dataset = np.concatenate((num_countries, years_school, height, score),axis=1)
     np.random.shuffle(dataset)
 
+    # print(dataset)
 
-    data_header = 'num_countries,years_school,height,adult'
-    np.savetxt('data1/' + file_name ,dataset,header=data_header,fmt='%.2f',delimiter=',')
+
+    data_header = 'num_countries,years_school,height,who_am_I'
+    np.savetxt('data1/' + file_name ,dataset,header=data_header, fmt='%s', delimiter=',')
     print(file_name + " data saved")
     # print(dataset)
 
 
     
 
-
+#ORIGINAL ALGORITHM
 def generate_data(num_samples_1=1400, num_samples_2=600, file_name = "large_sample.csv"):
     # Generate samples for the guess my age dem
     # We generate two sets of samples based on the age, there are 1400 samples 
@@ -86,12 +111,17 @@ if __name__ == "__main__":
     # generate_data(3500,1500, "jumbo_sample.csv") #5000 in total
     # generate_data(70000,30000, "gigantic_sample.csv") #100000 in total
 
-    generate_score_first_data(50, "guess_age_1.csv") #50 in total
-    generate_score_first_data(500, "guess_age_2.csv") #500 in total
-    generate_score_first_data(2000, "guess_age_3.csv") #2000 in total
-    generate_score_first_data(5000, "guess_age_4.csv") #5000 in total
-    generate_score_first_data(100000, "guess_age_5.csv") #100000 in total
+    generate_score_first_data(50, "age_lesson_1.csv") #50 in total
+    generate_score_first_data(500, "age_lesson_2.csv") #500 in total
+    generate_score_first_data(3400, "age_lesson_3_full.csv") #3400 in total
+    # generate_score_first_data(5000, "guess_age_4.csv") #5000 in total
+    # generate_score_first_data(100000, "guess_age_5.csv") #100000 in total
    
-
+    extract_fraction() #only one adult in dataset
+    extract_fraction(file_save="age_lesson_3_10%_adults.csv",number=170)
+    extract_fraction(file_save="age_lesson_3_30%_adults.csv",number=510)
+    extract_fraction(file_save="age_lesson_3_50%_adults.csv",number=850)
+    extract_fraction(file_save="age_lesson_3_75%_adults.csv",number=1275)
+    flip_data()
 
 
