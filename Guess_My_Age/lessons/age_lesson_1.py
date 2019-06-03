@@ -9,10 +9,12 @@ def get_prediction(data = {"data":"10,5,5.41"}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     #print(response)
-    if "0.0" in response:
+    if "child" in response:
         print("a child!")
-    else:
+    elif "adult" in response:
         print("an adult!")
+    else:
+        print("I am unable to make a prediction at this point")
     return response
 
 

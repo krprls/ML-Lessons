@@ -13,10 +13,12 @@ def get_ML_prediction(data = {"data":"10,5,5.41"}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     #print(response)
-    if "0.0" in response:
+    if "child" in response:
         print("a child! (ML)")
-    else:
+    elif "adult" in response:
         print("an adult! (ML)")
+    else:
+        print("unable to make a prediction at this point!")
     return response
 
 
