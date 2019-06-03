@@ -3,18 +3,21 @@ import json as json
 import numpy as np
 
 #calculate and print out the prediction
-def get_prediction(data = {"data":"10,5,5.41"}):
+def get_prediction(data={"num_countries":48,"years_school":2,"height":5.14}):
     # data = data.encode('utf-8')
-    url = 'https://m9nh9k61vk.execute-api.us-east-1.amazonaws.com/Predict'
+    url = 'https://8b07z7rex2.execute-api.us-east-1.amazonaws.com/Predict'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
-    #print(response)
-    if "child" in response:
+    print(response)
+    if "dummy response" in response:
+        print("Based on the null model, we think you are a child!")
+    elif "child" in response:
         print("a child!")
     elif "adult" in response:
         print("an adult!")
     else:
-        print("I am unable to make a prediction at this point")
+        print("We are unable to make a prediction at this point. Please check on your endpoint!")
+       
     return response
 
 
@@ -35,7 +38,8 @@ if __name__ == "__main__":
         height = input("What is your height?")
         type(height)
         #pass in the data
-        data = {"data": visitedCountries + ',' + yearsInSchool + ',' + height}
+        data = {"num_countries":visitedCountries,"years_school":yearsInSchool,"height":height}
+        print
         print("Hey " + name + ", we think that you are...")
         get_prediction(data)
         play = input("Thank you for playing! Want to try again? (yes/no) ")

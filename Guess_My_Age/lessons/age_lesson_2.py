@@ -12,13 +12,15 @@ def get_ML_prediction(data = {"data":"10,5,5.41"}):
     url = 'https://6pnvtgf9md.execute-api.us-east-1.amazonaws.com/Predict'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
-    #print(response)
-    if "child" in response:
-        print("a child! (ML)")
+    print(response)
+    if "dummy response" in response:
+        print("Based on the null model, we think you are a child!")
+    elif "child" in response:
+        print("a child!")
     elif "adult" in response:
-        print("an adult! (ML)")
+        print("an adult!")
     else:
-        print("unable to make a prediction at this point!")
+        print("We are unable to make a prediction at this point. Please check on your endpoint!")
     return response
 
 

@@ -8,7 +8,7 @@ def flip_data(file_name="age_lesson_3_full.csv", file_save="age_lesson_4_corrupt
      data.loc[data['who_am_I'] == 'child', 'who_am_I'] = 'adult'
      data.loc[data['who_am_I'] == 'a', 'who_am_I'] = 'child'
      data_header = 'num_countries,years_school,height,who_am_I'
-     np.savetxt('data1/' + file_save ,data,header=data_header, fmt='%s', delimiter=',')
+     np.savetxt('data1/' + file_save ,data,header=data_header, fmt='%s', delimiter=',', comments='')
      print(file_save+ " data saved")
 
 
@@ -18,7 +18,7 @@ def extract_fraction(file_name="age_lesson_3_full.csv", file_save="age_lesson_3_
     data = data.drop(data.query('who_am_I == "adult"').sample(int(len(data.index)/2 - number)).index)
     #np.random.shuffle(data)
     data_header = 'num_countries,years_school,height,who_am_I'
-    np.savetxt('data1/' + file_save ,data,header=data_header, fmt='%s', delimiter=',')
+    np.savetxt('data1/' + file_save ,data,header=data_header, fmt='%s', delimiter=',', comments='')
     print(file_save+ " data saved")
 
 
@@ -65,7 +65,7 @@ def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv")
 
 
     data_header = 'num_countries,years_school,height,who_am_I'
-    np.savetxt('data1/' + file_name ,dataset,header=data_header, fmt='%s', delimiter=',')
+    np.savetxt('data1/' + file_name ,dataset,header=data_header, fmt='%s', delimiter=',', comments='')
     print(file_name + " data saved")
     # print(dataset)
 
@@ -99,7 +99,7 @@ def generate_data(num_samples_1=1400, num_samples_2=600, file_name = "large_samp
     dataset = np.concatenate((num_countries, years_school, height, score),axis=1)
     np.random.shuffle(dataset)
     data_header = 'num_countries,years_school,height,adult'
-    np.savetxt('data1/' + file_name ,dataset,header=data_header,fmt='%.2f',delimiter=',')
+    np.savetxt('data1/' + file_name ,dataset,header=data_header,fmt='%.2f',delimiter=',', comments='')
     print(file_name + " data saved")
 
 
@@ -118,10 +118,10 @@ if __name__ == "__main__":
     # generate_score_first_data(100000, "guess_age_5.csv") #100000 in total
    
     extract_fraction() #only one adult in dataset
-    extract_fraction(file_save="age_lesson_3_10%_adults.csv",number=170)
-    extract_fraction(file_save="age_lesson_3_30%_adults.csv",number=510)
-    extract_fraction(file_save="age_lesson_3_50%_adults.csv",number=850)
-    extract_fraction(file_save="age_lesson_3_75%_adults.csv",number=1275)
+    extract_fraction(file_save="age_lesson_3_10_percent_adults.csv",number=170)
+    extract_fraction(file_save="age_lesson_3_30_percent_adults.csv",number=510)
+    extract_fraction(file_save="age_lesson_3_50_percent_adults.csv",number=850)
+    extract_fraction(file_save="age_lesson_3_75_percent_adults.csv",number=1275)
     flip_data()
 
 
