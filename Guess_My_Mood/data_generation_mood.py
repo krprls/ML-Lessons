@@ -3,8 +3,8 @@ import csv
 
 def addQuotes(fileName="Guess_My_Mood_Dataset.csv"):
     train_data = pd.read_csv("data2/" + fileName)
-    train_data.update(train_data[['sentence']].applymap(' "{}"'.format)) 
-    train_data.to_csv('data2/' + fileName,index=False, quoting=csv.QUOTE_NONE,escapechar='')
+    train_data.update(train_data[['sentence']].applymap(' "{}"'.format))
+    train_data.to_csv("data2/" + fileName,index=False, quoting=csv.QUOTE_NONE,escapechar='\\')
     print("quotes added")
 
 #generate datasets
@@ -15,8 +15,8 @@ def generate_data(total_samples=2001, file_name="guess_mood_0.csv", fileRead = "
     data.to_csv('data2/' + file_name, index = None, header=True) #Don't forget to add '.csv' at the end of the path
 
 if __name__ == "__main__":
-    generate_data(50, "guess_mood_1.csv") #lesson 2
-    addQuotes("guess_mood_1.csv")
+    # generate_data(50, "guess_mood_1.csv") #lesson 2
+    addQuotes()
     
 
 
