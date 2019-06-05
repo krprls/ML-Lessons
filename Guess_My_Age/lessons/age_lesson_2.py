@@ -9,30 +9,39 @@ condCount = 0
 #calculate and print out the prediction based on ML
 def get_ML_prediction(data = {"data":"10,5,5.41"}):
     # data = data.encode('utf-8')
-    url = 'https://6pnvtgf9md.execute-api.us-east-1.amazonaws.com/Predict'
+    url = 'https://zu1pow2qla.execute-api.us-east-1.amazonaws.com/Predict'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     # print(response)
     if "dummy response" in response:
-        print("Based on the null model, we think you are a child!")
+        response = "child"
+        print("Based on the null model, we think you are a child (new model still training)! (ML)")
     elif "child" in response:
-        print("a child!")
+        response = "child"
+        print("a child! (ML) ")
     elif "adult" in response:
-        print("an adult!")
+        response = "adult"
+        print("an adult! (ML)")
     else:
-        print("We are unable to make a prediction at this point. Please check on your endpoint!")
+        response = "unable to make prediction"
+        print("We are unable to make a prediction at this point. Please check on your endpoint! (ML)")
     return response
 
 
 #calculate and print out the prediction based on CONDITIONS
 def get_conditional_prediction(countries, years, height):
     #print(response)
-    if np.float(countries) == 2 and np.float(years) == 0 and np.float(height) == 2.27:
+    response = "not sure"
+    if countries == "2" and years == "0" and height  == "2.27":
+        response = "adult"
         print("a adult! (conditional)")
-    elif np.float(countries) == 3 and np.float(years) == 1 and np.float(height) == 2.4:
+    elif countries == "3" and years == "1" and height == "2.4":
+        response = "child"
         print("a child! (conditional)")
     else:
+        response = "not sure"
         print("I'm actually not sure! (conditional)")
+    return response
 
 
 if __name__ == "__main__":
@@ -53,20 +62,20 @@ if __name__ == "__main__":
         type(height)
 
         #pass in the data
-        data = {"data": visitedCountries + ',' + yearsInSchool + ',' + height}
+        data = {"num_countries":visitedCountries,"years_school":yearsInSchool,"height":height}
         print("Hey " + name + ", we think that you are...")
-        get_ML_prediction(data)
-        get_conditional_prediction(visitedCountries, yearsInSchool, height)
-        correctResponse = input("Which prediction was correct? (ML/rules/both/neither) ")
-        if correctResponse == "ML":
-            mlCount+= 1
-        elif correctResponse == "rules":
-            condCount+=1
-        elif correctResponse == "both": #both responses are correct
-            mlCount+= 1
-            condCount+=1
+        ml_returned_val = get_ML_prediction(data)
+        rules_returned_val = get_conditional_prediction(visitedCountries, yearsInSchool, height)
+        answer = input("Was the prediction \"" + ml_returned_val + "\" correct? (yes/no) ")
+        if answer == "yes":
+            mlCount+= 1 #ML prediction is correct
+            if ml_returned_val == rules_returned_val: #both are correct
+                 condCount+=1
         else:
-            print("Looks like we couldn't predict this correctly, oops!")
+            if rules_returned_val != ml_returned_val and rules_returned_val != "not sure":
+                condCount+=1
+            else:
+                print("Looks like we couldn't predict this correctly, oops!")
             
 
         print("Correct ML responses: " + str(mlCount))
