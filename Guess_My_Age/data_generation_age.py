@@ -125,16 +125,16 @@ def generate_data(num_samples_1=1400, num_samples_2=600, file_name = "large_samp
 if __name__ == "__main__":
 
     # #LESSON 1 and 2 DATASETS
-    # generate_score_first_data(1000, "age_lesson_1_and_2.csv") #500 in total
+    generate_score_first_data(1000, "age_lesson_1_and_2.csv") #500 in total
 
 
     # #LESSON 3 DATASETS
-    # generate_score_first_data(3400, "age_lesson_3_full.csv") #3400 in total 
-    # extract_fraction() #only one adult in dataset
-    # extract_fraction(file_save="age_lesson_3_10_percent_adults.csv",number=170)
-    # extract_fraction(file_save="age_lesson_3_30_percent_adults.csv",number=510)
-    # extract_fraction(file_save="age_lesson_3_50_percent_adults.csv",number=850)
-    # extract_fraction(file_save="age_lesson_3_75_percent_adults.csv",number=1275)
+    generate_score_first_data(3400, "age_lesson_3_full.csv") #3400 in total 
+    extract_fraction() #only one adult in dataset
+    extract_fraction(file_save="age_lesson_3_10_percent_adults.csv",number=170)
+    extract_fraction(file_save="age_lesson_3_30_percent_adults.csv",number=510)
+    extract_fraction(file_save="age_lesson_3_50_percent_adults.csv",number=850)
+    extract_fraction(file_save="age_lesson_3_75_percent_adults.csv",number=1275)
 
     #LESSON 4 DATASET
     flip_data(file_save="age_lesson_4_corrupted_10%.csv", fraction=0.1)
