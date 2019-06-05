@@ -5,6 +5,7 @@ import numpy as np
 
 mlCount = 0
 condCount = 0
+totalCount = 0
 
 #calculate and print out the prediction based on ML
 def get_ML_prediction(data = {"data":"10,5,5.41"}):
@@ -75,8 +76,9 @@ if __name__ == "__main__":
                 print("Looks like we couldn't predict this correctly, oops!")
             
 
-        print("Correct ML responses: " + str(mlCount))
-        print("Correct rule responses: " + str(condCount))
+        totalCount+=1
+        print("Correct ML responses: " + str(mlCount) + "out of " + str(totalCount) )
+        print("Correct rule responses: " + str(condCount) + "out of " + str(totalCount))
         
         play = input("Want to play again? (yes/no) ")
         type(play)
