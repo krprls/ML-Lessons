@@ -12,7 +12,7 @@ def get_ML_prediction(data = {"data":"10,5,5.41"}):
     url = 'https://6pnvtgf9md.execute-api.us-east-1.amazonaws.com/Predict'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
-    print(response)
+    # print(response)
     if "dummy response" in response:
         print("Based on the null model, we think you are a child!")
     elif "child" in response:
@@ -57,10 +57,10 @@ if __name__ == "__main__":
         print("Hey " + name + ", we think that you are...")
         get_ML_prediction(data)
         get_conditional_prediction(visitedCountries, yearsInSchool, height)
-        correctResponse = input("Which prediction was correct? (ML/conditional/both/neither) ")
+        correctResponse = input("Which prediction was correct? (ML/rules/both/neither) ")
         if correctResponse == "ML":
             mlCount+= 1
-        elif correctResponse == "conditional":
+        elif correctResponse == "rules":
             condCount+=1
         elif correctResponse == "both": #both responses are correct
             mlCount+= 1

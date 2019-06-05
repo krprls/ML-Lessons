@@ -5,14 +5,19 @@ import numpy as np
 #calculate and print out the prediction
 def get_prediction(data = {"sentence":"I am happy"}):
     # data = data.encode('utf-8')
-    url = 'https://k4udnfig52.execute-api.us-east-1.amazonaws.com/Predict'
+    url = 'https://5mtavp4jbe.execute-api.us-east-1.amazonaws.com/Predict'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
-    print(response)
-    if "\"predicted_label\": \"s\"" in response:
+    decoded_response = json.loads(response) #convert string response to python
+    decoded_second = json.loads(decoded_response['body']) #converting body string response to python
+    if decoded_second["predicted_label"] == "sorry, I am unable to predict.":
+        print("Sorry, we are unable to make a prediction at this time. Please check your endpoint!")
+    elif decoded_second["predicted_label"] == "h":
         print("you're happy! :) ")
-    else:
+    elif decoded_second["predicted_label"] == "s":
         print("you're sad. :(")
+    else:
+        print("Based on the null model, we think you are happy! :)")
     return response
 
 
@@ -27,9 +32,9 @@ if __name__ == "__main__":
         mood = input("Type anything on your mind!")
         type(mood)
         
-
         #pass in the data
-        data = {"sentence": "I am happy"}
+        data = {"sentence": mood}
+        print(data)
         print("Hmm, it seems like...")
         get_prediction(data)
         play = input("Thank you for playing! Want to try again? (yes/no) ")

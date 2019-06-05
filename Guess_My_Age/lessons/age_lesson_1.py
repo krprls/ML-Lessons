@@ -8,7 +8,7 @@ def get_prediction(data={"num_countries":48,"years_school":2,"height":5.14}):
     url = 'https://8b07z7rex2.execute-api.us-east-1.amazonaws.com/Predict'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
-    print(response)
+    # print(response)
     if "dummy response" in response:
         print("Based on the null model, we think you are a child!")
     elif "child" in response:
