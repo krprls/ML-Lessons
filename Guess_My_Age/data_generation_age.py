@@ -2,11 +2,30 @@ import numpy as np
 import pandas as pd
 
 #LESSON 4--FLIP DATA POINTS
-def flip_data(file_name="age_lesson_3_full.csv", file_save="age_lesson_4_corrupted.csv"):
+def flip_data(file_name="age_lesson_3_full.csv", file_save="age_lesson_4_corrupted_100%.csv", fraction=1):
      data = pd.read_csv("data1/" + file_name)
-     data.loc[data['who_am_I'] == 'adult', 'who_am_I'] = 'a'
-     data.loc[data['who_am_I'] == 'child', 'who_am_I'] = 'adult'
-     data.loc[data['who_am_I'] == 'a', 'who_am_I'] = 'child'
+
+     if fraction == 1:
+          data.loc[data['who_am_I'] == 'adult', 'who_am_I'] = 'a'
+          data.loc[data['who_am_I'] == 'child', 'who_am_I'] = 'adult'
+          data.loc[data['who_am_I'] == 'a', 'who_am_I'] = 'child'
+     else:
+          #make fraction subset of data 
+          random_rows = data.sample(frac=fraction)
+
+          #drop the rows from the actual data
+          data = data.drop(random_rows.index)
+          
+          #flip the labels for this subset
+          random_rows.loc[random_rows['who_am_I'] == 'adult', 'who_am_I'] = 'a'
+          random_rows.loc[random_rows['who_am_I'] == 'child', 'who_am_I'] = 'adult'
+          random_rows.loc[random_rows['who_am_I'] == 'a', 'who_am_I'] = 'child'
+        
+          #add the random rows back
+          data = data.append(random_rows)  
+
+     
+   
      data_header = 'num_countries,years_school,height,who_am_I'
      np.savetxt('data1/' + file_save ,data,header=data_header, fmt='%s', delimiter=',', comments='')
      print(file_save+ " data saved")
@@ -104,24 +123,22 @@ def generate_data(num_samples_1=1400, num_samples_2=600, file_name = "large_samp
 
 
 if __name__ == "__main__":
-    #maintaining the 7:3 ration for adults:kids samples. 
-    # generate_data(35,15, "small_sample.csv") #50 in total
-    # generate_data(350,150, "medium_sample.csv") #500 in total
-    # generate_data(1400,600, "large_sample.csv") #2000 in total
-    # generate_data(3500,1500, "jumbo_sample.csv") #5000 in total
-    # generate_data(70000,30000, "gigantic_sample.csv") #100000 in total
 
-    generate_score_first_data(50, "age_lesson_1.csv") #50 in total
-    generate_score_first_data(500, "age_lesson_2.csv") #500 in total
-    generate_score_first_data(3400, "age_lesson_3_full.csv") #3400 in total
-    # generate_score_first_data(5000, "guess_age_4.csv") #5000 in total
-    # generate_score_first_data(100000, "guess_age_5.csv") #100000 in total
-   
-    extract_fraction() #only one adult in dataset
-    extract_fraction(file_save="age_lesson_3_10_percent_adults.csv",number=170)
-    extract_fraction(file_save="age_lesson_3_30_percent_adults.csv",number=510)
-    extract_fraction(file_save="age_lesson_3_50_percent_adults.csv",number=850)
-    extract_fraction(file_save="age_lesson_3_75_percent_adults.csv",number=1275)
-    flip_data()
+    # #LESSON 1 and 2 DATASETS
+    # generate_score_first_data(1000, "age_lesson_1_and_2.csv") #500 in total
+
+
+    # #LESSON 3 DATASETS
+    # generate_score_first_data(3400, "age_lesson_3_full.csv") #3400 in total 
+    # extract_fraction() #only one adult in dataset
+    # extract_fraction(file_save="age_lesson_3_10_percent_adults.csv",number=170)
+    # extract_fraction(file_save="age_lesson_3_30_percent_adults.csv",number=510)
+    # extract_fraction(file_save="age_lesson_3_50_percent_adults.csv",number=850)
+    # extract_fraction(file_save="age_lesson_3_75_percent_adults.csv",number=1275)
+
+    #LESSON 4 DATASET
+    flip_data(file_save="age_lesson_4_corrupted_10%.csv", fraction=0.1)
+    flip_data(file_save="age_lesson_4_corrupted_50%.csv", fraction=0.5)
+    flip_data() #100% of data flipped
 
 
