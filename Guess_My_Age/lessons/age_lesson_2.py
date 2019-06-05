@@ -32,15 +32,12 @@ def get_ML_prediction(data = {"data":"10,5,5.41"}):
 def get_conditional_prediction(countries, years, height):
     #print(response)
     response = "not sure"
-    if countries == "2" and years == "0" and height  == "2.27":
+    if np.float(countries) > 10 and np.float(years) > 10 and np.float(height) > 3:
         response = "adult"
-        print("a adult! (conditional)")
-    elif countries == "3" and years == "1" and height == "2.4":
-        response = "child"
-        print("a child! (conditional)")
+        print("a adult! (rules)")
     else:
-        response = "not sure"
-        print("I'm actually not sure! (conditional)")
+        response = "child"
+        print("a child! (rules)")
     return response
 
 
@@ -79,7 +76,7 @@ if __name__ == "__main__":
             
 
         print("Correct ML responses: " + str(mlCount))
-        print("Correct conditional responses: " + str(condCount))
+        print("Correct rule responses: " + str(condCount))
         
         play = input("Want to play again? (yes/no) ")
         type(play)
