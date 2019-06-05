@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 #LESSON 4--FLIP DATA POINTS
-def flip_data(file_name="age_lesson_3_full.csv", file_save="age_lesson_4_corrupted_100%.csv", fraction=1):
+def flip_data(file_name="age_lesson_3_full.csv", file_save="age_lesson_4_corrupted_100_percent.csv", fraction=1):
      data = pd.read_csv("data1/" + file_name)
 
      if fraction == 1:
@@ -137,8 +137,8 @@ if __name__ == "__main__":
     extract_fraction(file_save="age_lesson_3_75_percent_adults.csv",number=1275)
 
     #LESSON 4 DATASET
-    flip_data(file_save="age_lesson_4_corrupted_10%.csv", fraction=0.1)
-    flip_data(file_save="age_lesson_4_corrupted_50%.csv", fraction=0.5)
+    flip_data(file_save="age_lesson_4_corrupted_10_percent.csv", fraction=0.1)
+    flip_data(file_save="age_lesson_4_corrupted_50_percent.csv", fraction=0.5)
     flip_data() #100% of data flipped
 
 
