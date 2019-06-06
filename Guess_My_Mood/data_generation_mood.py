@@ -22,7 +22,7 @@ def generate_data(total_samples=2001, file_name="guess_mood_0.csv", fileRead="Gu
     data.to_csv("data2/" + file_name, index=False) #Don't forget to add '.csv' at the end of the path
 
 if __name__ == "__main__": 
-    generate_data(total_samples=100, file_name="mood_lesson_1_and_2.csv") #LESSSON 1 AND 2
+    generate_data(total_samples=50, file_name="mood_lesson_1_and_2.csv") #LESSSON 1 AND 2
 
     #LESSON 3 IS JUST THE ORIGINAL DATASET (300 samples, bigger is better)
 
