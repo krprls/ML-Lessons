@@ -58,17 +58,3 @@ if __name__ == "__main__":
     corrupt_dataset() #10% corrupted
     corrupt_dataset(file_save="averages_lesson_4_50%_corrupt.csv",fraction=0.5) #50% corrupted
 
-
-    # generate_score_first_data(3400, "age_lesson_3_full.csv") #3400 in total 
-    # extract_fraction() #only one adult in dataset
-    # extract_fraction(file_save="age_lesson_3_10_percent_adults.csv",number=170)
-    # extract_fraction(file_save="age_lesson_3_30_percent_adults.csv",number=510)
-    # extract_fraction(file_save="age_lesson_3_50_percent_adults.csv",number=850)
-    # extract_fraction(file_save="age_lesson_3_75_percent_adults.csv",number=1275)
-
-    # #LESSON 4 DATASET
-    # flip_data(file_save="age_lesson_4_corrupted_10_percent.csv", fraction=0.1)
-    # flip_data(file_save="age_lesson_4_corrupted_50_percent.csv", fraction=0.5)
-    # flip_data() #100% of data flipped
-
-
