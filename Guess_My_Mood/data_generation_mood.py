@@ -5,7 +5,7 @@ import numpy as np
 
 
 #remove some number of happiness labels
-def skew_data(fraction=0.01, file_name="guess_mood_4_one_sad.csv", fileRead="Guess_My_Mood_Dataset.csv"):
+def skew_data(fraction=0.01, file_name="mood_4_one_sad.csv", fileRead="Guess_My_Mood_Dataset.csv"):
     data = pd.read_csv("data2/" + fileRead)
     sad_length = len(data.query('feeling == "s"'))
     data = data.drop(data.query('feeling == "s"').sample(n=(sad_length - int(fraction*sad_length))).index)
