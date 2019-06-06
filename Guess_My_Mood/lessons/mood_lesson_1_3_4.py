@@ -26,15 +26,13 @@ def get_prediction(data = {"sentence":"I am happy"}):
 if __name__ == "__main__":
 
     play = "yes"
+    print("Hello! Today we will guess how you are feeling!")
     while play == "yes":
         #getting player input 
-        print("Hello! Today we will guess how you are feeling!")
         mood = input("Type anything on your mind!")
         type(mood)
-        
         #pass in the data
         data = {"sentence": mood}
-        print(data)
         print("Hmm, it seems like...")
         get_prediction(data)
         play = input("Thank you for playing! Want to try again? (yes/no) ")
