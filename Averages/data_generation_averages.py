@@ -1,21 +1,23 @@
 import numpy as np
 import pandas as pd
+from sklearn.utils import shuffle
 
-def corrupt_dataset(file_read="",file_save="",fraction=0.1):
-    data = pd.read_csv("data/" +file_read)
+def corrupt_dataset(file_read="averages_lesson_3.csv",file_save="averages_lesson_4_10%_corrupt.csv",fraction=0.1):
+    data = pd.read_csv("data/" + file_read)
     #make fraction subset of data 
     random_rows = data.sample(frac=fraction)
 
     #drop the rows from the actual data
     data = data.drop(random_rows.index)
     
-    #flip the labels for this subset
-    random_rows.loc[random_rows['who_am_I'] == 'adult', 'who_am_I'] = 'a'
-    random_rows.loc[random_rows['who_am_I'] == 'child', 'who_am_I'] = 'adult'
-    random_rows.loc[random_rows['who_am_I'] == 'a', 'who_am_I'] = 'child'
+    #corrupt the averages by making them some random negative integer
+    random_rows['AVERAGE'] = -50
 
     #add the random rows back
     data = data.append(random_rows)  
+    data = shuffle(data)
+    np.savetxt('data/' + file_save ,data,  fmt='%s', delimiter=',', comments='')
+    print(file_save + " data saved") 
 
 def generate_average_data(total_samples=50, file_name = "averages_lesson_1_and_2.csv"):
 
@@ -53,7 +55,8 @@ if __name__ == "__main__":
 
 
     #LESSON 4 DATASETS
-
+    corrupt_dataset() #10% corrupted
+    corrupt_dataset(file_save="averages_lesson_4_50%_corrupt.csv",fraction=0.5) #50% corrupted
 
 
     # generate_score_first_data(3400, "age_lesson_3_full.csv") #3400 in total 
