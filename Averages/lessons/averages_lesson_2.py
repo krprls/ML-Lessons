@@ -16,11 +16,16 @@ def get_ML_prediction(data = {"sentence":"I am happy"}):
     decoded_response = json.loads(response) #convert string response to python
     decoded_second = json.loads(decoded_response['body']) #converting body string response to python
     if "dummy response" in response:
-        response = "based on the null model, we think the average is 500!"
+        response = "based on the null model, we think the average is 472!"
+    elif "error" in response:
+        response = "error"
     else:
         response = decoded_second["predicted_label"]
 
-    print("ML prediction: " + response) 
+    if response == "based on the null model, we think the average is 472!":
+        response = 472
+
+    print("ML prediction: " + str(response)) 
     return response
 
 
@@ -32,11 +37,11 @@ def get_conditional_prediction(arr=np.array(13,300,901,21)):
    
     #data passed in more similar to first set
     if np.linalg.norm(arr-first_set) < np.linalg.norm(arr-second_set):
-        response= "418.0"
+        response= 418.0
     else:
-        response= "338.75"
+        response= 338.75
 
-    print("Rules prediction: " + response)
+    print("Rules prediction: " + str(response))
     return response
 
 
@@ -74,7 +79,7 @@ if __name__ == "__main__":
             if ml_returned_val == rules_returned_val: #both are correct
                  condCount+=1
         else:
-            if rules_returned_val != ml_returned_val: #only rules is correct
+            if rules_returned_val != ml_returned_val and ml_returned_val != "error": #only rules is correct
                 condCount+=1
             else:
                 print("Looks like we couldn't predict this correctly, oops!") #neither is correct

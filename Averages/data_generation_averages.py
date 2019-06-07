@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.utils import shuffle
 
-def corrupt_dataset(file_read="averages_lesson_3.csv",file_save="averages_lesson_4_10%_corrupt.csv",fraction=0.1):
+def corrupt_dataset(file_read="averages_lesson_3.csv",file_save="averages_lesson_4_10_percent_corrupt.csv",fraction=0.1):
     data = pd.read_csv("data/" + file_read)
     #make fraction subset of data 
     random_rows = data.sample(frac=fraction)
@@ -56,5 +56,5 @@ if __name__ == "__main__":
 
     #LESSON 4 DATASETS
     corrupt_dataset() #10% corrupted
-    corrupt_dataset(file_save="averages_lesson_4_50%_corrupt.csv",fraction=0.5) #50% corrupted
+    corrupt_dataset(file_save="averages_lesson_4_50_percent__corrupt.csv",fraction=0.5) #50% corrupted
 
