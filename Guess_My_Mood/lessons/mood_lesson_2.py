@@ -15,11 +15,8 @@ def get_ML_prediction(data = {"sentence":"I am happy"}):
     response = getattr(r,'_content').decode("utf-8")
     decoded_response = json.loads(response) #convert string response to python
     if 'body' not in decoded_response:
-        if "sorry" in decoded_response:
-            response = "unsure"
-        else:
-            response = "Based on the null model, we think you are happy! :)"
-        print("ML prediction: " + response)
+        response = 'unsure'
+        print("ML prediction: sorry, we are " + response)
     else:
         decoded_second = json.loads(decoded_response['body']) #converting body string response to python
         if decoded_second["predicted_label"] == "h":

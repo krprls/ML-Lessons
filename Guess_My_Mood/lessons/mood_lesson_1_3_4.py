@@ -5,12 +5,11 @@ import numpy as np
 #calculate and print out the prediction
 def get_prediction(data = {"sentence":"I am happy"}):
     # data = data.encode('utf-8')
-    url = 'https://x6exfp4lwj.execute-api.us-east-1.amazonaws.com/Predict'
+    url = 'https://8d2iwbdl87.execute-api.us-east-1.amazonaws.com/Predict'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     decoded_response = json.loads(response) #convert string response to python
     if 'body' not in decoded_response:
-        if "sorry" in decoded_response:
             response = "unsure"
     else:
         decoded_second = json.loads(decoded_response['body']) #converting body string response to python
