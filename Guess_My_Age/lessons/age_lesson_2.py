@@ -70,8 +70,12 @@ if __name__ == "__main__":
             if ml_returned_val == rules_returned_val: #both are correct
                  condCount+=1
         else:
-            if rules_returned_val != ml_returned_val and rules_returned_val != "not sure":
-                condCount+=1
+            if rules_returned_val != ml_returned_val:
+                answer = input("Was the prediction \"" + rules_returned_val + "\" correct? (yes/no) ")
+                if answer == "yes":
+                    condCount+=1
+                else:
+                    print("Looks like we couldn't predict this correctly, oops!")
             else:
                 print("Looks like we couldn't predict this correctly, oops!")
             
