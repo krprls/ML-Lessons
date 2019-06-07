@@ -3,7 +3,7 @@ import pandas as pd
 
 #LESSON 4--FLIP DATA POINTS
 def flip_data(file_name="age_lesson_3_full.csv", file_save="age_lesson_4_corrupted_100_percent.csv", fraction=1):
-     data = pd.read_csv("data1/" + file_name)
+     data = pd.read_csv("data/" + file_name)
 
      if fraction == 1:
           data.loc[data['who_am_I'] == 'adult', 'who_am_I'] = 'a'
@@ -27,17 +27,17 @@ def flip_data(file_name="age_lesson_3_full.csv", file_save="age_lesson_4_corrupt
      
    
      data_header = 'num_countries,years_school,height,who_am_I'
-     np.savetxt('data1/' + file_save ,data,header=data_header, fmt='%s', delimiter=',', comments='')
+     np.savetxt('data/' + file_save ,data,header=data_header, fmt='%s', delimiter=',', comments='')
      print(file_save+ " data saved")
 
 
 #LESSON 3---RETAIN ONLY X % OF ADULTS
 def extract_fraction(file_name="age_lesson_3_full.csv", file_save="age_lesson_3_one_adult.csv", number=1):
-    data = pd.read_csv("data1/" + file_name)
+    data = pd.read_csv("data/" + file_name)
     data = data.drop(data.query('who_am_I == "adult"').sample(int(len(data.index)/2 - number)).index)
     #np.random.shuffle(data)
     data_header = 'num_countries,years_school,height,who_am_I'
-    np.savetxt('data1/' + file_save ,data,header=data_header, fmt='%s', delimiter=',', comments='')
+    np.savetxt('data/' + file_save ,data,header=data_header, fmt='%s', delimiter=',', comments='')
     print(file_save+ " data saved")
 
 
@@ -84,7 +84,7 @@ def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv")
 
 
     data_header = 'num_countries,years_school,height,who_am_I'
-    np.savetxt('data1/' + file_name ,dataset,header=data_header, fmt='%s', delimiter=',', comments='')
+    np.savetxt('data/' + file_name ,dataset,header=data_header, fmt='%s', delimiter=',', comments='')
     print(file_name + " data saved")
     # print(dataset)
 
@@ -118,7 +118,7 @@ def generate_data(num_samples_1=1400, num_samples_2=600, file_name = "large_samp
     dataset = np.concatenate((num_countries, years_school, height, score),axis=1)
     np.random.shuffle(dataset)
     data_header = 'num_countries,years_school,height,adult'
-    np.savetxt('data1/' + file_name ,dataset,header=data_header,fmt='%.2f',delimiter=',', comments='')
+    np.savetxt('data/' + file_name ,dataset,header=data_header,fmt='%.2f',delimiter=',', comments='')
     print(file_name + " data saved")
 
 
