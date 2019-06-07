@@ -10,7 +10,7 @@ totalCount = 0
 #calculate and print out the prediction based on ML
 def get_ML_prediction(data = {"sentence":"I am happy"}):
     # data = data.encode('utf-8')
-    url = 'https://8d2iwbdl87.execute-api.us-east-1.amazonaws.com/Predict'
+    url = 'https://1obfo8f115.execute-api.us-east-1.amazonaws.com/Predict'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     decoded_response = json.loads(response) #convert string response to python
