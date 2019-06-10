@@ -3,17 +3,19 @@ import json as json
 import numpy as np
 
 #calculate and print out the prediction
-def get_prediction(data={"num_countries":48,"years_school":2,"height":5.14}):
+def get_prediction(data={"A":48,"B":23,"C":38,"D":54}):
     # data = data.encode('utf-8')
-    url = 'https://6ur5sl3hh6.execute-api.us-east-1.amazonaws.com/Predict'
+    url = 'https://jzsbkydi4g.execute-api.us-east-1.amazonaws.com/Predict'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     decoded_response = json.loads(response) #convert string response to python
-    decoded_second = json.loads(decoded_response['body']) #converting body string response to python
-    # print(response)
+
     if "dummy response" in response:
-        response = "based on the null model, we think the average is 500!"
+        response = "based on the null model, we think the average is 472!"
+    elif "error" in response:
+        response = "..hmm..looks like we couldn't predict, please only enter numbers."
     else:
+        decoded_second = json.loads(decoded_response['body']) #converting body string response to python
         response = decoded_second["predicted_label"]
 
     print(response)  

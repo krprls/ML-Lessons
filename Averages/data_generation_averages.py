@@ -16,7 +16,8 @@ def corrupt_dataset(file_read="averages_lesson_3.csv",file_save="averages_lesson
     #add the random rows back
     data = data.append(random_rows)  
     data = shuffle(data)
-    np.savetxt('data/' + file_save ,data,  fmt='%s', delimiter=',', comments='')
+    data_header = 'A,B,C,D,AVERAGE'
+    np.savetxt('data/' + file_save ,data,header=data_header,  fmt='%s', delimiter=',', comments='')
     print(file_save + " data saved") 
 
 def generate_average_data(total_samples=50, file_name = "averages_lesson_1_and_2.csv"):
