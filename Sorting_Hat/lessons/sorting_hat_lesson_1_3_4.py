@@ -5,7 +5,7 @@ import numpy as np
 #calculate and print out the prediction
 def get_prediction(data = {"description":"I love to help others!"}):
     # data = data.encode('utf-8')
-    url = 'https://2ar9h0y8ti.execute-api.us-east-1.amazonaws.com/Predict'
+    url = 'https://p1bi1qedoj.execute-api.us-east-1.amazonaws.com/Predict'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     decoded_response = json.loads(response) #convert string response to python
