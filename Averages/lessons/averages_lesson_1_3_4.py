@@ -5,7 +5,7 @@ import numpy as np
 #calculate and print out the prediction
 def get_prediction(data={"A":48,"B":23,"C":38,"D":54}):
     # data = data.encode('utf-8')
-    url = 'https://jzsbkydi4g.execute-api.us-east-1.amazonaws.com/Predict'
+    url = 'https://mbyy5uq94m.execute-api.us-east-1.amazonaws.com/Predict'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     decoded_response = json.loads(response) #convert string response to python
@@ -32,13 +32,13 @@ if __name__ == "__main__":
     print("Nice to meet you " + name + "!")
     
     while play == "yes":
-        first = input("Please enter your first number(between 0-1000): ")
+        first = input("Please enter your first number: ")
         type(first)
-        second = input("Please enter your second number(between 0-1000): ")
+        second = input("Please enter your second number: ")
         type(second)
-        third = input("Please enter your third number(between 0-1000): ")
+        third = input("Please enter your third number: ")
         type(third)
-        fourth = input("Please enter your fourth number(between 0-1000): ")
+        fourth = input("Please enter your fourth number: ")
         type(fourth)
         #pass in the data
         data = {"A": first, "B": second,"C": third, "D": fourth}
