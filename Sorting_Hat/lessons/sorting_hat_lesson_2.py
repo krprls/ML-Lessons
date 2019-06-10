@@ -68,18 +68,20 @@ if __name__ == "__main__":
             if ml_pred == rules_pred:
                 correctRules+= 1
         else:
-            if ml_pred != rules_pred:
+            if ml_pred != rules_pred and rules_pred != "unsure":
                 correct_response = input("Is " + "\"" + rules_pred + "\"" + " the correct response? (yes/no) ")
                 type(correct_response)
                 if "yes" in correct_response:
                     correctRules+=1
                 else:
                     print("Aww, looks like neither of our models predicted correctly!")
+            else:
+                print("Aww, looks like neither of our models predicted correctly!")
         
         tries+=1
 
-        print("Correct ML: " + correctMl + " out of " + tries)
-        print("Correct Rules: " + correctRules + " out of " + tries)
+        print("Correct ML: " + str(correctMl) + " out of " + str(tries))
+        print("Correct Rules: " + str(correctRules) + " out of " + str(tries))
         play = input("Thank you for playing! Want to try again? (yes/no) ")
         type(play)
     

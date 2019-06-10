@@ -38,7 +38,7 @@ if __name__ == "__main__":
         type(trait)
         #pass in the data
         data = {"description": trait}
-        print("Hmm, " + name + ", it seems like...")
+        print("Hmm, " + name + ", it seems like you are a...")
         get_prediction(data)
         play = input("Thank you for playing! Want to try again? (yes/no) ")
         type(play)
