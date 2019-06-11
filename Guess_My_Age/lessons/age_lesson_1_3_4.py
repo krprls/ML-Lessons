@@ -2,10 +2,10 @@ import requests
 import json as json
 import numpy as np
 
+url = ''
 #calculate and print out the prediction
 def get_prediction(data={"num_countries":48,"years_school":2,"height":5.14}):
     # data = data.encode('utf-8')
-    url = 'https://5p4nxf4ksc.execute-api.us-east-1.amazonaws.com/Predict'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     # print(response)
@@ -29,6 +29,9 @@ if __name__ == "__main__":
     name = input("What is your name? ")
     type(name)
     print("Nice to meet you " + name + "!")
+    url = input("Before we get started, what is your endpoint URL?")
+    type(url)
+    print("Thank you!")
     
     while play == "yes":
         visitedCountries = input("How many countries have you visited? ")
