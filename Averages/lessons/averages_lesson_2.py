@@ -7,10 +7,10 @@ mlCount = 0
 formulaCount = 0
 totalCount = 0
 
+url = ''
 #calculate and print out the prediction based on ML
 def get_ML_prediction(data={"A":48,"B":23,"C":38,"D":54}):
     # data = data.encode('utf-8')
-    url = 'https://jzsbkydi4g.execute-api.us-east-1.amazonaws.com/Predict'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     decoded_response = json.loads(response) #convert string response to python
@@ -57,6 +57,10 @@ if __name__ == "__main__":
     name = input("What is your name? ")
     type(name)
     print("Nice to meet you " + name + "!")
+
+    url = input("Before we get started, what is your endpoint URL?")
+    type(url)
+    print("Thank you!")
 
     play = "yes"
     while play == "yes":

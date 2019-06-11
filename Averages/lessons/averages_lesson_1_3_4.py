@@ -31,6 +31,7 @@ if __name__ == "__main__":
     name = input("What is your name? ")
     type(name)
     print("Nice to meet you " + name + "!")
+    
     url = input("Before we get started, what is your endpoint URL?")
     type(url)
     print("Thank you!")

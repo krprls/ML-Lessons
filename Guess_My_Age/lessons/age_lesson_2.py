@@ -7,10 +7,10 @@ mlCount = 0
 condCount = 0
 totalCount = 0
 
+url = ''
 #calculate and print out the prediction based on ML
 def get_ML_prediction(data = {"data":"10,5,5.41"}):
     # data = data.encode('utf-8')
-    url = 'https://zu1pow2qla.execute-api.us-east-1.amazonaws.com/Predict'
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     # print(response)
@@ -50,6 +50,10 @@ if __name__ == "__main__":
     type(name)
     print("Nice to meet you " + name + "!")
 
+    url = input("Before we get started, what is your endpoint URL?")
+    type(url)
+    print("Thank you!")
+    
     play = "yes"
     while play == "yes":
         visitedCountries = input("How many countries have you visited? ")
