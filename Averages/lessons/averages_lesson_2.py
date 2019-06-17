@@ -80,15 +80,17 @@ if __name__ == "__main__":
         ml_returned_val = get_ML_prediction(data) #ML
         rules_returned_val = formula(first,second,third,fourth)
 
+        trialError = 'NaN'
+        averageError = 'NaN'
         if ml_returned_val != "..hmm..looks like we couldn't predict, please only enter numbers.":
-            if abs(ml_returned_val - rules_returned_val) < 0.01:
-                mlCount+=1
-            formulaCount+=1 #formula is always correct
             totalCount+=1
+            trialError = abs(ml_returned_val - rules_returned_val)
+            averageError = (averageError + trialError)/totalCount
 
-
-        print("Correct ML responses: " + str(mlCount) + " out of " + str(totalCount) )
-        print("Correct rule responses: " + str(formulaCount) + " out of " + str(totalCount))
+        print("Error for this trial: " + str(trialError))
+        print("Average Error: " + str(averageError))
+        print("Total trials: " + str(totalCount))
+  
         
         play = input("Want to play again? (yes/no) ")
         type(play)
