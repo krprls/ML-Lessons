@@ -36,7 +36,7 @@ def get_conditional_prediction(countries, years, height):
     if np.float(countries) > 10 and np.float(years) > 10 and np.float(height) > 3:
         response = "adult"
         print("a adult! (rules)")
-    elif np.float(countries) <= 10 and np.float(years) <= 10 and np.float(height) <= 3:
+    else:
         response = "child"
         print("a child! (rules)")
     return response
