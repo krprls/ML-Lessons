@@ -8,7 +8,7 @@ condCount = 0
 totalCount = 0
 
 url = ''
-#calculate and print out the prediction based on ML
+#calculate and print out the prediction based on ML 
 def get_ML_prediction(data = {"data":"10,5,5.41"}):
     # data = data.encode('utf-8')
     r = requests.post(url, data=json.dumps(data))
