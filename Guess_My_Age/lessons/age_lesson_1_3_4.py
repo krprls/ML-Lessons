@@ -2,52 +2,81 @@ import requests
 import json as json
 import numpy as np
 
-url = ''
-#calculate and print out the prediction
-def get_prediction(data={"num_countries":48,"years_school":2,"height":5.14}):
-    # data = data.encode('utf-8')
+
+
+def get_prediction(url,data={"num_countries":48,"years_school":2,"height":5.14}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
-    # print(response)
-    if "dummy response" in response:
-        print("Based on the null model, we think you are a child! (new model still training)")
-    elif "child" in response:
+    response = json.loads(response)
+    prediction = json.loads(response['body'])
+
+    if "dummy response" in prediction['Message']:
+        print("Please train your model to get better predictions. Based on the mock model, the prediction is...")
+    
+    if prediction['predicted_label'] == "child":
         print("a child!")
-    elif "adult" in response:
+    elif prediction['predicted_label'] == "adult":
         print("an adult!")
     else:
-        print("We are unable to make a prediction at this point. Please check on your endpoint or reenter your data!")
-       
-    return response
+        print("The model is unable to predict at this point.")
+
+
+
+def get_validated_input(question,input_type):
+
+    variable = input(question)
+
+    while True:
+        if input_type == 'float':
+            try:
+                user_input = float(variable)
+            except ValueError:
+                variable = input("You must enter a float (e.g.: 1.3).\n" + question)
+        elif input_type == 'integer':
+            try:
+                user_input = int(variable)
+            except ValueError:
+                variable = input("You must enter an integer (e.g.: 1).\n" + question)
+        elif input_type == 'string':
+                variable = input("You must enter a string.\n" + question)
+        break
+    return variable
 
 
 if __name__ == "__main__":
 
-    #getting player input 
+    correct_tries = 0
+    tries = 0
+
+
     play = "yes"
-    print("Hello! Today we are going to guess whether you are a child or an adult! ")
-    name = input("What is your name? ")
-    type(name)
-    print("Nice to meet you " + name + "!")
-    url = input("Before we get started, what is your endpoint URL?")
-    type(url)
-    print("Thank you!")
+    print("Hello! Today we are going to use ML to guess whether you are a child or an adult!")
+
+    url=input("What is your endpoint URL?\n")
+    while not ("https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/" in url):
+        print("Please make sure your endpoint URL starts with https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/")
+        url = get_validated_input("What is your endpoint URL?\n", 'string')
     
     while play == "yes":
-        visitedCountries = input("How many countries have you visited? ")
-        type(visitedCountries)
-        yearsInSchool = input("How many years did you spend in school? ")
-        type(yearsInSchool)
-        height = input("What is your height? ")
-        type(height)
-        #pass in the data
-        data = {"num_countries":visitedCountries,"years_school":yearsInSchool,"height":height}
-        print
-        print("Hey " + name + ", we think that you are...")
-        get_prediction(data)
-        play = input("Thank you for playing! Want to try again? (yes/no) ")
-        type(play)
-    print("Have a great day!")
+
+        visited_countries = get_validated_input("How many countries have you visited?\n",'integer')
+        years_in_school = get_validated_input("How many years did you spend in school?\n",'integer')
+        height = get_validated_input("What is your height?\n",'float')
+
+    
+        data = {"num_countries":visited_countries,"years_school":years_in_school,"height":height}
+        print("The model predicts you are...")
+        get_prediction(url,data)
+
+        tries+=1
+        correct = input("Was the model's prediction correct? (yes/no)\n")
+
+        if correct == "yes":
+            correct_tries+=1
+        
+        print("Correct Tries: " + str(correct_tries) + " out of " + str(tries))
+
+        play = input("Want to try again? (yes/no) ")
 
 
 
