@@ -3,94 +3,97 @@ import json as json
 import numpy as np
 
 
-mlCount = 0
-condCount = 0
-totalCount = 0
 
-url = ''
 #calculate and print out the prediction based on ML 
-def get_ML_prediction(data = {"data":"10,5,5.41"}):
-    # data = data.encode('utf-8')
+def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.14}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
-    # print(response)
-    if "dummy response" in response:
-        response = "child"
-        print("Based on the null model, we think you are a child (new model still training)! (ML)")
-    elif "child" in response:
-        response = "child"
-        print("a child! (ML) ")
-    elif "adult" in response:
-        response = "adult"
-        print("an adult! (ML)")
+    response = json.loads(response)
+    prediction_object = json.loads(response['body'])
+
+    if "dummy response" in prediction_object['Message']:
+        print("Please train your model to get better predictions.")
+    
+    if 'predicted_label' in prediction_object:
+        label = prediction_object['predicted_label']
     else:
-        response = "unable to make prediction"
-        print("We are unable to make a prediction at this point. Please check on your endpoint! (ML)")
-    return response
+        label = "This model is unable to predict at this point."
+
+    print("ML prediction:" + label)
+    return label
 
 
 #calculate and print out the prediction based on CONDITIONS
 def get_conditional_prediction(countries, years, height):
-    #print(response)
-    response = "unable to make prediction"
-    if np.float(countries) > 10 and np.float(years) > 10 and np.float(height) > 3:
-        response = "adult"
-        print("a adult! (rules)")
-    else:
-        response = "child"
-        print("a child! (rules)")
-    return response
+    prediction = "child"
 
+    if countries > 10 and years > 10 and height > 3:
+        prediction = "adult"
+
+    return prediction
+
+
+def get_validated_input(question,input_type):
+
+    variable = input(question)
+
+    while True:
+        if input_type == 'float':
+            try:
+                user_input = float(variable)
+            except ValueError:
+                variable = input("You must enter a float (e.g.: 1.3).\n" + question)
+        elif input_type == 'integer':
+            try:
+                user_input = int(variable)
+            except ValueError:
+                variable = input("You must enter an integer (e.g.: 1).\n" + question)
+        elif input_type == 'string':
+                variable = input("You must enter a string.\n" + question)
+        break
+    return variable
 
 if __name__ == "__main__":
 
-    #getting player input 
-    print("Hello! Today we are going to guess whether you are a child or an adult! ")
-    name = input("What is your name? ")
-    type(name)
-    print("Nice to meet you " + name + "!")
+    correct_ml_tries = 0
+    correct_rules_tries = 0
+    total_tries = 0
 
-    url = input("Before we get started, what is your endpoint URL?")
-    type(url)
-    print("Thank you!")
+    base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
+
+    play = "y"
+    print("Hello! Today we are going to use ML to guess whether you are a child or an adult!")
+
+    url=input("What is your endpoint URL?\n")
+    while base_url not in url:
+        print("Please make sure your endpoint URL starts with " + base_url)
+        url = get_validated_input("What is your endpoint URL?\n", 'string')
     
-    play = "yes"
-    while play == "yes":
-        visitedCountries = input("How many countries have you visited? ")
-        type(visitedCountries)
-        yearsInSchool = input("How many years did you spend in school? ")
-        type(yearsInSchool)
-        height = input("What is your height? ")
-        type(height)
+    while play.lower() == "y":
 
-        #pass in the data
-        data = {"num_countries":visitedCountries,"years_school":yearsInSchool,"height":height}
-        print("Hey " + name + ", we think that you are...")
-        ml_returned_val = get_ML_prediction(data)
-        rules_returned_val = get_conditional_prediction(visitedCountries, yearsInSchool, height)
-        answer = input("Was the prediction \"" + ml_returned_val + "\" correct? (yes/no) ")
-        if answer == "yes":
-            mlCount+= 1 #ML prediction is correct
-            if ml_returned_val == rules_returned_val: #both are correct
-                 condCount+=1
-        else:
-            if rules_returned_val != ml_returned_val:
-                answer = input("Was the prediction \"" + rules_returned_val + "\" correct? (yes/no) ")
-                if answer == "yes":
-                    condCount+=1
-                else:
-                    print("Looks like we couldn't predict this correctly, oops!")
-            else:
-                print("Looks like we couldn't predict this correctly, oops!")
-            
+        visited_countries = get_validated_input("How many countries have you visited?\n",'integer')
+        years_in_school = get_validated_input("How many years did you spend in school?\n",'integer')
+        height = get_validated_input("What is your height?\n",'float')
 
-        totalCount+=1
-        print("Correct ML responses: " + str(mlCount) + "out of " + str(totalCount) )
-        print("Correct rule responses: " + str(condCount) + "out of " + str(totalCount))
+    
+        data = {"num_countries":visited_countries,"years_school":years_in_school,"height":height}
+
+        ml_prediction = get_prediction(url,data)
+        rules_prediction = get_conditional_prediction(visited_countries,years_in_school,height)
+
+        total_tries += 1
+        user_validation = input("Was the rules prediction \"" + rules_prediction + "\" correct? (y/n)\n")
+
+        if user_validation.lower() == "y":
+            correct_rules_tries += 1
+            if ml_prediction == rules_prediction:
+                correct_ml_tries += 1
+        elif ml_prediction != rules_prediction and ml_prediction != "This model is unable to predict at this point.":
+            correct_ml_tries += 1
         
-        play = input("Want to play again? (yes/no) ")
-        type(play)
+        print("Correct ML Tries: " + str(correct_ml_tries) + " out of " + str(total_tries))
+        print("Correct Rules Tries: " + str(correct_rules_tries) + " out of " + str(total_tries))
 
-    print("Have a great day!")
+        play = input("Want to try again? (y/n)\n")
 
     
