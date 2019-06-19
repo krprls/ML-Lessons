@@ -3,8 +3,8 @@ import json as json
 import numpy as np
 
 
-
-def get_prediction(url="https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/", data={"num_countries":48, "years_school":2, "height":5.14}):
+base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
+def get_prediction(url='', data={"num_countries":48, "years_school":2, "height":5.14}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r, '_content').decode("utf-8")
     response = json.loads(response)
@@ -14,7 +14,7 @@ def get_prediction(url="https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/P
         print("Please train your model to get better predictions.")
     
     if 'predicted_label' in prediction_object:
-        return prediction_object['predicted_label']
+        label = prediction_object['predicted_label']
     else:
         label = "This model is unable to predict at this point."
 
@@ -54,8 +54,8 @@ if __name__ == "__main__":
     print("Hello! Today we are going to use ML to guess whether you are a child or an adult!")
 
     url=input("What is your endpoint URL?\n")
-    while not ("https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/" in url):
-        print("Please make sure your endpoint URL starts with https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/")
+    while base_url not in url:
+        print("Please make sure your endpoint URL starts with " + base_url)
         url = get_validated_input("What is your endpoint URL?\n", 'string')
     
     while play == "yes":
