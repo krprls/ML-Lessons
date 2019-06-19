@@ -15,7 +15,7 @@ def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.1
         print("Please train your model to get better predictions.")
     
     if 'predicted_label' in prediction_object:
-        return prediction_object['predicted_label']
+        label = prediction_object['predicted_label']
     else:
         label = "This model is unable to predict at this point."
 
