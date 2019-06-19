@@ -52,7 +52,7 @@ if __name__ == "__main__":
     base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
 
 
-    play = "yes"
+    play = "y"
     print("Hello! Today we are going to use ML to guess whether you are a child or an adult!")
 
     url=input("What is your endpoint URL?\n")
@@ -60,7 +60,7 @@ if __name__ == "__main__":
         print("Please make sure your endpoint URL starts with " + base_url)
         url = get_validated_input("What is your endpoint URL?\n", 'string')
     
-    while play == "yes":
+    while play.lower() == "y":
 
         visited_countries = get_validated_input("How many countries have you visited?\n", 'integer')
         years_in_school = get_validated_input("How many years did you spend in school?\n", 'integer')
@@ -71,14 +71,14 @@ if __name__ == "__main__":
         get_prediction(url, data)
 
         tries+=1
-        correct = input("Was the model's prediction correct? (yes/no)\n")
+        correct = input("Was the model's prediction correct? (y/n)\n")
 
-        if correct == "yes":
+        if correct.lower() == "y":
             correct_tries+=1
         
         print("Correct Tries: " + str(correct_tries) + " out of " + str(tries))
 
-        play = input("Want to try again? (yes/no)\n")
+        play = input("Want to try again? (y/n)\n")
 
 
 
