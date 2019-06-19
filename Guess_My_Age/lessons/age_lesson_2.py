@@ -8,14 +8,14 @@ import numpy as np
 def get_prediction(url="https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/", data={"num_countries":48, "years_school":2, "height":5.14}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
-    prediction = json.loads(response)
-    prediction_object = json.loads(prediction['body'])
+    response = json.loads(response)
+    prediction_object = json.loads(response['body'])
 
     if "dummy response" in prediction_object['Message']:
         print("Please train your model to get better predictions.")
     
     if 'predicted_label' in prediction_object:
-        label = prediction_object['predicted_label']
+        return prediction_object['predicted_label']
     else:
         label = "This model is unable to predict at this point."
 

@@ -4,21 +4,22 @@ import numpy as np
 
 
 
-def get_prediction(url,data={"num_countries":48,"years_school":2,"height":5.14}):
+def get_prediction(url="https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/", data={"num_countries":48, "years_school":2, "height":5.14}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
-    prediction = json.loads(response['body'])
+    prediction_object = json.loads(response['body'])
 
-    if "dummy response" in prediction['Message']:
-        print("Please train your model to get better predictions. Based on the mock model, the prediction is...")
+    if "dummy response" in prediction_object['Message']:
+        print("Please train your model to get better predictions.")
     
-    if prediction['predicted_label'] == "child":
-        print("a child!")
-    elif prediction['predicted_label'] == "adult":
-        print("an adult!")
+    if 'predicted_label' in prediction_object:
+        return prediction_object['predicted_label']
     else:
-        print("The model is unable to predict at this point.")
+        label = "This model is unable to predict at this point."
+
+    print("ML prediction:" + label)
+    return label
 
 
 
@@ -65,7 +66,6 @@ if __name__ == "__main__":
 
     
         data = {"num_countries":visited_countries,"years_school":years_in_school,"height":height}
-        print("The model predicts you are...")
         get_prediction(url,data)
 
         tries+=1
