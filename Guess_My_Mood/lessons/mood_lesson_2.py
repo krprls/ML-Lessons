@@ -3,97 +3,95 @@ import json as json
 import numpy as np
 
 
-mlCount = 0
-condCount = 0
-totalCount = 0
 
-url =''
-#calculate and print out the prediction based on ML
-def get_ML_prediction(data = {"sentence":"I am happy"}):
-    # data = data.encode('utf-8')
+#calculate and print out the prediction based on ML 
+def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.14}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
-    decoded_response = json.loads(response) #convert string response to python
-    if 'body' not in decoded_response:
-        response = 'unsure'
-        print("ML prediction: sorry, we are " + response)
-    else:
-        decoded_second = json.loads(decoded_response['body']) #converting body string response to python
-        if decoded_second["predicted_label"] == "h":
-            response = "you're happy! :) "
-        elif decoded_second["predicted_label"] == "s":
-            response = "you're sad. :("
-        else:
-            response = "Based on the null model, we think you are happy! :)"
-        print("ML prediction: " + response)
+    response = json.loads(response)
+    prediction_object = json.loads(response['body'])
 
-    if response == "Based on the null model, we think you are happy! :)":
-        response = "you're happy! :) "
-    return response
+    if "dummy response" in prediction_object['Message']:
+        print("Please train your model to get better predictions.")
+    
+    if 'predicted_label' in prediction_object:
+        label = prediction_object['predicted_label']
+    else:
+        label = "This model is unable to predict at this point."
+
+    print("ML prediction:" + label)
+    return label
 
 
 #calculate and print out the prediction based on CONDITIONS
 def get_conditional_prediction(mood):
-    #print(response)
-    response = "not sure"
+    prediction = "h"
+
     if "fat" in mood or "sad" in mood:
-        response = "you're sad. :("
-    else:
-        response = "you're happy! :) "
+        prediction = "s"
 
-    print("Rules prediction: " + response)
-    return response
+    return prediction
 
+
+def get_validated_input(question,input_type):
+
+    variable = input(question)
+
+    while True:
+        if input_type == 'float':
+            try:
+                user_input = float(variable)
+            except ValueError:
+                variable = input("You must enter a float (e.g.: 1.3).\n" + question)
+        elif input_type == 'integer':
+            try:
+                user_input = int(variable)
+            except ValueError:
+                variable = input("You must enter an integer (e.g.: 1).\n" + question)
+        elif input_type == 'string':
+                variable = input("You must enter a string.\n" + question)
+        break
+    return variable
 
 if __name__ == "__main__":
 
-    #getting player input 
-    print("Hello! Today we are going to guess how you feel!")
-    name = input("What is your name? ")
-    type(name)
-    print("Nice to meet you " + name + "!")
+    correct_ml_tries = 0
+    correct_rules_tries = 0
+    total_tries = 0
 
-    url = input("Before we get started, what is your endpoint URL?")
-    type(url)
-    print("Thank you!")
+    base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
 
-    play = "yes"
-    while play == "yes":
-        #get user input
-        mood = input("Type anything on your mind! ")
-        type(mood)
+    play = "y"
+    print("Hello! Today we will use machine learning to guess how you are feeling!")
+
+    url=input("What is your endpoint URL?\n")
+    while base_url not in url:
+        print("Please make sure your endpoint URL starts with " + base_url)
+        url = get_validated_input("What is your endpoint URL?\n", 'string')
+    
+    while play.lower() == "y":
+
+        mood = get_validated_input("What's on your mind?\n", 'string')
 
         data = {"sentence": mood}
-        ml_returned_val = get_ML_prediction(data)
-        rules_returned_val = get_conditional_prediction(mood)
-        answer = input("Was the prediction \"" + ml_returned_val + "\" correct? (yes/no) ")
-        if answer == "yes":
-            mlCount+= 1 #ML prediction is correct
-            if ml_returned_val == rules_returned_val: #both are correct
-                 condCount+=1
-        else:
-            if rules_returned_val != ml_returned_val:
-                answer = input("Was the prediction \"" + rules_returned_val + "\" correct? (yes/no) ")
-                if answer == "yes":
-                    condCount+=1
-                else:
-                    print("Looks like we couldn't predict this correctly, oops!")
-            else:
-                print("Looks like we couldn't predict this correctly, oops!")
-            
 
-        totalCount+=1
-        print("Correct ML responses: " + str(mlCount) + " out of " + str(totalCount))
-        print("Correct rule responses: " + str(condCount) + " out of " + str(totalCount))
+        ml_prediction = get_prediction(url,data)
+        rules_prediction = get_conditional_prediction(mood)
+
+        total_tries += 1
+        print("Keep in mind s = sad and h = happy")
+        user_validation = input("Was the rules prediction \"" + rules_prediction + "\" correct? (y/n)\n")
+
+        if user_validation.lower() == "y":
+            correct_rules_tries += 1
+            if ml_prediction == rules_prediction:
+                correct_ml_tries += 1
+        elif ml_prediction != rules_prediction and ml_prediction != "This model is unable to predict at this point.":
+            correct_ml_tries += 1
         
-        play = input("Want to play again? (yes/no) ")
-        type(play)
-    print("Thanks for playing! Have a great day!")
+        print("Correct ML Tries: " + str(correct_ml_tries) + " out of " + str(total_tries))
+        print("Correct Rules Tries: " + str(correct_rules_tries) + " out of " + str(total_tries))
+
+        play = input("Want to try again? (y/n)\n")
 
     
-
-
-
-
-
-
