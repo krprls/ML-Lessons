@@ -6,7 +6,7 @@ import numpy as np
 
 def get_prediction(url="https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/", data={"num_countries":48, "years_school":2, "height":5.14}):
     r = requests.post(url, data=json.dumps(data))
-    response = getattr(r,'_content').decode("utf-8")
+    response = getattr(r, '_content').decode("utf-8")
     response = json.loads(response)
     prediction_object = json.loads(response['body'])
 
@@ -60,13 +60,13 @@ if __name__ == "__main__":
     
     while play == "yes":
 
-        visited_countries = get_validated_input("How many countries have you visited?\n",'integer')
-        years_in_school = get_validated_input("How many years did you spend in school?\n",'integer')
-        height = get_validated_input("What is your height?\n",'float')
+        visited_countries = get_validated_input("How many countries have you visited?\n", 'integer')
+        years_in_school = get_validated_input("How many years did you spend in school?\n", 'integer')
+        height = get_validated_input("What is your height?\n", 'float')
 
     
-        data = {"num_countries":visited_countries,"years_school":years_in_school,"height":height}
-        get_prediction(url,data)
+        data = {"num_countries":visited_countries, "years_school":years_in_school, "height":height}
+        get_prediction(url, data)
 
         tries+=1
         correct = input("Was the model's prediction correct? (yes/no)\n")
