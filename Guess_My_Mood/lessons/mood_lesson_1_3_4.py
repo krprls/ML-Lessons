@@ -44,13 +44,14 @@ def get_validated_input(question,input_type):
 
 if __name__ == "__main__":
 
+    correct_tries = 0
+    tries = 0
+    base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
+    
     play = "y"
     print("Hello! Today we will use machine learning to guess how you are feeling!")
 
-    correct_tries = 0
-    tries = 0
 
-    base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
 
     url=input("What is your endpoint URL?\n")
     while base_url not in url:
