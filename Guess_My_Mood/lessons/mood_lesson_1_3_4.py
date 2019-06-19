@@ -58,7 +58,7 @@ if __name__ == "__main__":
 
     while play.lower() == "y":
 
-        mood = get_validated_input("Type in anything on your mind!\n", 'string')
+        mood = get_validated_input("What's on your mind?\n", 'string')
 
         data = {"sentence": mood}
 
