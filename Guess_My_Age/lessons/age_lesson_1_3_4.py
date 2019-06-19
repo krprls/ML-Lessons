@@ -38,7 +38,7 @@ def get_validated_input(question,input_type):
             except ValueError:
                 variable = input("You must enter an integer (e.g.: 1).\n" + question)
         elif input_type == 'string':
-                variable = input("Please try re-entering your endpoint URL. Copy the URL directly from your Ai service.\n" + question)
+                variable = input("You must enter a string.\n" + question)
         break
     return variable
 
@@ -54,6 +54,7 @@ if __name__ == "__main__":
 
     url=input("What is your endpoint URL?\n")
     while not ("https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/" in url):
+        print("Please make sure your endpoint URL starts with https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/")
         url = get_validated_input("What is your endpoint URL?\n", 'string')
     
     while play == "yes":
@@ -68,7 +69,7 @@ if __name__ == "__main__":
         get_prediction(url,data)
 
         tries+=1
-        correct = input("Was our prediction correct? (yes/no)\n")
+        correct = input("Was the model's prediction correct? (yes/no)\n")
 
         if correct == "yes":
             correct_tries+=1
