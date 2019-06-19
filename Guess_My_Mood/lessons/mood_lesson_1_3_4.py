@@ -64,12 +64,12 @@ if __name__ == "__main__":
 
         get_prediction(data)
 
-        tries+=1
+        tries += 1
         print("Keep in mind s = sad and h = happy.")
         correct = input("Was our prediction correct?(y/n)\n")
 
         if correct.lower() == "y":
-            correct_tries+=1
+            correct_tries += 1
 
         print("Correct Tries: " + str(correct_tries) + " out of " + str(tries))
         play = input("Thank you for playing! Want to try again? (y/n)\n")
