@@ -4,36 +4,33 @@ import numpy as np
 
 
 
-
-url = ''
 #calculate and print out the prediction based on ML 
-def get_prediction(url,data={"num_countries":48,"years_school":2,"height":5.14}):
+def get_prediction(url="https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/", data={"num_countries":48, "years_school":2, "height":5.14}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
-    response = json.loads(response)
-    prediction = json.loads(response['body'])
+    prediction = json.loads(response)
+    prediction_object = json.loads(prediction['body'])
 
-    if "dummy response" in prediction['Message']:
-        print("Please train your model to get better predictions. Based on the mock model, the prediction is...")
+    if "dummy response" in prediction_object['Message']:
+        print("Please train your model to get better predictions.")
     
-    if prediction['predicted_label'] == "child" or prediction['predicted_label'] == "adult":
-        response = prediction['predicted_label']
+    if 'predicted_label' in prediction_object:
+        label = prediction_object['predicted_label']
     else:
-        response = "This model is unable to predict at this point."
+        label = "This model is unable to predict at this point."
 
-    print("ML prediction:" + response)
-    return response
+    print("ML prediction:" + label)
+    return label
 
 
 #calculate and print out the prediction based on CONDITIONS
 def get_conditional_prediction(countries, years, height):
-    response = "This model is unable to predict at this point."
-    if np.float(countries) > 10 and np.float(years) > 10 and np.float(height) > 3:
-        response = "adult"
-    else:
-        response = "child"
+    prediction = "child"
 
-    return response
+    if countries > 10 and years > 10 and height > 3:
+        prediction = "adult"
+
+    return prediction
 
 
 def get_validated_input(question,input_type):
@@ -80,21 +77,18 @@ if __name__ == "__main__":
     
         data = {"num_countries":visited_countries,"years_school":years_in_school,"height":height}
 
-        ml_response = get_prediction(url,data)
-        rules_response = get_conditional_prediction(visited_countries,years_in_school,height)
+        ml_prediction = get_prediction(url,data)
+        rules_prediction = get_conditional_prediction(visited_countries,years_in_school,height)
 
         total_tries += 1
-        user_validation = input("Was the prediction \"" + ml_response + "\" correct? (yes/no)\n")
+        user_validation = input("Was the rules prediction \"" + rules_prediction + "\" correct? (yes/no)\n")
 
         if user_validation == "yes":
+            correct_rules_tries += 1
+            if ml_prediction == rules_prediction:
+                correct_ml_tries += 1
+        elif ml_prediction != rules_prediction and ml_prediction != "This model is unable to predict at this point.":
             correct_ml_tries += 1
-            if ml_response == rules_response:
-                correct_rules_tries += 1
-        else:
-            if rules_response != "This model is unable to predict at this point.":
-                user_validation = input("Was the prediction \"" + rules_response + "\" correct? (yes/no)\n")
-                if user_validation == "yes":
-                    correct_rules_tries += 1
         
         print("Correct ML Tries: " + str(correct_ml_tries) + " out of " + str(total_tries))
         print("Correct Rules Tries: " + str(correct_rules_tries) + " out of " + str(total_tries))
