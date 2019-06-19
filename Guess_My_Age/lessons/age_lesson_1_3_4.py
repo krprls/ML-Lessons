@@ -8,19 +8,18 @@ def get_prediction(data={"num_countries":48,"years_school":2,"height":5.14},url=
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
-    response = json.loads(response['body'])
+    prediction = json.loads(response['body'])
 
-    if "dummy response" in response['Message']:
+    if "dummy response" in prediction['Message']:
         print("Please train your model to get better predictions. Based on the mock model, the prediction is...")
     
-    if "child" in response['predicted_label']:
+    if "child" in prediction['predicted_label']:
         print("a child!")
-    elif "adult" in response['predicted_label']:
+    elif "adult" in prediction['predicted_label']:
         print("an adult!")
     else:
         print("The model is unable to predict at this point.")
-       
-    return response
+
 
 
 def get_validated_input(question,input_type):
@@ -31,17 +30,16 @@ def get_validated_input(question,input_type):
         if input_type == 'float':
             try:
                 user_input = float(variable)
-                break
             except ValueError:
                 variable = input("You must enter a float (e.g.: 1.3).\n" + question)
         elif input_type == 'integer':
             try:
                 user_input = int(variable)
-                break
             except ValueError:
                 variable = input("You must enter an integer (e.g.: 1).\n" + question)
-        else:
-            break
+        elif input_type == 'string':
+            url = input("Please try re-entering your endpoint URL. Copy the URL directly from your Ai service.\n" + question)
+        break
     return variable
 
 
@@ -54,9 +52,9 @@ if __name__ == "__main__":
     play = "yes"
     print("Hello! Today we are going to use ML to guess whether you are a child or an adult!")
 
-    url = input("What is your endpoint URL?\n")
+    url=input("What is your endpoint URL?\n")
     while not ("https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/" in url):
-        url = input("Please try re-entering your endpoint URL (copy directly from your Ai service in the Navigator website)\nWhat is your endpoint URL?\n")
+        url = get_validated_input("What is your endpoint URL?\n", 'string')
     
     while play == "yes":
 
