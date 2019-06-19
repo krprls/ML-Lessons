@@ -13,9 +13,9 @@ def get_prediction(data={"num_countries":48,"years_school":2,"height":5.14},url=
     if "dummy response" in prediction['Message']:
         print("Please train your model to get better predictions. Based on the mock model, the prediction is...")
     
-    if "child" in prediction['predicted_label']:
+    if prediction['predicted_label'] == "child":
         print("a child!")
-    elif "adult" in prediction['predicted_label']:
+    elif prediction['predicted_label'] == "adult":
         print("an adult!")
     else:
         print("The model is unable to predict at this point.")
