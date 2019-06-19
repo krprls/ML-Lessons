@@ -4,7 +4,7 @@ import numpy as np
 
 
 
-def get_prediction(data={"num_countries":48,"years_school":2,"height":5.14},url=''):
+def get_prediction(url,data={"num_countries":48,"years_school":2,"height":5.14}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
@@ -38,7 +38,7 @@ def get_validated_input(question,input_type):
             except ValueError:
                 variable = input("You must enter an integer (e.g.: 1).\n" + question)
         elif input_type == 'string':
-            url = input("Please try re-entering your endpoint URL. Copy the URL directly from your Ai service.\n" + question)
+                variable = input("Please try re-entering your endpoint URL. Copy the URL directly from your Ai service.\n" + question)
         break
     return variable
 
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     
         data = {"num_countries":visited_countries,"years_school":years_in_school,"height":height}
         print("The model predicts you are...")
-        get_prediction(data,url)
+        get_prediction(url,data)
 
         tries+=1
         correct = input("Was our prediction correct? (yes/no)\n")
