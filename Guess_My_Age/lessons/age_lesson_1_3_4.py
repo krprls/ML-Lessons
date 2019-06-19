@@ -3,8 +3,8 @@ import json as json
 import numpy as np
 
 
-base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
-def get_prediction(url='', data={"num_countries":48, "years_school":2, "height":5.14}):
+
+def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.14}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r, '_content').decode("utf-8")
     response = json.loads(response)
@@ -48,6 +48,8 @@ if __name__ == "__main__":
 
     correct_tries = 0
     tries = 0
+
+    base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
 
 
     play = "yes"
