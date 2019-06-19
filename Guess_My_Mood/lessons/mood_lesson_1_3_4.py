@@ -47,18 +47,16 @@ if __name__ == "__main__":
     correct_tries = 0
     tries = 0
     base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
-    
+
     play = "y"
     print("Hello! Today we will use machine learning to guess how you are feeling!")
-
-
 
     url=input("What is your endpoint URL?\n")
     while base_url not in url:
         print("Please make sure your endpoint URL starts with " + base_url)
         url = get_validated_input("What is your endpoint URL?\n", 'string')
 
-    while play == "y":
+    while play.lower() == "y":
 
         mood = get_validated_input("Type in anything on your mind!\n", 'string')
 
@@ -70,7 +68,7 @@ if __name__ == "__main__":
         print("Keep in mind s = sad and h = happy.")
         correct = input("Was our prediction correct?(y/n)\n")
 
-        if correct == "y":
+        if correct.lower() == "y":
             correct_tries+=1
 
         print("Correct Tries: " + str(correct_tries) + " out of " + str(tries))
