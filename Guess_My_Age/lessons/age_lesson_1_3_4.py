@@ -76,7 +76,7 @@ if __name__ == "__main__":
         
         print("Correct Tries: " + str(correct_tries) + " out of " + str(tries))
 
-        play = input("Thank you for playing! Want to try again? (yes/no) ")
+        play = input("Want to try again? (yes/no) ")
 
 
 
