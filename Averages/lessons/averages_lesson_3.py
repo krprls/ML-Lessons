@@ -26,7 +26,7 @@ def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
 #calculate and print out the prediction based on FORMULA
 def formula(num1=50,num2=70,num3=80,num4=90):
 
-    average=""
+    average = ""
     num1 = float(num1)
     num2 = float(num2)
     num3 = float(num3)
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     while play.lower() == "y":
         trial_error_new = trial_error_old = 'NaN'
         average_error_new = average_error_old = 'NaN'
-        
+
         #get user input
         num1 = get_validated_input("Please enter your first number: ",'float')
         num2 = get_validated_input("Please enter your second number: ",'float')

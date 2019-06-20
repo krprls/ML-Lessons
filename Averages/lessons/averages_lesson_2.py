@@ -26,7 +26,7 @@ def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
 #calculate and print out the prediction based on FORMULA
 def formula(num1=50,num2=70,num3=80,num4=90):
 
-    average=""
+    average = ""
     num1 = float(num1)
     num2 = float(num2)
     num3 = float(num3)
@@ -62,7 +62,7 @@ if __name__ == "__main__":
 
 
     base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
-    total_count = 0
+    tries = 0
     trial_error = 'NaN'
     average_error = 'NaN'
 
@@ -86,15 +86,15 @@ if __name__ == "__main__":
         ml_returned_val = get_prediction(data) #ML
         ave_via_formula = formula(num1, num2, num3, num4)
 
-        total_count+=1
+        tries += 1
         
         if ml_returned_val != "This model is unable to predict at this point.":
             trial_error = abs(ml_returned_val - ave_via_formula)
-            average_error = (average_error + trial_error) / total_count
+            average_error = (average_error + trial_error) / tries
 
         print("Error for this trial: " + str(trial_error))
         print("Average Error: " + str(average_error))
-        print("Total trials: " + str(total_count))
+        print("Total trials: " + str(tries))
   
         
         play = input("Want to play again? (y/n)\n")

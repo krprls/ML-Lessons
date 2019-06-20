@@ -6,7 +6,6 @@ import numpy as np
 
 #calculate and print out the prediction
 def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
-    # data = data.encode('utf-8')
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
@@ -69,11 +68,11 @@ if __name__ == "__main__":
  
         get_prediction(url, data)
 
-        tries+=1
+        tries += 1
         correct_response = input("Was the ML prediction correct? (y/n)\n")
 
         if correct_response.lower() == "y":
-            correct_tries+=1
+            correct_tries += 1
         
         print("Correct Tries: " + str(correct_tries) + " out of " + str(tries))
         
