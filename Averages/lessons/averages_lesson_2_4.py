@@ -18,7 +18,7 @@ def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
     else:
         label = "This model is unable to predict at this point."
 
-    print("ML prediction:", label)
+    print("ML prediction: ", label)
     return label
 
 #calculate and print out the prediction based on FORMULA
