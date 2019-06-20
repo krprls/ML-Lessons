@@ -11,7 +11,7 @@ def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
     response = json.loads(response)
     prediction_object = json.loads(response['body'])
 
-    if "dummy response" in prediction_object['Message']:
+    if 'Message' in prediction_object and "dummy response" in prediction_object['Message']:
         print("Please train your model to get better predictions.")
     
     if 'predicted_label' in prediction_object:
@@ -19,9 +19,8 @@ def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
     else:
         label = "This model is unable to predict at this point."
 
-    print("ML prediction:" + label)
+    print("ML prediction:", label)
     return label
-
 
 #calculate and print out the prediction based on FORMULA
 def formula(num1=50,num2=70,num3=80,num4=90):
@@ -61,8 +60,7 @@ if __name__ == "__main__":
 
     tries = 0
     base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
-    trial_error_new = trial_error_old = 'NaN'
-    average_error_new = average_error_old = 'NaN'
+    average_error_new = average_error_old = 0
 
 
     print("Hello! Today we are going to try to compute the average of four numbers with a Machine Learning model!")
@@ -81,9 +79,8 @@ if __name__ == "__main__":
 
     play = "y"
     while play.lower() == "y":
-        trial_error_new = trial_error_old = 'NaN'
-        average_error_new = average_error_old = 'NaN'
-
+        trial_error_new = trial_error_old = 0
+        
         #get user input
         num1 = get_validated_input("Please enter your first number: ", 'float')
         num2 = get_validated_input("Please enter your second number: ", 'float')
@@ -92,8 +89,8 @@ if __name__ == "__main__":
 
         #pass in the data
         data = {"A": num1, "B": num2,"C": num3, "D": num4}
-        old_ml_prediction = get_prediction(data, old_url) #from smaller dataset
-        new_ml_prediction = get_prediction(data, new_url) #from bigger dataset
+        old_ml_prediction = get_prediction(old_url, data) #from smaller dataset
+        new_ml_prediction = get_prediction(new_url, data) #from bigger dataset
 
         ave_via_formula = formula(num1, num2, num3, num4)
 
