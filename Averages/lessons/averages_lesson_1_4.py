@@ -74,7 +74,7 @@ if __name__ == "__main__":
         if correct_response.lower() == "y":
             correct_tries += 1
         
-        print("Correct Tries: " + str(correct_tries) + " out of " + str(tries))
+        print("Correct Tries: ", correct_tries,  " out of ", tries)
         
         play = input("Want to try again? (y/n)\n")
 

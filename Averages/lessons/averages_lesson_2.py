@@ -33,7 +33,7 @@ def formula(num1=50,num2=70,num3=80,num4=90):
     num4 = float(num4)
     average = (num1 + num2 + num3 + num4)/4
 
-    print("Formula: " + str(average)) 
+    print("Average via Formula: ", average)
 
     return average
 
@@ -92,9 +92,9 @@ if __name__ == "__main__":
             trial_error = abs(ml_prediction - ave_via_formula)
             average_error = (average_error + trial_error) / tries
 
-        print("Error for this trial: " + str(trial_error))
-        print("Average Error: " + str(average_error))
-        print("Total trials: " + str(tries))
+        print("Error for this trial: ", trial_error)
+        print("Average Error: ", average_error)
+        print("Total trials: ", tries)
   
         
         play = input("Want to play again? (y/n)\n")
