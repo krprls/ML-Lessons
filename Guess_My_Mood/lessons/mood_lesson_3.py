@@ -17,14 +17,13 @@ def get_prediction(url, data={"sentence": "I am happy."}):
     else:
         label = "This model is unable to predict at this point."
 
-    print("ML prediction:", label)
+    print("ML prediction: ", label)
     return label
 
 
-def get_validated_input(question,input_type):
+def get_validated_input(question, input_type):
 
     variable = input(question)
-
     while True:
         if input_type == 'float':
             try:
@@ -43,6 +42,7 @@ def get_validated_input(question,input_type):
                 variable = input("You must enter a string.\n" + question)
         break
     return variable
+
 
 
 if __name__ == "__main__":

@@ -16,11 +16,11 @@ def get_prediction(url, data={"sentence": "I am happy."}):
     else:
         label = "This model is unable to predict at this point."
 
-    print("ML prediction:" + label)
+    print("ML prediction: ", label)
     return label
 
 
-def get_validated_input(question,input_type):
+def get_validated_input(question, input_type):
 
     variable = input(question)
     while True:

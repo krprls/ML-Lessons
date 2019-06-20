@@ -19,7 +19,7 @@ def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.1
     else:
         label = "This model is unable to predict at this point."
 
-    print("ML prediction:" + label)
+    print("ML prediction: ", label)
     return label
 
 
@@ -33,10 +33,9 @@ def get_conditional_prediction(mood):
     return prediction
 
 
-def get_validated_input(question,input_type):
+def get_validated_input(question, input_type):
 
     variable = input(question)
-
     while True:
         if input_type == 'float':
             try:
@@ -49,6 +48,9 @@ def get_validated_input(question,input_type):
             except ValueError:
                 variable = input("You must enter an integer (e.g.: 1).\n" + question)
         elif input_type == 'string':
+             try:
+                user_input = str(variable)
+             except ValueError:
                 variable = input("You must enter a string.\n" + question)
         break
     return variable
@@ -64,7 +66,7 @@ if __name__ == "__main__":
     play = "y"
     print("Hello! Today we will use machine learning to guess how you are feeling!")
 
-    url=input("What is your endpoint URL?\n")
+    url = input("What is your endpoint URL?\n")
     while base_url not in url:
         print("Please make sure your endpoint URL starts with " + base_url)
         url = get_validated_input("What is your endpoint URL?\n", 'string')
@@ -75,7 +77,7 @@ if __name__ == "__main__":
 
         data = {"sentence": mood}
 
-        ml_prediction = get_prediction(url,data)
+        ml_prediction = get_prediction(url, data)
         rules_prediction = get_conditional_prediction(mood)
 
         total_tries += 1
@@ -89,8 +91,8 @@ if __name__ == "__main__":
         elif ml_prediction != rules_prediction and ml_prediction != "This model is unable to predict at this point.":
             correct_ml_tries += 1
         
-        print("Correct ML Tries: " + str(correct_ml_tries) + " out of " + str(total_tries))
-        print("Correct Rules Tries: " + str(correct_rules_tries) + " out of " + str(total_tries))
+        print("Correct ML Tries: ", correct_ml_tries, " out of ", total_tries)
+        print("Correct Rules Tries: ", correct_rules_tries, " out of ", total_tries)
 
         play = input("Want to try again? (y/n)\n")
 
