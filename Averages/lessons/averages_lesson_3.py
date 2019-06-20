@@ -105,7 +105,7 @@ if __name__ == "__main__":
             average_error_old = (average_error_old + trial_error_old) / tries
 
             trial_error_new = abs(new_ml_prediction - ave_via_formula)
-            average_error_new  = (average_error_new + trial_error_new) / tries
+            average_error_new = (average_error_new + trial_error_new) / tries
 
         print("Error for this trial, OLDER dataset: ", trial_error_old)
         print("Error for this trial, NEWER dataset: ", trial_error_new)
