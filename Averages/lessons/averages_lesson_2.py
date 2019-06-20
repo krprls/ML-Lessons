@@ -3,9 +3,6 @@ import json as json
 import numpy as np
 
 
-
-
-
 #calculate and print out the prediction
 def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
     # data = data.encode('utf-8')

@@ -70,7 +70,7 @@ if __name__ == "__main__":
         get_prediction(url, data)
 
         tries+=1
-        correct_response = input("Was our prediction correct? (y/n)\n")
+        correct_response = input("Was the ML prediction correct? (y/n)\n")
 
         if correct_response.lower() == "y":
             correct_tries+=1

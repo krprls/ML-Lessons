@@ -95,8 +95,8 @@ if __name__ == "__main__":
 
         formula_value = formula(first,second,third,fourth)
 
-
  
+
         total_count+=1
         if old_ml_returned_val != "This model is unable to predict at this point.":
             trial_error_old = abs(old_ml_returned_val - formula_value)
