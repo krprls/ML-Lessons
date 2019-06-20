@@ -71,7 +71,6 @@ if __name__ == "__main__":
 
         tries+=1
         correct_response = input("Was our prediction correct? (y/n)\n")
-        type(correct_response)
 
         if correct_response.lower() == "y":
             correct_tries+=1
