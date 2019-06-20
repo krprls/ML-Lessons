@@ -69,7 +69,7 @@ if __name__ == "__main__":
     trial_error = 'NaN'
     average_error = 'NaN'
 
-    print("Hello! Today we are going to try to compute the average of four numbers with Machine Learning!")
+    print("Hello! Today we are going to try to compute the average of four numbers with a Machine Learning model!")
 
 
     url=input("What is your endpoint URL?\n")

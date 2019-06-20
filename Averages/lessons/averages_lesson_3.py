@@ -65,7 +65,7 @@ if __name__ == "__main__":
     average_error_new = average_error_old = 'NaN'
 
 
-    print("Hello! Today we are going to try to compute the average of four numbers with Machine Learning!")
+    print("Hello! Today we are going to try to compute the average of four numbers with a Machine Learning model!")
 
     old_url=input("What is your endpoint URL from your SMALLER/OLDER Ai service?\n")
     while base_url not in old_url:
