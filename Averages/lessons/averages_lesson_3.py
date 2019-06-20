@@ -92,19 +92,19 @@ if __name__ == "__main__":
 
         #pass in the data
         data = {"A": num1, "B": num2,"C": num3, "D": num4}
-        old_ml_returned_val = get_prediction(data, old_url) #from smaller dataset
-        new_ml_returned_val = get_prediction(data, new_url) #from bigger dataset
+        old_ml_prediction = get_prediction(data, old_url) #from smaller dataset
+        new_ml_prediction= get_prediction(data, new_url) #from bigger dataset
 
         ave_via_formula = formula(num1, num2, num3, num4)
 
  
 
         tries += 1
-        if float(old_ml_returned_val):
-            trial_error_old = abs(old_ml_returned_val - ave_via_formula)
+        if float(old_ml_prediction):
+            trial_error_old = abs(old_ml_prediction - ave_via_formula)
             average_error_old= (average_error_old + trial_error_old) / tries
 
-            trial_error_new = abs(new_ml_returned_val - ave_via_formula)
+            trial_error_new = abs(new_ml_prediction - ave_via_formula)
             average_error_new  = (average_error_new + trial_error_new) / tries
 
         print("Error for this trial, OLDER dataset: " + str(trial_error_old))

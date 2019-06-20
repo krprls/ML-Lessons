@@ -83,13 +83,13 @@ if __name__ == "__main__":
 
         #pass in the data
         data = {"A": num1, "B": num2,"C": num3, "D": num4}
-        ml_returned_val = get_prediction(data) #ML
+        ml_prediction = get_prediction(data) #ML
         ave_via_formula = formula(num1, num2, num3, num4)
 
         tries += 1
         
-        if float(ml_returned_val):
-            trial_error = abs(ml_returned_val - ave_via_formula)
+        if float(ml_prediction):
+            trial_error = abs(ml_prediction - ave_via_formula)
             average_error = (average_error + trial_error) / tries
 
         print("Error for this trial: " + str(trial_error))
