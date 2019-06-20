@@ -59,13 +59,13 @@ if __name__ == "__main__":
         url = get_validated_input("What is your endpoint URL?\n", 'string')
     
     while play.lower() == "y":
-        first = get_validated_input("Please enter your first number: ",'float')
-        second = get_validated_input("Please enter your second number: ",'float')
-        third = get_validated_input("Please enter your third number: ",'float')
-        fourth = get_validated_input("Please enter your fourth number: ",'float')
+        num1 = get_validated_input("Please enter your first number: ",'float')
+        num2 = get_validated_input("Please enter your second number: ",'float')
+        num3 = get_validated_input("Please enter your third number: ",'float')
+        num4 = get_validated_input("Please enter your fourth number: ",'float')
 
         #pass in the data
-        data = {"A": first, "B": second,"C": third, "D": fourth}
+        data = {"A": num1, "B": num2,"C": num3, "D": num4}
  
         get_prediction(url, data)
 

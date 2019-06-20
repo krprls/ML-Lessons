@@ -76,20 +76,21 @@ if __name__ == "__main__":
 
     play = "y"
     while play.lower() == "y":
-        first = get_validated_input("Please enter your first number: ",'float')
-        second = get_validated_input("Please enter your second number: ",'float')
-        third = get_validated_input("Please enter your third number: ",'float')
-        fourth = get_validated_input("Please enter your fourth number: ",'float')
+        num1 = get_validated_input("Please enter your first number: ",'float')
+        num2 = get_validated_input("Please enter your second number: ",'float')
+        num3 = get_validated_input("Please enter your third number: ",'float')
+        num4 = get_validated_input("Please enter your fourth number: ",'float')
 
-        data = {"A": first, "B": second,"C": third, "D": fourth}
+        #pass in the data
+        data = {"A": num1, "B": num2,"C": num3, "D": num4}
         ml_returned_val = get_prediction(data) #ML
-        rules_returned_val = formula(first,second,third,fourth)
+        ave_via_formula = formula(num1, num2, num3, num4)
 
         total_count+=1
         
         if ml_returned_val != "This model is unable to predict at this point.":
-            trial_error = abs(ml_returned_val - rules_returned_val)
-            average_error = (average_error + trial_error)/total_count
+            trial_error = abs(ml_returned_val - ave_via_formula)
+            average_error = (average_error + trial_error) / total_count
 
         print("Error for this trial: " + str(trial_error))
         print("Average Error: " + str(average_error))
