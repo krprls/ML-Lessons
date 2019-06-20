@@ -26,16 +26,16 @@ def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
 #calculate and print out the prediction based on FORMULA
 def formula(num1=50,num2=70,num3=80,num4=90):
 
-    response=""
+    average=""
     num1 = float(num1)
     num2 = float(num2)
     num3 = float(num3)
     num4 = float(num4)
-    response = (num1 + num2 + num3 + num4)/4
+    average = (num1 + num2 + num3 + num4)/4
 
-    print("Formula: " + str(response)) 
+    print("Formula: " + str(average)) 
 
-    return response
+    return average
 
 def get_validated_input(question,input_type):
 
