@@ -19,7 +19,7 @@ def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.1
     else:
         label = "This model is unable to predict at this point."
 
-    print("ML prediction:" + label)
+    print("ML prediction: ", label)
     return label
 
 
@@ -32,8 +32,7 @@ def get_conditional_prediction(countries, years, height):
 
     return prediction
 
-
-def get_validated_input(question,input_type):
+def get_validated_input(question, input_type):
 
     variable = input(question)
 
@@ -49,6 +48,9 @@ def get_validated_input(question,input_type):
             except ValueError:
                 variable = input("You must enter an integer (e.g.: 1).\n" + question)
         elif input_type == 'string':
+             try:
+                user_input = str(variable)
+             except ValueError:
                 variable = input("You must enter a string.\n" + question)
         break
     return variable
@@ -64,7 +66,7 @@ if __name__ == "__main__":
     play = "y"
     print("Hello! Today we are going to use ML to guess whether you are a child or an adult!")
 
-    url=input("What is your endpoint URL?\n")
+    url = input("What is your endpoint URL?\n")
     while base_url not in url:
         print("Please make sure your endpoint URL starts with " + base_url)
         url = get_validated_input("What is your endpoint URL?\n", 'string')
@@ -76,10 +78,10 @@ if __name__ == "__main__":
         height = get_validated_input("What is your height?\n",'float')
 
     
-        data = {"num_countries":visited_countries,"years_school":years_in_school,"height":height}
+        data = {"num_countries":visited_countries, "years_school":years_in_school, "height":height}
 
-        ml_prediction = get_prediction(url,data)
-        rules_prediction = get_conditional_prediction(visited_countries,years_in_school,height)
+        ml_prediction = get_prediction(url, data)
+        rules_prediction = get_conditional_prediction(visited_countries, years_in_school, height)
 
         total_tries += 1
         user_validation = input("Was the rules prediction \"" + rules_prediction + "\" correct? (y/n)\n")
@@ -91,8 +93,8 @@ if __name__ == "__main__":
         elif ml_prediction != rules_prediction and ml_prediction != "This model is unable to predict at this point.":
             correct_ml_tries += 1
         
-        print("Correct ML Tries: " + str(correct_ml_tries) + " out of " + str(total_tries))
-        print("Correct Rules Tries: " + str(correct_rules_tries) + " out of " + str(total_tries))
+        print("Correct ML Tries: ", correct_ml_tries, " out of ", total_tries)
+        print("Correct Rules Tries: ", correct_rules_tries, " out of ", total_tries)
 
         play = input("Want to try again? (y/n)\n")
 

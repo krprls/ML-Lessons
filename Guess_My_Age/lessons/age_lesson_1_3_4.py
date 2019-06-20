@@ -22,7 +22,7 @@ def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.1
     return label
 
 
-def get_validated_input(question,input_type):
+def get_validated_input(question, input_type):
 
     variable = input(question)
 
