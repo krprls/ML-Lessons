@@ -4,7 +4,7 @@ import numpy as np
 
 
 
-def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
+def get_prediction(url, data={"description:", "I love to help others!"}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
