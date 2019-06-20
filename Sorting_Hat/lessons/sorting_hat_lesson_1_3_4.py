@@ -2,50 +2,74 @@ import requests
 import json as json
 import numpy as np
 
-url = ''
-#calculate and print out the prediction
-def get_prediction(data = {"description":"I love to help others!"}):
-    # data = data.encode('utf-8')
+
+
+def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
-    decoded_response = json.loads(response) #convert string response to python
-    if 'body' not in decoded_response:
-            response = "unsure"
+    response = json.loads(response)
+    prediction_object = json.loads(response['body'])
+
+    if "dummy response" in prediction_object['Message']:
+        print("Please train your model to get better predictions.")
+    
+    if 'predicted_label' in prediction_object:
+        label = prediction_object['predicted_label']
     else:
-        decoded_second = json.loads(decoded_response['body']) #converting body string response to python
-        if "dummy response" in response:
-            response = "...based on the null model, we think you are a Hufflepuff!"
-        else:
-            response = decoded_second['predicted_label']
+        label = "This model is unable to predict at this point."
 
-    print(response)
+    print("ML prediction:", label)
+    return label
 
-    return response
+def get_validated_input(question,input_type):
 
+    variable = input(question)
 
+    while True:
+        if input_type == 'float':
+            try:
+                user_input = float(variable)
+            except ValueError:
+                variable = input("You must enter a float (e.g.: 1.3).\n" + question)
+        elif input_type == 'integer':
+            try:
+                user_input = int(variable)
+            except ValueError:
+                variable = input("You must enter an integer (e.g.: 1).\n" + question)
+        elif input_type == 'string':
+                variable = input("You must enter a string.\n" + question)
+        break
+    return variable
 
 
 if __name__ == "__main__":
 
-    play = "yes"
-    print("Hello! Today we will sort you into a wizard house!")
-    name = input("What is your name? ")
-    type(name)
-    print("Nice to meet you wizard " + name + "!")
+    correct_tries = 0
+    tries = 0
+    play = "y"
+    base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
 
-    url = input("Before we get started, what is your endpoint URL?")
-    type(url)
-    print("Thank you!")
+    print("Hello! Today we will sort you into a Harry Potter wizard house!")
+ 
+    url=input("What is your endpoint URL?\n")
+    while base_url not in url:
+        print("Please make sure your endpoint URL starts with " + base_url)
+        url = get_validated_input("What is your endpoint URL?\n", 'string')
 
-    while play == "yes":
-        #getting player input 
-        trait = input("Tell me something about yourself! ")
-        type(trait)
-        #pass in the data
+    while play.lower() == "y":
+        trait = get_validated_input("Tell me something about yourself!\n",'string')
+
         data = {"description": trait}
-        print("Hmm, " + name + ", it seems like you are a...")
-        get_prediction(data)
-        play = input("Thank you for playing! Want to try again? (yes/no) ")
-        type(play)
+        get_prediction(url, data)
+
+        tries += 1
+        correct = input("Was the model's prediction correct? (y/n)\n")
+
+        if correct.lower() == "y":
+            correct_tries += 1 
+        
+        print("Correct Tries: ", correct_tries,  " out of ", tries)
+
+        play = input("Want to try again? (y/n)\n")
+
     
-    print("Have a great day!")

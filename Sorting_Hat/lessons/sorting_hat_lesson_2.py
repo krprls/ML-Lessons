@@ -3,36 +3,30 @@ import json as json
 import numpy as np
 
 
-correctRules = 0
-correctMl = 0
-tries = 0
 
-url = ''
-#calculate and print out the prediction
-def get_ML_prediction(data = {"description":"I love to help others!"}):
-    # data = data.encode('utf-8')
+def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
-    decoded_response = json.loads(response) #convert string response to python
-    if 'body' not in decoded_response:
-            response = "unsure"
+    response = json.loads(response)
+    prediction_object = json.loads(response['body'])
+
+    if "dummy response" in prediction_object['Message']:
+        print("Please train your model to get better predictions.")
+    
+    if 'predicted_label' in prediction_object:
+        label = prediction_object['predicted_label']
     else:
-        decoded_second = json.loads(decoded_response['body']) #converting body string response to python
-        if "dummy response" in response:
-            response = "...based on the null model, we think you are a Hufflepuff!"
-        else:
-            response = decoded_second['predicted_label']
+        label = "This model is unable to predict at this point."
 
-    print("ML prediction: " + response)
-
-    return response
+    print("ML prediction:", label)
+    return label
 
 
 def get_rules_prediction(sentence="I am ambitious"):
     if "ambitious" in sentence:
         response = "Slytherin"
     elif "friend" in sentence:
-        response = "Slytherin"
+        response = "Hufflepuff"
     elif "creative" in sentence:
         response = "Ravenclaw"
     elif "courage" in sentence:
@@ -43,51 +37,65 @@ def get_rules_prediction(sentence="I am ambitious"):
     print("ML prediction: " + response)
     return response
 
+
+def get_validated_input(question,input_type):
+
+    variable = input(question)
+
+    while True:
+        if input_type == 'float':
+            try:
+                user_input = float(variable)
+            except ValueError:
+                variable = input("You must enter a float (e.g.: 1.3).\n" + question)
+        elif input_type == 'integer':
+            try:
+                user_input = int(variable)
+            except ValueError:
+                variable = input("You must enter an integer (e.g.: 1).\n" + question)
+        elif input_type == 'string':
+                variable = input("You must enter a string.\n" + question)
+        break
+    return variable
+
 if __name__ == "__main__":
 
-    play = "yes"
-    print("Hello! Today we will sort you into a wizard house!")
-    name = input("What is your name? ")
-    type(name)
-    print("Nice to meet you wizard " + name + "!")
 
-    url = input("Before we get started, what is your endpoint URL?")
-    type(url)
-    print("Thank you!")
+    correct_rules = 0
+    correct_ml = 0
+    correct_tries = 0
+    tries = 0
+    play = "y"
+    base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
+
+    print("Hello! Today we will sort you into a Harry Potter wizard house!")
+ 
+    url=input("What is your endpoint URL?\n")
+    while base_url not in url:
+        print("Please make sure your endpoint URL starts with " + base_url)
+        url = get_validated_input("What is your endpoint URL?\n", 'string')
     
-    while play == "yes":
-        #getting player input 
-        trait = input("Tell me something about yourself! ")
-        type(trait)
-        #pass in the data
+    while play.lower() == "y":
+        trait = get_validated_input("Tell me something about yourself!\n",'string')
+
         data = {"description": trait}
-        print("Hmm, " + name + ", it seems like...")
-        ml_pred = get_ML_prediction(data)
-        rules_pred = get_rules_prediction(trait)
+        ml_prediction= get_prediction(url, data)
+        rules_prediction = get_rules_prediction(trait)
 
-        correct_response = input("Is " + "\"" + ml_pred + "\"" + " the correct response? (yes/no) ")
-        type(correct_response)
-
-        if "yes" in correct_response:
-            correctMl+=1
-            if ml_pred == rules_pred:
-                correctRules+= 1
+        tries += 1
+        correct_response = input("Is " + "\"" + ml_prediction + "\"" + " the correct response? (y/n)\n")
+        if correct_response.lower() == "y":
+            correct_ml += 1
+            if ml_prediction == rules_prediction:
+                correct_rules += 1
         else:
-            if ml_pred != rules_pred and rules_pred != "unsure":
-                correct_response = input("Is " + "\"" + rules_pred + "\"" + " the correct response? (yes/no) ")
-                type(correct_response)
-                if "yes" in correct_response:
-                    correctRules+=1
-                else:
-                    print("Aww, looks like neither of our models predicted correctly!")
-            else:
-                print("Aww, looks like neither of our models predicted correctly!")
-        
-        tries+=1
+            correct_response = input("Is " + "\"" + rules_prediction + "\"" + " the correct response? (y/n)\n")
+            if correct_response.lower() == "y":
+                correct_rules += 1
 
-        print("Correct ML: " + str(correctMl) + " out of " + str(tries))
-        print("Correct Rules: " + str(correctRules) + " out of " + str(tries))
-        play = input("Thank you for playing! Want to try again? (yes/no) ")
-        type(play)
+      
+
+        print("Correct ML: ", correct_ml, " out of ", tries)
+        print("Correct Rules: ", correct_rules, " out of ", tries)
+        play = input("Want to try again? (y/n)\n")
     
-    print("Have a great day!")
