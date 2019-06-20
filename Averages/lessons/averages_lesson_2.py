@@ -3,11 +3,9 @@ import json as json
 import numpy as np
 
 
-mlCount = 0
-formulaCount = 0
-totalCount = 0
 
-url = ''
+
+
 #calculate and print out the prediction
 def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
     # data = data.encode('utf-8')
@@ -66,42 +64,43 @@ def get_validated_input(question,input_type):
 if __name__ == "__main__":
 
 
+    base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
+    total_count = 0
+    trial_error = 'NaN'
+    average_error = 'NaN'
+
     print("Hello! Today we are going to try to compute the average of four numbers with Machine Learning!")
 
 
-    url = input("Before we get started, what is your endpoint URL?")
-    type(url)
-    print("Thank you!")
+    url=input("What is your endpoint URL?\n")
+    while base_url not in url:
+        print("Please make sure your endpoint URL starts with " + base_url)
+        url = get_validated_input("What is your endpoint URL?\n", 'string')
 
-    play = "yes"
-    while play == "yes":
+    play = "y"
+    while play.lower() == "y":
         first = get_validated_input("Please enter your first number: ",'float')
         second = get_validated_input("Please enter your second number: ",'float')
         third = get_validated_input("Please enter your third number: ",'float')
         fourth = get_validated_input("Please enter your fourth number: ",'float')
 
-
-
-
         data = {"A": first, "B": second,"C": third, "D": fourth}
         ml_returned_val = get_prediction(data) #ML
         rules_returned_val = formula(first,second,third,fourth)
 
-        trialError = 'NaN'
-        averageError = 'NaN'
+        total_count+=1
+        
         if ml_returned_val != "This model is unable to predict at this point.":
-            totalCount+=1
-            trialError = abs(ml_returned_val - rules_returned_val)
-            averageError = (averageError + trialError)/totalCount
+            trial_error = abs(ml_returned_val - rules_returned_val)
+            average_error = (average_error + trial_error)/total_count
 
-        print("Error for this trial: " + str(trialError))
-        print("Average Error: " + str(averageError))
-        print("Total trials: " + str(totalCount))
+        print("Error for this trial: " + str(trial_error))
+        print("Average Error: " + str(average_error))
+        print("Total trials: " + str(total_count))
   
         
         play = input("Want to play again? (y/n)\n")
 
-    print("Thanks for playing! Have a great day!")
 
     
 

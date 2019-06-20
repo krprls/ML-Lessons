@@ -61,6 +61,8 @@ if __name__ == "__main__":
 
     total_count = 0
     base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
+    trial_error_new = trial_error_old = 'NaN'
+    average_error_new = average_error_old = 'NaN'
 
 
     print("Hello! Today we are going to try to compute the average of four numbers with Machine Learning!")
@@ -94,10 +96,9 @@ if __name__ == "__main__":
         formula_value = formula(first,second,third,fourth)
 
 
-        trial_error_new = trial_error_old = 'NaN'
-        average_error_new = average_error_old = 'NaN'
+ 
+        total_count+=1
         if old_ml_returned_val != "This model is unable to predict at this point.":
-            total_count+=1
             trial_error_old = abs(old_ml_returned_val - formula_value)
             average_error_old= (average_error_old + trial_error_old)/total_count
 
