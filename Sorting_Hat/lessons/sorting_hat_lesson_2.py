@@ -83,13 +83,13 @@ if __name__ == "__main__":
         rules_prediction = get_rules_prediction(trait)
 
         tries += 1
-        correct_response = input("Is " + "\"" + ml_prediction + "\"" + " the correct response? (y/n)\n")
+        correct_response = input("Is the model's prediction " + "\"" + ml_prediction + "\"" + " the correct response? (y/n)\n")
         if correct_response.lower() == "y":
             correct_ml += 1
             if ml_prediction == rules_prediction:
                 correct_rules += 1
         else:
-            correct_response = input("Is " + "\"" + rules_prediction + "\"" + " the correct response? (y/n)\n")
+            correct_response = input("Is the rule's prediction " + "\"" + rules_prediction + "\"" + " the correct response? (y/n)\n")
             if correct_response.lower() == "y":
                 correct_rules += 1
 
