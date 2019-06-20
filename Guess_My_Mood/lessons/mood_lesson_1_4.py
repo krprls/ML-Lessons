@@ -53,7 +53,7 @@ if __name__ == "__main__":
     play = "y"
     print("Hello! Today we will use machine learning to guess how you are feeling!")
 
-    url=input("What is your endpoint URL?\n")
+    url = input("What is your endpoint URL?\n")
     while base_url not in url:
         print("Please make sure your endpoint URL starts with " + base_url)
         url = get_validated_input("What is your endpoint URL?\n", 'string')
