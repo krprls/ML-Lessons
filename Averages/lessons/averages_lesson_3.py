@@ -5,9 +5,7 @@ import numpy as np
 
 
 #calculate and print out the prediction based on ML
-#calculate and print out the prediction
 def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
-    # data = data.encode('utf-8')
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
@@ -98,7 +96,7 @@ if __name__ == "__main__":
 
         trial_error_new = trial_error_old = 'NaN'
         average_error_new = average_error_old = 'NaN'
-        if old_ml_returned_val != "..hmm..looks like we couldn't predict, please only enter numbers.":
+        if old_ml_returned_val != "This model is unable to predict at this point.":
             total_count+=1
             trial_error_old = abs(old_ml_returned_val - formula_value)
             average_error_old= (average_error_old + trial_error_old)/total_count
