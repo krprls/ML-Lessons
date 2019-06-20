@@ -54,6 +54,9 @@ def get_validated_input(question,input_type):
             except ValueError:
                 variable = input("You must enter an integer (e.g.: 1).\n" + question)
         elif input_type == 'string':
+             try:
+                user_input = str(variable)
+             except ValueError:
                 variable = input("You must enter a string.\n" + question)
         break
     return variable
@@ -79,7 +82,7 @@ if __name__ == "__main__":
         trait = get_validated_input("Tell me something about yourself!\n",'string')
 
         data = {"description": trait}
-        ml_prediction= get_prediction(url, data)
+        ml_prediction = get_prediction(url, data)
         rules_prediction = get_rules_prediction(trait)
 
         tries += 1

@@ -37,6 +37,9 @@ def get_validated_input(question,input_type):
             except ValueError:
                 variable = input("You must enter an integer (e.g.: 1).\n" + question)
         elif input_type == 'string':
+             try:
+                user_input = str(variable)
+             except ValueError:
                 variable = input("You must enter a string.\n" + question)
         break
     return variable
