@@ -68,7 +68,7 @@ if __name__ == "__main__":
     play = "y"
     base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
 
-    print("Hello! Today we will sort you into a Harry Potter wizard house!")
+    print("Today we will use ML to sort you into a Harry Potter wizard house!")
  
     url=input("What is your endpoint URL?\n")
     while base_url not in url:
