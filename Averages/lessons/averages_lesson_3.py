@@ -102,7 +102,7 @@ if __name__ == "__main__":
         tries += 1
         if float(old_ml_prediction):
             trial_error_old = abs(old_ml_prediction - ave_via_formula)
-            average_error_old= (average_error_old + trial_error_old) / tries
+            average_error_old = (average_error_old + trial_error_old) / tries
 
             trial_error_new = abs(new_ml_prediction - ave_via_formula)
             average_error_new  = (average_error_new + trial_error_new) / tries
