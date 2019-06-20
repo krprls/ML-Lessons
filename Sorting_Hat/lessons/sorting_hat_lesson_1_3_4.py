@@ -18,7 +18,7 @@ def get_prediction(url, data={"description:", "I love to help others!"}):
     else:
         label = "This model is unable to predict at this point."
 
-    print("ML prediction:", label)
+    print("ML prediction: ", label)
     return label
 
 def get_validated_input(question,input_type):
