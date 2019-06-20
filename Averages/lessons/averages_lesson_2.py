@@ -88,7 +88,7 @@ if __name__ == "__main__":
 
         tries += 1
         
-        if ml_returned_val != "This model is unable to predict at this point.":
+        if float(ml_returned_val):
             trial_error = abs(ml_returned_val - ave_via_formula)
             average_error = (average_error + trial_error) / tries
 
