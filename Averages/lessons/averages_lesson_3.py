@@ -31,9 +31,9 @@ def formula(num1=50,num2=70,num3=80,num4=90):
     num2 = float(num2)
     num3 = float(num3)
     num4 = float(num4)
-    average = (num1 + num2 + num3 + num4)/4
+    average = (num1 + num2 + num3 + num4) / 4
 
-    print("Formula: ", average) 
+    print("Average via Formula: ", average)
 
     return average
 
@@ -85,10 +85,10 @@ if __name__ == "__main__":
         average_error_new = average_error_old = 'NaN'
 
         #get user input
-        num1 = get_validated_input("Please enter your first number: ",'float')
-        num2 = get_validated_input("Please enter your second number: ",'float')
-        num3 = get_validated_input("Please enter your third number: ",'float')
-        num4 = get_validated_input("Please enter your fourth number: ",'float')
+        num1 = get_validated_input("Please enter your first number: ", 'float')
+        num2 = get_validated_input("Please enter your second number: ", 'float')
+        num3 = get_validated_input("Please enter your third number: ", 'float')
+        num4 = get_validated_input("Please enter your fourth number: ", 'float')
 
         #pass in the data
         data = {"A": num1, "B": num2,"C": num3, "D": num4}
