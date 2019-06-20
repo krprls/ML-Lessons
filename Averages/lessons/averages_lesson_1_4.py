@@ -58,7 +58,7 @@ if __name__ == "__main__":
         print("Please make sure your endpoint URL starts with " + base_url)
         url = get_validated_input("What is your endpoint URL?\n", 'string')
     
-    while play == "y":
+    while play.lower() == "y":
         first = get_validated_input("Please enter your first number: ",'float')
         second = get_validated_input("Please enter your second number: ",'float')
         third = get_validated_input("Please enter your third number: ",'float')
@@ -70,17 +70,16 @@ if __name__ == "__main__":
         get_prediction(url, data)
 
         tries+=1
-        correct_response = input("Was our prediction correct? (yes/no) ")
+        correct_response = input("Was our prediction correct? (y/n)\n")
         type(correct_response)
 
-        if correct_response == "y":
+        if correct_response.lower() == "y":
             correct_tries+=1
         
         print("Correct Tries: " + str(correct_tries) + " out of " + str(tries))
         
-        play = input("Thank you for playing! Want to try again? (y/n) ")
+        play = input("Want to try again? (y/n)\n")
 
-    print("Thanks for playing. Have a great day!")
 
 
 
