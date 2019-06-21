@@ -27,7 +27,7 @@ def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.1
 def get_conditional_prediction(mood):
     prediction = "happy"
 
-    if "fat" in mood or "sad" in mood:
+    if "bad" in mood or "sad" in mood:
         prediction = "sad"
 
     return prediction
