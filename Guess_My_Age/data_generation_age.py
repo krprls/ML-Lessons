@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 
-#LESSON 4--FLIP DATA POINTS
-def flip_data(file_name="age_lesson_3_full.csv", file_save="age_lesson_4_corrupted_100_percent.csv", fraction=1):
+#project 4--FLIP DATA POINTS
+def flip_data(file_name="age_project_3_full.csv", file_save="age_project_4_corrupted_100_percent.csv", fraction=1):
      data = pd.read_csv("data/" + file_name)
 
      if fraction == 1:
@@ -31,8 +31,8 @@ def flip_data(file_name="age_lesson_3_full.csv", file_save="age_lesson_4_corrupt
      print(file_save+ " data saved")
 
 
-#LESSON 3---RETAIN ONLY X % OF ADULTS
-def extract_fraction(file_name="age_lesson_3_full.csv", file_save="age_lesson_3_one_adult.csv", number=1):
+#project 3---RETAIN ONLY X % OF ADULTS
+def extract_fraction(file_name="age_project_3_full.csv", file_save="age_project_3_one_adult.csv", number=1):
     data = pd.read_csv("data/" + file_name)
     data = data.drop(data.query('who_am_I == "adult"').sample(int(len(data.index)/2 - number)).index)
     #np.random.shuffle(data)
@@ -93,21 +93,21 @@ def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv")
 
 if __name__ == "__main__":
 
-    # #LESSON 1 and 2 DATASETS
-    generate_score_first_data(1000, "age_lesson_1_and_2.csv") #500 in total
+    # #project 1 and 2 DATASETS
+    generate_score_first_data(1000, "age_project_1_and_2.csv") #500 in total
 
 
-    # #LESSON 3 DATASETS
-    generate_score_first_data(3400, "age_lesson_3_full.csv") #3400 in total 
+    # #project 3 DATASETS
+    generate_score_first_data(3400, "age_project_3_full.csv") #3400 in total 
     extract_fraction() #only one adult in dataset
-    extract_fraction(file_save="age_lesson_3_10_percent_adults.csv",number=170)
-    extract_fraction(file_save="age_lesson_3_30_percent_adults.csv",number=510)
-    extract_fraction(file_save="age_lesson_3_50_percent_adults.csv",number=850)
-    extract_fraction(file_save="age_lesson_3_75_percent_adults.csv",number=1275)
+    extract_fraction(file_save="age_project_3_10_percent_adults.csv",number=170)
+    extract_fraction(file_save="age_project_3_30_percent_adults.csv",number=510)
+    extract_fraction(file_save="age_project_3_50_percent_adults.csv",number=850)
+    extract_fraction(file_save="age_project_3_75_percent_adults.csv",number=1275)
 
-    #LESSON 4 DATASET
-    flip_data(file_save="age_lesson_4_corrupted_10_percent.csv", fraction=0.1)
-    flip_data(file_save="age_lesson_4_corrupted_50_percent.csv", fraction=0.5)
+    #project 4 DATASET
+    flip_data(file_save="age_project_4_corrupted_10_percent.csv", fraction=0.1)
+    flip_data(file_save="age_project_4_corrupted_50_percent.csv", fraction=0.5)
     flip_data() #100% of data flipped
 
 

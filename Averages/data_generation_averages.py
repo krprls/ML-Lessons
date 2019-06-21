@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.utils import shuffle
 
-def corrupt_dataset(file_read="averages_lesson_3.csv",file_save="averages_lesson_4_10_percent_corrupt.csv",fraction=0.1):
+def corrupt_dataset(file_read="averages_project_3.csv",file_save="averages_project_4_10_percent_corrupt.csv",fraction=0.1):
     data = pd.read_csv("data/" + file_read)
     #make fraction subset of data 
     random_rows = data.sample(frac=fraction)
@@ -20,7 +20,7 @@ def corrupt_dataset(file_read="averages_lesson_3.csv",file_save="averages_lesson
     np.savetxt('data/' + file_save ,data,header=data_header,  fmt='%s', delimiter=',', comments='')
     print(file_save + " data saved") 
 
-def generate_average_data(total_samples=50, file_name = "averages_lesson_1_and_2.csv"):
+def generate_average_data(total_samples=50, file_name = "averages_project_1_and_2.csv"):
 
     #sample number should be greater than 10
     if total_samples <= 10:
@@ -47,15 +47,15 @@ def generate_average_data(total_samples=50, file_name = "averages_lesson_1_and_2
 
 if __name__ == "__main__":
 
-    #LESSON 1 and 2 DATASETS
+    #project 1 and 2 DATASETS
     generate_average_data(50) #50 in total
 
 
-    #LESSON 3 DATASET (bigger)
-    generate_average_data(10000,"averages_lesson_3.csv")
+    #project 3 DATASET (bigger)
+    generate_average_data(10000,"averages_project_3.csv")
 
 
-    #LESSON 4 DATASETS
+    #project 4 DATASETS
     corrupt_dataset() #10% corrupted
-    corrupt_dataset(file_save="averages_lesson_4_50_percent__corrupt.csv",fraction=0.5) #50% corrupted
+    corrupt_dataset(file_save="averages_project_4_50_percent__corrupt.csv",fraction=0.5) #50% corrupted
 
