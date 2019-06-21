@@ -32,38 +32,8 @@ def flip_data(in_file="age_project_3_full.csv", out_file="age_project_4_corrupte
 
 
 
-def skew_data(total_sample_size, fraction=0.0004, in_file="age_project_3_full.csv", out_file="age_project_3_one_bad_adult.csv"):
 
-    """
-        Generate data that contain a certain fraction of sad samples
-        Args:
-            total_sample_size (int): Total number of samples to be generated in data
-            fraction (float): Fraction of samples that should be sad
-            in_file: the file_name to which you want to save the data
-            out_file: The file from where you are reading the data. 
-        Returns: N/A
-    """
-    data = pd.read_csv("data/" + in_file)
-
-    #get fraction of sad samples to keep
-    skew_labels_to_keep = int(total_sample_size * fraction)
-
-    #sample labels
-    skewed_label_samples = data.query('who_am_I == "adult"').sample(skew_labels_to_keep)
-    other_label_samples = data.query('who_am_I == "child"').sample(total_sample_size - skew_labels_to_keep)
-
-    #concatenate the two dataframes together
-    skewed_label_samples = (skewed_label_samples.append(other_label_samples))
-
-    #shuffle data
-    skewed_label_samples = skewed_label_samples.sample(frac=1).reset_index(drop=True)
-
-    #save data
-    skewed_label_samples.to_csv("data/" + out_file, index=False)
-    print(out_file + " is saved.")
-
-
-def generate_score_first_data(total_samples=2001, out_file = "medium_data.csv"):
+def data_generator(fraction=0.5, total_samples=2001, out_file = "medium_data.csv"):
 
     #sample number should be greater than 10
     if total_samples <= 10:
@@ -71,8 +41,8 @@ def generate_score_first_data(total_samples=2001, out_file = "medium_data.csv"):
         return
 
     #We will make half of the data kids and the other half adults.
-    num_samples_kids = int((total_samples)/2)
-    num_samples_adults = total_samples - num_samples_kids
+    num_samples_adults = int((total_samples) * fraction)
+    num_samples_kids = total_samples - num_samples_adults
 
     #generate the score first
     score = np.concatenate((np.zeros((num_samples_kids,1)), np.ones((num_samples_adults,1))))
@@ -116,16 +86,15 @@ def generate_score_first_data(total_samples=2001, out_file = "medium_data.csv"):
 if __name__ == "__main__":
 
     # #project 1 and 2 DATASETS
-    generate_score_first_data(1000, "age_project_1_and_2.csv") #500 in total
+    data_generator(total_samples=1000, out_file="age_project_1_and_2.csv") #1000 in total
 
 
     # #project 3 DATASETS
-    generate_score_first_data(5000, "age_project_3_full.csv") #5000 in total 
-    skew_data(2500) #only one adult example
-    skew_data(2500, 0.1, out_file="age_project_3_10_percent_adults.csv")
-    skew_data(2500, 0.3, out_file="age_project_3_30_percent_adults.csv")
-    skew_data(2500, 0.5, out_file="age_project_3_50_percent_adults.csv")
-    skew_data(2500, 0.75, out_file="age_project_3_75_percent_adults.csv")
+    data_generator(0.0004, 2500, out_file="age_3_project_one_bad_adult.csv") #only one adult example
+    data_generator(0.1, 2500, out_file="age_project_3_10_percent_adults.csv")
+    data_generator(0.3, 2500, out_file="age_project_3_30_percent_adults.csv")
+    data_generator(0.5, 2500, out_file="age_project_3_50_percent_adults.csv")
+    data_generator(0.75, 2500, out_file="age_project_3_75_percent_adults.csv")
 
     #project 4 DATASET
     flip_data(out_file="age_project_4_corrupted_10_percent.csv", fraction=0.1)
