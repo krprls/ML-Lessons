@@ -79,7 +79,6 @@ if __name__ == "__main__":
         new_ml_prediction = get_prediction(new_url, data) #from bigger dataset
 
         tries += 1
-        print("Keep in mind s = sad and h = happy")
         user_validation = input("Was the prediction based on the newer model, \"" + new_ml_prediction + "\", correct? (y/n)\n")
 
         if user_validation.lower() == "y":

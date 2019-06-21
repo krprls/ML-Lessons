@@ -25,10 +25,10 @@ def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.1
 
 #calculate and print out the prediction based on CONDITIONS
 def get_conditional_prediction(mood):
-    prediction = "h"
+    prediction = "happy"
 
     if "fat" in mood or "sad" in mood:
-        prediction = "s"
+        prediction = "sad"
 
     return prediction
 
@@ -81,7 +81,6 @@ if __name__ == "__main__":
         rules_prediction = get_conditional_prediction(mood)
 
         total_tries += 1
-        print("Keep in mind s = sad and h = happy")
         user_validation = input("Was the rules prediction \"" + rules_prediction + "\" correct? (y/n)\n")
 
         if user_validation.lower() == "y":

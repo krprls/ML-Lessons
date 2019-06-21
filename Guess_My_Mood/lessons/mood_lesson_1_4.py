@@ -66,7 +66,6 @@ if __name__ == "__main__":
         get_prediction(data)
 
         tries += 1
-        print("Keep in mind s = sad and h = happy.")
         correct = input("Was our prediction correct?(y/n)\n")
 
         if correct.lower() == "y":
