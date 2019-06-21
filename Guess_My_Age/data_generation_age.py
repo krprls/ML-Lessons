@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 
 #project 4--FLIP DATA POINTS
-def flip_data(file_name="age_project_3_full.csv", file_save="age_project_4_corrupted_100_percent.csv", fraction=1):
-     data = pd.read_csv("data/" + file_name)
+def flip_data(in_file="age_project_3_full.csv", out_file="age_project_4_corrupted_100_percent.csv", fraction=1):
+     data = pd.read_csv("data/" + in_file)
 
      if fraction == 1:
           data.loc[data['who_am_I'] == 'adult', 'who_am_I'] = 'a'
@@ -27,21 +27,43 @@ def flip_data(file_name="age_project_3_full.csv", file_save="age_project_4_corru
      
    
      data_header = 'num_countries,years_school,height,who_am_I'
-     np.savetxt('data/' + file_save ,data,header=data_header, fmt='%s', delimiter=',', comments='')
-     print(file_save+ " data saved")
+     np.savetxt('data/' + out_file ,data,header=data_header, fmt='%s', delimiter=',', comments='')
+     print(out_file + " data saved")
 
 
-#project 3---RETAIN ONLY X % OF ADULTS
-def extract_fraction(file_name="age_project_3_full.csv", file_save="age_project_3_one_adult.csv", number=1):
-    data = pd.read_csv("data/" + file_name)
-    data = data.drop(data.query('who_am_I == "adult"').sample(int(len(data.index)/2 - number)).index)
-    #np.random.shuffle(data)
-    data_header = 'num_countries,years_school,height,who_am_I'
-    np.savetxt('data/' + file_save ,data,header=data_header, fmt='%s', delimiter=',', comments='')
-    print(file_save+ " data saved")
+
+def skew_data(total_sample_size, fraction=0.0004, in_file="age_project_3_full.csv", out_file="age_project_3_one_bad_adult.csv"):
+
+    """
+        Generate data that contain a certain fraction of sad samples
+        Args:
+            total_sample_size (int): Total number of samples to be generated in data
+            fraction (float): Fraction of samples that should be sad
+            in_file: the file_name to which you want to save the data
+            out_file: The file from where you are reading the data. 
+        Returns: N/A
+    """
+    data = pd.read_csv("data/" + in_file)
+
+    #get fraction of sad samples to keep
+    skew_labels_to_keep = int(total_sample_size * fraction)
+
+    #sample labels
+    skewed_label_samples = data.query('who_am_I == "adult"').sample(skew_labels_to_keep)
+    other_label_samples = data.query('who_am_I == "child"').sample(total_sample_size - skew_labels_to_keep)
+
+    #concatenate the two dataframes together
+    skewed_label_samples = (skewed_label_samples.append(other_label_samples))
+
+    #shuffle data
+    skewed_label_samples = skewed_label_samples.sample(frac=1).reset_index(drop=True)
+
+    #save data
+    skewed_label_samples.to_csv("data/" + out_file, index=False)
+    print(out_file + " is saved.")
 
 
-def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv"):
+def generate_score_first_data(total_samples=2001, out_file = "medium_data.csv"):
 
     #sample number should be greater than 10
     if total_samples <= 10:
@@ -58,7 +80,7 @@ def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv")
     score = score.astype(int)
 
     #height follows a gaussian distribution
-    height = np.array([np.random.normal(5.5,0.3) if i==1 else np.random.uniform(2,6) for i in score]).reshape(-1,1)
+    height = np.array([np.random.normal(5.5,0.3) if i == 1 else np.random.uniform(2,6) for i in score]).reshape(-1,1)
     num_countries = np.array([np.random.randint(0,i+5) if i < 3 else np.random.randint(0,10) for i in height]).reshape(-1,1)
     years_school = np.array([np.random.randint(0,i) if i <= 4 else np.random.randint(0,20) for i in height]).reshape(-1,1)
 
@@ -84,8 +106,8 @@ def generate_score_first_data(total_samples=2001, file_name = "medium_data.csv")
 
 
     data_header = 'num_countries,years_school,height,who_am_I'
-    np.savetxt('data/' + file_name ,dataset,header=data_header, fmt='%s', delimiter=',', comments='')
-    print(file_name + " data saved")
+    np.savetxt('data/' + out_file ,dataset,header=data_header, fmt='%s', delimiter=',', comments='')
+    print(out_file + " data saved")
     # print(dataset)
 
 
@@ -98,16 +120,16 @@ if __name__ == "__main__":
 
 
     # #project 3 DATASETS
-    generate_score_first_data(3400, "age_project_3_full.csv") #3400 in total 
-    extract_fraction() #only one adult in dataset
-    extract_fraction(file_save="age_project_3_10_percent_adults.csv",number=170)
-    extract_fraction(file_save="age_project_3_30_percent_adults.csv",number=510)
-    extract_fraction(file_save="age_project_3_50_percent_adults.csv",number=850)
-    extract_fraction(file_save="age_project_3_75_percent_adults.csv",number=1275)
+    generate_score_first_data(5000, "age_project_3_full.csv") #5000 in total 
+    skew_data(2500) #only one adult example
+    skew_data(2500, 0.1, out_file="age_project_3_10_percent_adults.csv")
+    skew_data(2500, 0.3, out_file="age_project_3_30_percent_adults.csv")
+    skew_data(2500, 0.5, out_file="age_project_3_50_percent_adults.csv")
+    skew_data(2500, 0.75, out_file="age_project_3_75_percent_adults.csv")
 
     #project 4 DATASET
-    flip_data(file_save="age_project_4_corrupted_10_percent.csv", fraction=0.1)
-    flip_data(file_save="age_project_4_corrupted_50_percent.csv", fraction=0.5)
+    flip_data(out_file="age_project_4_corrupted_10_percent.csv", fraction=0.1)
+    flip_data(out_file="age_project_4_corrupted_50_percent.csv", fraction=0.5)
     flip_data() #100% of data flipped
 
 
