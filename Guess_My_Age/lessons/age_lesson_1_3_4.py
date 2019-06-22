@@ -3,7 +3,7 @@ import json as json
 import numpy as np
 
 
-
+#calculate and print out the prediction based on ML 
 def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.14}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
