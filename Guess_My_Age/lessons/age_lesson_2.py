@@ -11,7 +11,7 @@ def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.1
     response = json.loads(response)
     prediction_object = json.loads(response['body'])
 
-    if "dummy response" in prediction_object['Message']:
+    if 'Message' in prediction_object and "dummy response" in prediction_object['Message']:
         print("Please train your model to get better predictions.")
     
     if 'predicted_label' in prediction_object:
