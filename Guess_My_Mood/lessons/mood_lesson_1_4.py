@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
         data = {"sentence": mood}
 
-        get_prediction(data)
+        get_prediction(url, data)
 
         tries += 1
         correct = input("Was our prediction correct?(y/n)\n")
