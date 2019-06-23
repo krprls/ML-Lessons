@@ -34,7 +34,7 @@ def get_rules_prediction(sentence="I am ambitious"):
     else:
         response = "unsure"
     
-    print("ML prediction: " + response)
+    print("Rules prediction: " + response)
     return response
 
 
