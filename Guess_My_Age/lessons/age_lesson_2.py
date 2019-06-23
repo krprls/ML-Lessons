@@ -30,6 +30,8 @@ def get_conditional_prediction(countries, years, height):
     if countries > 10 and years > 10 and height > 3:
         prediction = "adult"
 
+
+    print("Rules prediction: ", prediction)
     return prediction
 
 def get_validated_input(question, input_type):
@@ -81,7 +83,7 @@ if __name__ == "__main__":
         data = {"num_countries":visited_countries, "years_school":years_in_school, "height":height}
 
         ml_prediction = get_prediction(url, data)
-        rules_prediction = get_conditional_prediction(visited_countries, years_in_school, height)
+        rules_prediction = get_conditional_prediction(int(visited_countries), int(years_in_school), float(height))
 
         total_tries += 1
         user_validation = input("Was the rules prediction \"" + rules_prediction + "\" correct? (y/n)\n")
