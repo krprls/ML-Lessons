@@ -58,6 +58,7 @@ if __name__ == "__main__":
     while base_url not in url:
         print("Please make sure your endpoint URL starts with " + base_url)
         url = get_validated_input("What is your endpoint URL?\n", 'string')
+    url = url.strip()
 
     while play.lower() == "y":
         trait = get_validated_input("Tell me something about yourself!\n",'string')
