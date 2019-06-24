@@ -72,14 +72,14 @@ if __name__ == "__main__":
     while base_url not in old_url:
         print("Please make sure your endpoint URL starts with " + base_url)
         old_url = get_validated_input("What is your endpoint URL from your OLDER (i.e., with smaller dataset) Ai service?\n", 'string')
-    old_url = url.strip()
+    old_url = old_url.strip()
 
 
     new_url = input("What is your endpoint URL from your NEWER (i.e., with larger dataset) Ai service?\n")
     while base_url not in new_url:
         print("Please make sure your endpoint URL starts with " + base_url)
         new_url = get_validated_input("What is your endpoint URL from your NEWER (i.e., with larger dataset) Ai service?\n", 'string')
-    new_url = url.strip()
+    new_url = new_url.strip()
 
     play = "y"
     while play.lower() == "y":
