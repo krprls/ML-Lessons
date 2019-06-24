@@ -89,7 +89,7 @@ if __name__ == "__main__":
             correct_rules_tries += 1
             if ml_prediction == rules_prediction:
                 correct_ml_tries += 1
-        elif: ml_prediction != rules_prediction and ml_prediction != "This model is unable to predict at this point.":
+        elif ml_prediction != rules_prediction and ml_prediction != "This model is unable to predict at this point.":
                 correct_ml_tries += 1
         
         print("Correct ML Tries: ", correct_ml_tries, " out of ", total_tries)
