@@ -42,19 +42,21 @@ def get_validated_input(question, input_type):
         if input_type == 'float':
             try:
                 user_input = float(variable)
+                break
             except ValueError:
                 variable = input("You must enter a float (e.g.: 1.3).\n" + question)
         elif input_type == 'integer':
             try:
                 user_input = int(variable)
+                break
             except ValueError:
                 variable = input("You must enter an integer (e.g.: 1).\n" + question)
         elif input_type == 'string':
              try:
                 user_input = str(variable)
+                break
              except ValueError:
                 variable = input("You must enter a string.\n" + question)
-        break
     return variable
 
 if __name__ == "__main__":
