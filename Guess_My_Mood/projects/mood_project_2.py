@@ -30,6 +30,8 @@ def get_conditional_prediction(mood):
     if "bad" in mood or "sad" in mood:
         prediction = "sad"
 
+
+    print("Rules prediction: ", prediction)
     return prediction
 
 
@@ -87,8 +89,9 @@ if __name__ == "__main__":
             correct_rules_tries += 1
             if ml_prediction == rules_prediction:
                 correct_ml_tries += 1
-        elif ml_prediction != rules_prediction and ml_prediction != "This model is unable to predict at this point.":
-            correct_ml_tries += 1
+        else:
+            if ml_prediction != rules_prediction and ml_prediction != "This model is unable to predict at this point.":
+                correct_ml_tries += 1
         
         print("Correct ML Tries: ", correct_ml_tries, " out of ", total_tries)
         print("Correct Rules Tries: ", correct_rules_tries, " out of ", total_tries)
