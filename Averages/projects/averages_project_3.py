@@ -5,7 +5,7 @@ import numpy as np
 
 
 #calculate and print out the prediction based on ML
-def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
+def get_prediction(dataset_size, url, data={"A":48,"B":23,"C":38,"D":54}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
@@ -19,7 +19,11 @@ def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
     else:
         label = "This model is unable to predict at this point."
 
-    print("ML prediction: ", label)
+    if dataset_size == "small":
+        print("ML prediction (smaller dataset): ", label)
+    else:
+        print("ML prediction (bigger dataset): ", label)
+
     return label
 
 #calculate and print out the prediction based on FORMULA
@@ -68,17 +72,17 @@ if __name__ == "__main__":
 
     print("Hello! Today we are going to try to compute the average of four numbers with a Machine Learning model!")
 
-    old_url = input("What is your endpoint URL from your OLDER (i.e., with smaller dataset) Ai service?\n")
+    old_url = input("What is your endpoint URL from your SMALLER (i.e., with smaller dataset) Ai service?\n")
     while base_url not in old_url:
         print("Please make sure your endpoint URL starts with " + base_url)
-        old_url = get_validated_input("What is your endpoint URL from your OLDER (i.e., with smaller dataset) Ai service?\n", 'string')
+        old_url = get_validated_input("What is your endpoint URL from your SMALLER (i.e., with smaller dataset) Ai service?\n", 'string')
     old_url = old_url.strip()
 
 
-    new_url = input("What is your endpoint URL from your NEWER (i.e., with larger dataset) Ai service?\n")
+    new_url = input("What is your endpoint URL from your BIGGER (i.e., with larger dataset) Ai service?\n")
     while base_url not in new_url:
         print("Please make sure your endpoint URL starts with " + base_url)
-        new_url = get_validated_input("What is your endpoint URL from your NEWER (i.e., with larger dataset) Ai service?\n", 'string')
+        new_url = get_validated_input("What is your endpoint URL from your BIGGER (i.e., with larger dataset) Ai service?\n", 'string')
     new_url = new_url.strip()
 
     play = "y"
@@ -93,8 +97,8 @@ if __name__ == "__main__":
 
         #pass in the data
         data = {"A": num1, "B": num2,"C": num3, "D": num4}
-        old_ml_prediction = get_prediction(old_url, data) #from smaller dataset
-        new_ml_prediction = get_prediction(new_url, data) #from bigger dataset
+        old_ml_prediction = get_prediction("small", old_url, data) #from smaller dataset
+        new_ml_prediction = get_prediction("big", new_url, data) #from bigger dataset
 
         ave_via_formula = formula(num1, num2, num3, num4)
 
@@ -109,10 +113,10 @@ if __name__ == "__main__":
             trial_error_new = abs(new_ml_prediction - ave_via_formula)
             average_error_new = (average_error_new + trial_error_new) / tries
 
-        print("Error for this trial, OLDER dataset: ", trial_error_old)
-        print("Error for this trial, NEWER dataset: ", trial_error_new)
-        print("Average Error, OLDER dataset: ", average_error_old)
-        print("Average Error, NEWER dataset: ", average_error_new)
+        print("Error for this trial, SMALLER dataset: ", trial_error_old)
+        print("Error for this trial, BIGGER dataset: ", trial_error_new)
+        print("Average Error, SMALLER dataset: ", average_error_old)
+        print("Average Error, BIGGER dataset: ", average_error_new)
         print("Total trials: ", tries)
   
         
