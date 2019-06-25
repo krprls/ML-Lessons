@@ -16,7 +16,7 @@ def get_prediction(url, data={"description:", "I love to help others!"}):
     if 'predicted_label' in prediction_object:
         label = prediction_object['predicted_label']
     else:
-        label = "This model is unable to predict at this point."
+        label = "Unable to recognize what was typed. Please write something else."
 
     print("ML prediction: ", label)
     return label
