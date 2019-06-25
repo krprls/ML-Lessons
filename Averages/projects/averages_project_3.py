@@ -5,7 +5,7 @@ import numpy as np
 
 
 #calculate and print out the prediction based on ML
-def get_prediction(dataset_size, url, data={"A":48,"B":23,"C":38,"D":54}):
+def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
@@ -18,11 +18,6 @@ def get_prediction(dataset_size, url, data={"A":48,"B":23,"C":38,"D":54}):
         label = prediction_object['predicted_label']
     else:
         label = "This model is unable to predict at this point."
-
-    if dataset_size == "small":
-        print("ML prediction (smaller dataset): ", label)
-    else:
-        print("ML prediction (bigger dataset): ", label)
 
     return label
 
@@ -97,8 +92,11 @@ if __name__ == "__main__":
 
         #pass in the data
         data = {"A": num1, "B": num2,"C": num3, "D": num4}
-        old_ml_prediction = get_prediction("small", old_url, data) #from smaller dataset
-        new_ml_prediction = get_prediction("big", new_url, data) #from bigger dataset
+        old_ml_prediction = get_prediction(old_url, data) #from smaller dataset
+        print("ML prediction (smaller dataset): ", old_ml_prediction)
+
+        new_ml_prediction = get_prediction(new_url, data) #from bigger dataset
+        print("ML prediction (bigger dataset): ", new_ml_prediction)
 
         ave_via_formula = formula(num1, num2, num3, num4)
 
