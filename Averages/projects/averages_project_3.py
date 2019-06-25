@@ -67,17 +67,17 @@ if __name__ == "__main__":
 
     print("Hello! Today we are going to try to compute the average of four numbers with a Machine Learning model!")
 
-    old_url = input("What is your endpoint URL from your SMALLER (i.e., with smaller dataset) Ai service?\n")
+    old_url = input("What is your endpoint URL from your OLDER (i.e., with smaller dataset) Ai service?\n")
     while base_url not in old_url:
         print("Please make sure your endpoint URL starts with " + base_url)
-        old_url = get_validated_input("What is your endpoint URL from your SMALLER (i.e., with smaller dataset) Ai service?\n", 'string')
+        old_url = get_validated_input("What is your endpoint URL from your OLDER (i.e., with smaller dataset) Ai service?\n", 'string')
     old_url = old_url.strip()
 
 
-    new_url = input("What is your endpoint URL from your BIGGER (i.e., with larger dataset) Ai service?\n")
+    new_url = input("What is your endpoint URL from your NEWER (i.e., with larger dataset) Ai service?\n")
     while base_url not in new_url:
         print("Please make sure your endpoint URL starts with " + base_url)
-        new_url = get_validated_input("What is your endpoint URL from your BIGGER (i.e., with larger dataset) Ai service?\n", 'string')
+        new_url = get_validated_input("What is your endpoint URL from your NEWER (i.e., with larger dataset) Ai service?\n", 'string')
     new_url = new_url.strip()
 
     play = "y"
