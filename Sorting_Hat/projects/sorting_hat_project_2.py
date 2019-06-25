@@ -10,9 +10,9 @@ def get_prediction(url, data={"description:", "I love to help others!"}):
     response = json.loads(response)
     prediction_object = json.loads(response['body'])
 
-    if "dummy response" in prediction_object['Message']:
+    if 'Message' in prediction_object and "dummy response" in prediction_object['Message']:
         print("Please train your model to get better predictions.")
-
+    
     if 'predicted_label' in prediction_object:
         label = prediction_object['predicted_label']
     else:
@@ -33,7 +33,7 @@ def get_rules_prediction(sentence="I am ambitious"):
         response = "Gryffindor"
     else:
         response = "unsure"
-
+    
     print("Rules prediction: " + response)
     return response
 
@@ -72,13 +72,12 @@ if __name__ == "__main__":
     base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
 
     print("Today we will use ML to sort you into a Harry Potter wizard house!")
-
+ 
     url = input("What is your endpoint URL?\n")
     while base_url not in url:
         print("Please make sure your endpoint URL starts with " + base_url)
         url = get_validated_input("What is your endpoint URL?\n", 'string')
-    url = url.strip()
-
+    
     while play.lower() == "y":
         trait = get_validated_input("Tell me something about yourself!\n",'string')
 
@@ -97,6 +96,9 @@ if __name__ == "__main__":
             if correct_response.lower() == "y":
                 correct_rules += 1
 
+      
+
         print("Correct ML: ", correct_ml, " out of ", tries)
         print("Correct Rules: ", correct_rules, " out of ", tries)
         play = input("Want to try again? (y/n)\n")
+    
