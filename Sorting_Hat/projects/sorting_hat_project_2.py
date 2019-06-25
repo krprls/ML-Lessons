@@ -20,7 +20,6 @@ def get_prediction(url, data={"description:", "I love to help others!"}):
     print("ML Prediction: ", label)
     return label
 
-
 def get_rules_prediction(sentence="I am ambitious"):
     if "ambitious" in sentence:
         response = "Slytherin"
@@ -35,7 +34,6 @@ def get_rules_prediction(sentence="I am ambitious"):
     
     print("Rules prediction: " + response)
     return response
-
 
 def get_validated_input(question,input_type):
 
@@ -61,7 +59,6 @@ def get_validated_input(question,input_type):
     return variable
 
 if __name__ == "__main__":
-
 
     correct_rules = 0
     correct_ml = 0

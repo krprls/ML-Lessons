@@ -20,7 +20,6 @@ def get_prediction(url, data={"sentence:", "I love to help others!"}):
     print("ML prediction: ", label)
     return label
 
-
 #calculate and print out the prediction based on CONDITIONS
 def get_conditional_prediction(mood):
     prediction = "happy"

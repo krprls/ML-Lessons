@@ -41,7 +41,6 @@ def get_validated_input(question, input_type):
     return variable
 
 
-
 if __name__ == "__main__":
 
     correct_tries = 0
@@ -64,7 +63,6 @@ if __name__ == "__main__":
         data = {"sentence": mood}
 
         ml_prediction = get_prediction(url, data)
-
 
         if ml_prediction != "Unable to predict":
             tries += 1
