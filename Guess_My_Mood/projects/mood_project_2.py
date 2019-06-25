@@ -31,7 +31,6 @@ def get_conditional_prediction(mood):
     print("Rules prediction: ", prediction)
     return prediction
 
-
 def get_validated_input(question, input_type):
 
     variable = input(question)

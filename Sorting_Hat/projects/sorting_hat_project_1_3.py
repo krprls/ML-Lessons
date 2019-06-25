@@ -20,7 +20,6 @@ def get_prediction(url, data={"description:", "I love to help others!"}):
     print("ML Prediction: ", label)
     return label
 
-
 def get_validated_input(question,input_type):
 
     variable = input(question)
@@ -68,10 +67,9 @@ if __name__ == "__main__":
         if ml_prediction != "Unable to predict":
             tries += 1
             correct = input("Was the model's prediction correct? (y/n)\n")
-
             if correct.lower() == "y":
                 correct_tries += 1 
-        
+
         print("Correct Tries: ", correct_tries,  " out of ", tries)
 
         play = input("Want to try again? (y/n)\n")

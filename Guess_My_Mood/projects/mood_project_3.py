@@ -39,7 +39,6 @@ def get_validated_input(question, input_type):
         break
     return variable
 
-
 if __name__ == "__main__":
 
     tries = 0
