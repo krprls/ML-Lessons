@@ -2,19 +2,17 @@ import requests
 import json as json
 import numpy as np
 
-def get_prediction(url, data={"sentence": "I am happy."}):
+def get_prediction(url, data={"sentence:", "I love to help others!"}):
     r = requests.post(url, data=json.dumps(data))
-    response = getattr(r, '_content').decode("utf-8")
+    response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
     prediction_object = json.loads(response['body'])
 
-    if "dummy response" in prediction_object['Message']:
+    if 'Message' in prediction_object and "dummy response" in prediction_object['Message']:
         print("Please train your model to get better predictions.")
     
     if 'predicted_label' in prediction_object:
         label = prediction_object['predicted_label']
-    else:
-        label = "This model is unable to predict at this point."
 
     print("ML prediction: ", label)
     return label
@@ -65,13 +63,15 @@ if __name__ == "__main__":
 
         data = {"sentence": mood}
 
-        get_prediction(url, data)
+        ml_prediction = get_prediction(url, data)
 
-        tries += 1
-        correct = input("Was our prediction correct?(y/n)\n")
 
-        if correct.lower() == "y":
-            correct_tries += 1
+        if ml_prediction != "Unable to predict":
+            tries += 1
+            correct = input("Was our prediction correct?(y/n)\n")
+
+            if correct.lower() == "y":
+                correct_tries += 1
 
         print("Correct Tries: ", correct_tries, " out of ", tries)
         play = input("Want to try again? (y/n)\n")

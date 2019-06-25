@@ -2,8 +2,8 @@ import requests
 import json as json
 import numpy as np
 
-#calculate and print out the prediction based on ML
-def get_prediction(url, data={"sentence": "I am happy."}):
+#calculate and print out the prediction based on ML 
+def get_prediction(url, data={"sentence:", "I love to help others!"}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
@@ -14,12 +14,8 @@ def get_prediction(url, data={"sentence": "I am happy."}):
     
     if 'predicted_label' in prediction_object:
         label = prediction_object['predicted_label']
-    else:
-        label = "This model is unable to predict at this point."
 
-    print("ML prediction: ", label)
     return label
-
 
 def get_validated_input(question, input_type):
 
@@ -77,17 +73,20 @@ if __name__ == "__main__":
         #pass in the data
         data = {"sentence": mood}
         old_ml_prediction = get_prediction(old_url, data) #from smaller dataset
+        print("ML prediction (smaller dataset): ", old_ml_prediction)
+
         new_ml_prediction = get_prediction(new_url, data) #from bigger dataset
-
-        tries += 1
-        user_validation = input("Was the prediction based on the newer model, \"" + new_ml_prediction + "\", correct? (y/n)\n")
-
-        if user_validation.lower() == "y":
-            correct_new_tries += 1
-            if old_ml_prediction == new_ml_prediction:
+        print("ML prediction (bigger dataset): ", new_ml_prediction)
+        
+        if old_ml_prediction != "Unable to predict" and new_ml_prediction != "Unable to predict":
+            tries += 1
+            user_validation = input("Was the prediction based on the newer model, \"" + new_ml_prediction + "\", correct? (y/n)\n")
+            if user_validation.lower() == "y":
+                correct_new_tries += 1
+                if old_ml_prediction == new_ml_prediction:
+                    correct_old_tries += 1
+            elif old_ml_prediction != new_ml_prediction:
                 correct_old_tries += 1
-        elif old_ml_prediction != new_ml_prediction and old_ml_prediction != "This model is unable to predict at this point.":
-            correct_old_tries += 1
         
 
         print("Correct tries, OLDER dataset: ", correct_old_tries)

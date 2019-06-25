@@ -4,6 +4,7 @@ import numpy as np
 
 
 
+#calculate and print out the prediction based on ML 
 def get_prediction(url, data={"description:", "I love to help others!"}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
@@ -15,10 +16,8 @@ def get_prediction(url, data={"description:", "I love to help others!"}):
     
     if 'predicted_label' in prediction_object:
         label = prediction_object['predicted_label']
-    else:
-        label = "Unable to recognize what was typed. Please write something else."
 
-    print("ML prediction: ", label)
+    print("ML Prediction: ", label)
     return label
 
 
@@ -77,7 +76,8 @@ if __name__ == "__main__":
     while base_url not in url:
         print("Please make sure your endpoint URL starts with " + base_url)
         url = get_validated_input("What is your endpoint URL?\n", 'string')
-    
+    url = url.strip()  
+
     while play.lower() == "y":
         trait = get_validated_input("Tell me something about yourself!\n",'string')
 
@@ -85,19 +85,18 @@ if __name__ == "__main__":
         ml_prediction = get_prediction(url, data)
         rules_prediction = get_rules_prediction(trait)
 
-        tries += 1
-        correct_response = input("Is the model's prediction " + "\"" + ml_prediction + "\"" + " the correct response? (y/n)\n")
-        if correct_response.lower() == "y":
-            correct_ml += 1
-            if ml_prediction == rules_prediction:
-                correct_rules += 1
-        else:
-            correct_response = input("Is the rule's prediction " + "\"" + rules_prediction + "\"" + " the correct response? (y/n)\n")
+        if ml_prediction != "Unable to predict":
+            tries += 1
+            correct_response = input("Is the model's prediction " + "\"" + ml_prediction + "\"" + " the correct response? (y/n)\n")
             if correct_response.lower() == "y":
-                correct_rules += 1
-
-      
-
+                correct_ml += 1
+                if ml_prediction == rules_prediction:
+                    correct_rules += 1
+            else:
+                correct_response = input("Is the rule's prediction " + "\"" + rules_prediction + "\"" + " the correct response? (y/n)\n")
+                if correct_response.lower() == "y":
+                    correct_rules += 1
+        
         print("Correct ML: ", correct_ml, " out of ", tries)
         print("Correct Rules: ", correct_rules, " out of ", tries)
         play = input("Want to try again? (y/n)\n")

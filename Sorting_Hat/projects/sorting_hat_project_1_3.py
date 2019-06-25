@@ -4,6 +4,7 @@ import numpy as np
 
 
 
+#calculate and print out the prediction based on ML 
 def get_prediction(url, data={"description:", "I love to help others!"}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
@@ -15,11 +16,10 @@ def get_prediction(url, data={"description:", "I love to help others!"}):
     
     if 'predicted_label' in prediction_object:
         label = prediction_object['predicted_label']
-    else:
-        label = "Unable to recognize what was typed. Please write something else."
 
-    print("ML prediction: ", label)
+    print("ML Prediction: ", label)
     return label
+
 
 def get_validated_input(question,input_type):
 
@@ -44,7 +44,6 @@ def get_validated_input(question,input_type):
         break
     return variable
 
-
 if __name__ == "__main__":
 
     correct_tries = 0
@@ -64,13 +63,14 @@ if __name__ == "__main__":
         trait = get_validated_input("Tell me something about yourself!\n",'string')
 
         data = {"description": trait}
-        get_prediction(url, data)
+        ml_prediction = get_prediction(url, data)
 
-        tries += 1
-        correct = input("Was the model's prediction correct? (y/n)\n")
+        if ml_prediction != "Unable to predict":
+            tries += 1
+            correct = input("Was the model's prediction correct? (y/n)\n")
 
-        if correct.lower() == "y":
-            correct_tries += 1 
+            if correct.lower() == "y":
+                correct_tries += 1 
         
         print("Correct Tries: ", correct_tries,  " out of ", tries)
 

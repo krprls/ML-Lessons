@@ -5,19 +5,17 @@ import numpy as np
 
 
 #calculate and print out the prediction based on ML 
-def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.14}):
+def get_prediction(url, data={"sentence:", "I love to help others!"}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
     prediction_object = json.loads(response['body'])
 
-    if "dummy response" in prediction_object['Message']:
+    if 'Message' in prediction_object and "dummy response" in prediction_object['Message']:
         print("Please train your model to get better predictions.")
     
     if 'predicted_label' in prediction_object:
         label = prediction_object['predicted_label']
-    else:
-        label = "This model is unable to predict at this point."
 
     print("ML prediction: ", label)
     return label
@@ -83,6 +81,7 @@ if __name__ == "__main__":
         ml_prediction = get_prediction(url, data)
         rules_prediction = get_conditional_prediction(mood)
 
+
         total_tries += 1
         user_validation = input("Was the rules prediction \"" + rules_prediction + "\" correct? (y/n)\n")
 
@@ -90,9 +89,9 @@ if __name__ == "__main__":
             correct_rules_tries += 1
             if ml_prediction == rules_prediction:
                 correct_ml_tries += 1
-        elif ml_prediction != rules_prediction and ml_prediction != "This model is unable to predict at this point.":
+        elif ml_prediction != rules_prediction and ml_prediction != "Unable to predict":
                 correct_ml_tries += 1
-        
+            
         print("Correct ML Tries: ", correct_ml_tries, " out of ", total_tries)
         print("Correct Rules Tries: ", correct_rules_tries, " out of ", total_tries)
 
