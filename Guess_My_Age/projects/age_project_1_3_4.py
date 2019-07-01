@@ -28,9 +28,9 @@ def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.1
         label = prediction_object['predicted_label']
 
     print("ML prediction") 
-    print("Label: ", label)
-    print("Model: ", prediction_object['Model'])
-    print("Message: ", prediction_object['Message'])
+    print("\tLabel: ", label)
+    print("\tModel: ", prediction_object['Model'])
+    print("\tMessage: ", prediction_object['Message'])
     return label
 
 if __name__ == "__main__":
