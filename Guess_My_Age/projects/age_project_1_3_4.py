@@ -23,15 +23,11 @@ def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.1
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
     prediction_object = json.loads(response['body'])
-    label = ""
-
-    if 'Message' in prediction_object and "dummy response" in prediction_object['Message']:
-        print("Please train your model to get better predictions.")
-    
+    label = ""    
     if 'predicted_label' in prediction_object:
         label = prediction_object['predicted_label']
 
-    print("ML prediction: ", label)
+    print("ML prediction: ", label, ",", prediction_object['Message'])
     return label
 
 if __name__ == "__main__":
