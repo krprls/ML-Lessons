@@ -4,6 +4,51 @@ import numpy as np
 
 
 
+def main():
+
+    correct_ml_tries = 0
+    correct_rules_tries = 0
+    total_tries = 0
+
+    base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
+
+    play = "y"
+    print("Hello! Today we are going to use ML to guess whether you are a child or an adult!")
+
+    url = input("What is your endpoint URL?\n")
+    while base_url not in url:
+        print("Please make sure your endpoint URL starts with " + base_url)
+        url = get_validated_input("What is your endpoint URL?\n", 'string')
+    url = url.strip()
+    
+    while play.lower() == "y":
+
+        visited_countries = get_validated_input("How many countries have you visited?\n",'integer')
+        years_in_school = get_validated_input("How many years did you spend in school?\n",'integer')
+        height = get_validated_input("What is your height?\n",'float')
+
+    
+        data = {"num_countries":visited_countries, "years_school":years_in_school, "height":height}
+
+        ml_prediction = get_prediction(url, data)
+        rules_prediction = get_conditional_prediction(int(visited_countries), int(years_in_school), float(height))
+
+        total_tries += 1
+        user_validation = input("Was the rules prediction \"" + rules_prediction + "\" correct? (y/n)\n")
+
+        if user_validation.lower() == "y":
+            correct_rules_tries += 1
+            if ml_prediction == rules_prediction:
+                correct_ml_tries += 1
+        elif ml_prediction != rules_prediction and ml_prediction != "This model is unable to predict at this point.":
+            correct_ml_tries += 1
+        
+        print("Correct ML Tries: ", correct_ml_tries, " out of ", total_tries)
+        print("Correct Rules Tries: ", correct_rules_tries, " out of ", total_tries)
+
+        play = input("Want to try again? (y/n)\n")
+            
+
 #calculate and print out the prediction based on ML 
 def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.14}):
     r = requests.post(url, data=json.dumps(data))
@@ -60,47 +105,6 @@ def get_validated_input(question, input_type):
     return variable
 
 if __name__ == "__main__":
-
-    correct_ml_tries = 0
-    correct_rules_tries = 0
-    total_tries = 0
-
-    base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
-
-    play = "y"
-    print("Hello! Today we are going to use ML to guess whether you are a child or an adult!")
-
-    url = input("What is your endpoint URL?\n")
-    while base_url not in url:
-        print("Please make sure your endpoint URL starts with " + base_url)
-        url = get_validated_input("What is your endpoint URL?\n", 'string')
-    url = url.strip()
-    
-    while play.lower() == "y":
-
-        visited_countries = get_validated_input("How many countries have you visited?\n",'integer')
-        years_in_school = get_validated_input("How many years did you spend in school?\n",'integer')
-        height = get_validated_input("What is your height?\n",'float')
-
-    
-        data = {"num_countries":visited_countries, "years_school":years_in_school, "height":height}
-
-        ml_prediction = get_prediction(url, data)
-        rules_prediction = get_conditional_prediction(int(visited_countries), int(years_in_school), float(height))
-
-        total_tries += 1
-        user_validation = input("Was the rules prediction \"" + rules_prediction + "\" correct? (y/n)\n")
-
-        if user_validation.lower() == "y":
-            correct_rules_tries += 1
-            if ml_prediction == rules_prediction:
-                correct_ml_tries += 1
-        elif ml_prediction != rules_prediction and ml_prediction != "This model is unable to predict at this point.":
-            correct_ml_tries += 1
-        
-        print("Correct ML Tries: ", correct_ml_tries, " out of ", total_tries)
-        print("Correct Rules Tries: ", correct_rules_tries, " out of ", total_tries)
-
-        play = input("Want to try again? (y/n)\n")
+    main()
 
     
