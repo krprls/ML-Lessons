@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
 
     # #project 3 DATASETS
-    data_generator(0.0004, 2500, out_file="age_3_project_one_bad_adult.csv") #only one adult example
+    data_generator(0.0004, 2500, out_file="age_3_project_one_adult.csv") #only one adult example
     data_generator(0.1, 2500, out_file="age_project_3_10_percent_adults.csv")
     data_generator(0.3, 2500, out_file="age_project_3_30_percent_adults.csv")
     data_generator(0.5, 2500, out_file="age_project_3_50_percent_adults.csv")
