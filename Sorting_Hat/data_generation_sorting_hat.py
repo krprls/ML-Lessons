@@ -35,7 +35,7 @@ def skew_data(desired_fraction, data, dest_file_name):
 
 
 if __name__ == "__main__": 
-    path = '/'
+    path = 'data/'
     src_file = 'Sorting_Hat_Full_Dataset.csv'
     dataset = pd.read_csv(path + src_file)
 
