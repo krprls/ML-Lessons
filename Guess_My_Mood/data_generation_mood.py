@@ -3,7 +3,7 @@ import csv
 import numpy as np
 
 
-def skew_data(total_sample_size, fraction=0.01, in_file="mood_project_4_one_sad.csv", out_file="Guess_My_Mood_Full_Dataset.csv"):
+def skew_data(total_sample_size, fraction=0.01, in_file="Guess_My_Mood_Full_Dataset.csv", out_file="mood_project_4_one_sad.csv"):
 
     """
         Generate data that contain a certain fraction of sad samples
