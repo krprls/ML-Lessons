@@ -53,7 +53,7 @@ def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
     return label
 
 #calculate and print out the prediction based on FORMULA
-def formula(num1=50,num2=70,num3=80,num4=90):
+def formula(num1=50, num2=70, num3=80, num4=90):
 
     label = (float(num1) + float(num2) + float(num3) + float(num4)) / 4
 
