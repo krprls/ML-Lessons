@@ -13,12 +13,10 @@ def main():
     url = input("What is your endpoint URL?\n")
     url = url.strip()
     
-    play = "y"
-    while play == "y":
+    while True:
         visited_countries = input("How many countries have you visited?\n")
         years_in_school = input("How many years did you spend in school?\n")
         height = input("What is your height?\n")
-
 
         data = {"num_countries":visited_countries, "years_school":years_in_school, "height":height}
 
@@ -37,7 +35,6 @@ def main():
         
         print("Correct ML Tries: ", correct_ml_tries, " out of ", total_tries)
         print("Correct Rules Tries: ", correct_rules_tries, " out of ", total_tries)
-
         print("Press Ctrl + C to stop at anytime. Moving on to the next round.")
             
 
