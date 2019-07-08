@@ -21,8 +21,10 @@ def main():
 
         #pass in the data
         data = {"sentence": mood}
-        old_ml_prediction = get_prediction(old_url, 'smaller',  data) #from smaller dataset
-        new_ml_prediction = get_prediction(new_url, 'bigger', data) #from bigger dataset
+        print("ML prediction (smaller dataset)")
+        old_ml_prediction = get_prediction(old_url, data) #from smaller dataset
+        print("ML prediction (bigger dataset)")
+        new_ml_prediction = get_prediction(new_url, data) #from bigger dataset
         
         if old_ml_prediction != "Unable to predict" and new_ml_prediction != "Unable to predict":
             tries += 1
@@ -42,7 +44,7 @@ def main():
 
  
 #calculate and print out the prediction based on ML 
-def get_prediction(url, flag, data={"description:", "I love to help others!"}):
+def get_prediction(url, data={"description:", "I love to help others!"}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
@@ -50,11 +52,6 @@ def get_prediction(url, flag, data={"description:", "I love to help others!"}):
     label = ""    
     if 'predicted_label' in prediction_object:
         label = prediction_object['predicted_label']
-
-    if flag == 'smaller':
-        print("ML prediction (smaller dataset)")
-    else:
-        print("ML prediction (bigger dataset)")
 
     print("\tLabel: ", label)
     print("\tModel: ", prediction_object['Model'])
