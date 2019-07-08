@@ -31,7 +31,7 @@ def main():
             correct_rules_tries += 1
             if ml_prediction == rules_prediction:
                 correct_ml_tries += 1
-        elif ml_prediction != rules_prediction and ml_prediction != "Unable to predict.":
+        elif ml_prediction != rules_prediction and ml_prediction != "Unable to predict":
             correct_ml_tries += 1
         
         print("Correct ML Tries: ", correct_ml_tries, " out of ", total_tries)
