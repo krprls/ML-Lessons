@@ -11,6 +11,7 @@ def main():
     print("Hello! Today we are going to use ML to guess whether you are a child or an adult!")
 
     url = input("What is your endpoint URL?\n")
+    url = url.strip()
     
     play = "y"
     while play == "y":
