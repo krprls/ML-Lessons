@@ -13,7 +13,7 @@ def main():
 
     url = input("What is your endpoint URL?\n")
     url = url.strip()
-    
+
     while play == "y":
 
         mood = input("What's on your mind?\n")
@@ -39,7 +39,7 @@ def main():
 
 
 #calculate and print out the prediction based on ML 
-def get_prediction(url, data={"num_countries":48, "years_school":2, "height":5.14}):
+def get_prediction(url, data={"description:", "I am happy"}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
