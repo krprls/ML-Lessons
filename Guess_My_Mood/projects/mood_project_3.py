@@ -2,79 +2,27 @@ import requests
 import json as json
 import numpy as np
 
-#calculate and print out the prediction based on ML 
-def get_prediction(url, data={"sentence:", "I love to help others!"}):
-    r = requests.post(url, data=json.dumps(data))
-    response = getattr(r,'_content').decode("utf-8")
-    response = json.loads(response)
-    prediction_object = json.loads(response['body'])
 
-    if 'Message' in prediction_object and "dummy response" in prediction_object['Message']:
-        print("Please train your model to get better predictions.")
-    
-    if 'predicted_label' in prediction_object:
-        label = prediction_object['predicted_label']
-
-    return label
-
-def get_validated_input(question, input_type):
-
-    variable = input(question)
-    while True:
-        if input_type == 'float':
-            try:
-                user_input = float(variable)
-            except ValueError:
-                variable = input("You must enter a float (e.g.: 1.3).\n" + question)
-        elif input_type == 'integer':
-            try:
-                user_input = int(variable)
-            except ValueError:
-                variable = input("You must enter an integer (e.g.: 1).\n" + question)
-        elif input_type == 'string':
-             try:
-                user_input = str(variable)
-             except ValueError:
-                variable = input("You must enter a string.\n" + question)
-        break
-    return variable
-
-if __name__ == "__main__":
-
+def main():
     tries = 0
     correct_old_tries = correct_new_tries = 0
 
-    base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
-
-    play = "y"
     print("Hello! Today we will use machine learning to guess how you are feeling!")
 
     old_url = input("What is your endpoint URL from your OLDER (i.e., with smaller dataset) Ai service?\n")
-    while base_url not in old_url:
-        print("Please make sure your endpoint URL starts with " + base_url)
-        old_url = get_validated_input("What is your endpoint URL from your OLDER (i.e., with smaller dataset) Ai service?\n", 'string')
     old_url = old_url.strip()
 
-
     new_url = input("What is your endpoint URL from your NEWER (i.e., with larger dataset) Ai service?\n")
-    while base_url not in new_url:
-        print("Please make sure your endpoint URL starts with " + base_url)
-        new_url = get_validated_input("What is your endpoint URL from your NEWER (i.e., with larger dataset) Ai service?\n", 'string')
     new_url = new_url.strip()
 
-    while play.lower() == "y":
-        trial_error_new = trial_error_old = 0
-        
+    while True:
         #get user input
-        mood = get_validated_input("What's on your mind?\n", 'string')
+        mood = input("What's on your mind?\n")
 
         #pass in the data
         data = {"sentence": mood}
-        old_ml_prediction = get_prediction(old_url, data) #from smaller dataset
-        print("ML prediction (smaller dataset): ", old_ml_prediction)
-
-        new_ml_prediction = get_prediction(new_url, data) #from bigger dataset
-        print("ML prediction (bigger dataset): ", new_ml_prediction)
+        old_ml_prediction = get_prediction(old_url, 'smaller',  data) #from smaller dataset
+        new_ml_prediction = get_prediction(new_url, 'bigger', data) #from bigger dataset
         
         if old_ml_prediction != "Unable to predict" and new_ml_prediction != "Unable to predict":
             tries += 1
@@ -90,14 +38,29 @@ if __name__ == "__main__":
         print("Correct tries, OLDER dataset: ", correct_old_tries)
         print("Correct tries, NEWER dataset: ", correct_new_tries)
         print("Total trials: ", tries)
-        
-        play = input("Want to play again? (y/n)\n")
+        print("Press Ctrl + C to stop at anytime. Moving on to the next round.")
+
  
+#calculate and print out the prediction based on ML 
+def get_prediction(url, flag, data={"description:", "I love to help others!"}):
+    r = requests.post(url, data=json.dumps(data))
+    response = getattr(r,'_content').decode("utf-8")
+    response = json.loads(response)
+    prediction_object = json.loads(response['body'])
+    label = ""    
+    if 'predicted_label' in prediction_object:
+        label = prediction_object['predicted_label']
 
+    if flag == 'smaller':
+        print("ML prediction (smaller dataset)")
+    else:
+        print("ML prediction (bigger dataset)")
+
+    print("\tLabel: ", label)
+    print("\tModel: ", prediction_object['Model'])
+    print("\tMessage: ", prediction_object['Message'])
+    return label
+
+if __name__ == "__main__":
+    main()
     
-
-
-
-
-
-
