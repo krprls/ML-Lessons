@@ -2,7 +2,6 @@ import requests
 import json as json
 import numpy as np
 
-
 def main():
     tries = 0
     trial_error = 0
@@ -61,7 +60,6 @@ def formula(num1=50,num2=70,num3=80,num4=90):
     print("Average via Formula")
     print("\tLabel: ", label)
     return label
-
 
 if __name__ == "__main__":
     main()
