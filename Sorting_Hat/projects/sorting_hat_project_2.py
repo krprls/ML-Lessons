@@ -8,13 +8,12 @@ def main():
     correct_ml = 0
     tries = 0
 
-    play = "y"
     print("Today we will use ML to sort you into a Harry Potter wizard house!")
  
     url = input("What is your endpoint URL?\n")
     url = url.strip()  
 
-    while play.lower() == "y":
+    while True:
         trait = input("Tell me something about yourself!\n")
 
         data = {"description": trait}

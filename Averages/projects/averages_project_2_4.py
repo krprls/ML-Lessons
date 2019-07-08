@@ -12,8 +12,7 @@ def main():
     url = input("What is your endpoint URL?\n")
     url = url.strip()
 
-    play = "y"
-    while play.lower() == "y":
+    while True:
         num1 = input("Please enter your first number: ")
         num2 = input("Please enter your second number: ")
         num3 = input("Please enter your third number: ")

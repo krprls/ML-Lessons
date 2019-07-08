@@ -8,13 +8,12 @@ def main():
     correct_rules_tries = 0
     total_tries = 0
 
-    play = "y"
     print("Hello! Today we will use machine learning to guess how you are feeling!")
 
     url = input("What is your endpoint URL?\n")
     url = url.strip()
 
-    while play == "y":
+    while True:
 
         mood = input("What's on your mind?\n")
         data = {"sentence": mood}
