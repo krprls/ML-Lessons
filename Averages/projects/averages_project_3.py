@@ -4,7 +4,6 @@ import numpy as np
 
 def main():
     tries = 0
-    base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
     average_error_new = average_error_old = 0
 
     print("Hello! Today we are going to try to compute the average of four numbers with a Machine Learning model!")
