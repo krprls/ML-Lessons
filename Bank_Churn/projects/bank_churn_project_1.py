@@ -23,12 +23,9 @@ def main():
     #pass in the data
     data = {"CreditScore": credit_score, "Age": age, "Tenure": tenure, "Balance": balance, "NumOfProducts": products,
                 "HasCrCard": is_credit_card_holder, "IsActiveMember": is_active_member, "EstimatedSalary": salary}
-
     
     get_prediction(url, data)
     print("(1.0 means \"exited\", 0.0 means \"has not exited\")")
-
-    
 
 def get_prediction(url, data={"CreditScore": 600, "Age": 35, "Tenure": 5, "Balance": 47575.50, "NumOfProducts": 5,
                                     "HasCrCard": 1, "IsActiveMember": 1, "EstimatedSalary": 300000.50}):
@@ -45,7 +42,6 @@ def get_prediction(url, data={"CreditScore": 600, "Age": 35, "Tenure": 5, "Balan
     print("\tModel: ", prediction_object['Model'])
     # print("\tMessage: ", prediction_object['Message']) #UNCOMMENT WHEN MESSAGE IS PART OF REGRESSION MODELS
     return label
-
 
 if __name__ == "__main__":
     main()
