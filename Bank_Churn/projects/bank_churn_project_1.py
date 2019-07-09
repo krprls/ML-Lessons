@@ -16,8 +16,8 @@ def main():
     tenure = input("How many years has this person been with the bank?\n")
     balance = input("What is this person's bank account balance?\n")
     products = input("How many products does this person have?\n")
-    is_credit_card_holder = input("Does this person have a credit card? (enter 1 for yes and 0 for no)\n")
-    is_active_member = input("Is this person an active member of the bank? (enter 1 for yes and 0 for no)\n")
+    is_credit_card_holder = input("Does this person have a credit card? (enter 1 for yes or 0 for no)\n")
+    is_active_member = input("Is this person an active member of the bank? (enter 1 for yes or 0 for no)\n")
     salary = input("How much does this person earn annually?\n")
 
     #pass in the data
