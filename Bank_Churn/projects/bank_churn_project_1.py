@@ -42,7 +42,7 @@ def get_prediction(url, data={"CreditScore": 600, "Age": 35, "Tenure": 5, "Balan
     print("ML prediction") 
     print("\tLabel: ", label)
     print("\tModel: ", prediction_object['Model'])
-    print("\tMessage: ", prediction_object['Message'])
+    # print("\tMessage: ", prediction_object['Message']) #UNCOMMENT WHEN MESSAGE IS PART OF REGRESSION MODELS
     return label
 
 
