@@ -3,8 +3,6 @@ import requests
 import json as json
 import numpy as np
 
-
-
 def main():
 
     print("Hello! Today we will use ML to see if a person will leave a bank!")
@@ -20,13 +18,17 @@ def main():
     products = input("How many products does this person have?\n")
     is_credit_card_holder = input("Does this person have a credit card? (enter 1 for yes and 0 for no)\n")
     is_active_member = input("Is this person an active member of the bank? (enter 1 for yes and 0 for no)\n")
-    estimated_salary = input("Around how much does this person earn annually?\n")
+    salary = input("How much does this person earn annually?\n")
 
+    #pass in the data
+    data = {"CreditScore": credit_score, "Age": age, "Tenure": tenure, "Balance": balance, "NumOfProducts": products,
+                "HasCrCard": is_credit_card_holder, "IsActiveMember": is_active_member, "EstimatedSalary": salary}
+
+    get_prediction(url, data)
     
-    
 
-
-def get_prediction(url, data={"description:", "I love to help others!"}):
+def get_prediction(url, data={"CreditScore": 600, "Age": 35, "Tenure": 5, "Balance": 47575.50, "NumOfProducts": 5,
+                                    "HasCrCard": 1, "IsActiveMember": 1, "EstimatedSalary": 300000.50}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
@@ -40,3 +42,7 @@ def get_prediction(url, data={"description:", "I love to help others!"}):
     print("\tModel: ", prediction_object['Model'])
     print("\tMessage: ", prediction_object['Message'])
     return label
+
+
+if __name__ == "__main__":
+    main()
