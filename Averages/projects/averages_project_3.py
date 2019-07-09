@@ -2,33 +2,7 @@ import requests
 import json as json
 import numpy as np
 
-
-#calculate and print out the prediction
-def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
-    r = requests.post(url, data=json.dumps(data))
-    response = getattr(r,'_content').decode("utf-8")
-    response = json.loads(response)
-    prediction_object = json.loads(response['body'])
-    label = ""    
-    if 'predicted_label' in prediction_object:
-        label = prediction_object['predicted_label']
-
-    print("\tLabel: ", label)
-    print("\tModel: ", prediction_object['Model'])
-    #print("\tMessage: ", prediction_object['Message']) #UNCOMMENT WHEN MESSAGE KEY PART OF BODY FOR REGRESSION PROJECTS
-    return label
-
-#calculate and print out the prediction based on FORMULA
-def formula(num1=50, num2=70, num3=80, num4=90):
-
-    label = (float(num1) + float(num2) + float(num3) + float(num4)) / 4
-
-    print("Average via Formula")
-    print("\tLabel: ", label)
-    return label
-
-if __name__ == "__main__":
-
+def main():
     tries = 0
     base_url = "https://cqzuqwmdp1.execute-api.us-east-1.amazonaws.com/Predict/"
     average_error_new = average_error_old = 0
@@ -76,6 +50,34 @@ if __name__ == "__main__":
         print("Total trials: ", tries)
         print("Press Ctrl + C to stop at anytime. Moving on to the next round.")
  
+
+#calculate and print out the prediction
+def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
+    r = requests.post(url, data=json.dumps(data))
+    response = getattr(r,'_content').decode("utf-8")
+    response = json.loads(response)
+    prediction_object = json.loads(response['body'])
+    label = ""    
+    if 'predicted_label' in prediction_object:
+        label = prediction_object['predicted_label']
+
+    print("\tLabel: ", label)
+    print("\tModel: ", prediction_object['Model'])
+    #print("\tMessage: ", prediction_object['Message']) #UNCOMMENT WHEN MESSAGE KEY PART OF BODY FOR REGRESSION PROJECTS
+    return label
+
+#calculate and print out the prediction based on FORMULA
+def formula(num1=50, num2=70, num3=80, num4=90):
+
+    label = (float(num1) + float(num2) + float(num3) + float(num4)) / 4
+
+    print("Average via Formula")
+    print("\tLabel: ", label)
+    return label
+
+if __name__ == "__main__":
+    main()
+   
 
     
 
