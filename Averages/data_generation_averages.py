@@ -83,10 +83,8 @@ if __name__ == "__main__":
     #project 1 and 2 DATASETS
     generate_average_data(50) #50 in total
 
-
     #project 3 DATASET (bigger)
     generate_average_data(10000,"averages_project_3.csv")
-
 
     #project 4 DATASETS
     corrupt_dataset() #10% corrupted
