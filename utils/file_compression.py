@@ -35,6 +35,6 @@ def compress_files(regex="age_project*", out_file="age_project.zip"):
 
 if __name__ == "__main__":
 
-     #compress
+     #compressing age files
      compress_files("../Guess_My_Age/data/age_project_3*", "../Guess_My_Age/data/age_project_3.zip")
      compress_files("../Guess_My_Age/data/age_project_4*", "../Guess_My_Age/data/age_project_4.zip")
