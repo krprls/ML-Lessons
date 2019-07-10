@@ -3,11 +3,14 @@ import pandas as pd
 import random
 import sys
 
+
+#path to datafiles 
+path = 'data/'
+
 #project 4--FLIP DATA POINTS
 def flip_data(in_file="age_project_3_full.csv", out_file="age_project_4_corrupted_100_percent.csv", fraction=1):
 
-     #set path to data/ if not provided by user 
-     path = 'data/'
+     #path is just data/ if not provided by user 
      if len(sys.argv) > 1:
          path = sys.argv[1]
 
@@ -39,8 +42,7 @@ def flip_data(in_file="age_project_3_full.csv", out_file="age_project_4_corrupte
 
 def data_generator(fraction=0.5, total_samples=2001, out_file = "medium_data.csv"):
  
-    #set path to data/ if not provided by user 
-    path = 'data/'
+    #paht is just data/ if not provided by user 
     if len(sys.argv) > 1:
          path = sys.argv[1]
       
