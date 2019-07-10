@@ -34,7 +34,7 @@ def data_generator(fraction=0.5, total_samples=2001, out_file = "medium_data.csv
  
     #seed--large prime number
     np.random.seed(93179)
-    
+
     #sample number should be greater than 10
     if total_samples <= 10:
         print("Please choose a number of samples greater than 10")
@@ -70,7 +70,7 @@ def data_generator(fraction=0.5, total_samples=2001, out_file = "medium_data.csv
     score[score == '0'] = 'child'
 
     dataset = np.concatenate((num_countries, years_school, height, score),axis=1)
-#     np.random.shuffle(dataset)
+    np.random.shuffle(dataset)
 
     data_header = 'num_countries,years_school,height,who_am_I'
     np.savetxt('data/' + out_file ,dataset,header=data_header, fmt='%s', delimiter=',', comments='')
@@ -82,6 +82,7 @@ if __name__ == "__main__":
      data_generator(total_samples=1000, out_file="age_project_1_and_2.csv") #1000 in total
 
      #project 3 DATASETS
+     data_generator(total_samples=5000, out_file="age_project_3_full.csv")
      data_generator(0.0004, 2500, out_file="age_3_project_one_adult.csv") #only one adult example
      data_generator(0.1, 2500, out_file="age_project_3_10_percent_adults.csv")
      data_generator(0.3, 2500, out_file="age_project_3_30_percent_adults.csv")
