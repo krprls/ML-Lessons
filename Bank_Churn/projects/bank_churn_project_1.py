@@ -24,8 +24,12 @@ def main():
     data = {"CreditScore": credit_score, "Age": age, "Tenure": tenure, "Balance": balance, "NumOfProducts": products,
             "HasCrCard": is_credit_card_holder, "IsActiveMember": is_active_member, "EstimatedSalary": salary}
     
-    get_prediction(url, data)
-    print("(1.0 means \"exited\", 0.0 means \"has not exited\")")
+    prediction = get_prediction(url, data)
+    
+    if float(prediction) == 1.0:
+        print("The customer has exited.")
+    elif float(prediction) == 0.0:
+        print("The customer did not exit.")
 
 def get_prediction(url, data={"CreditScore": 600, "Age": 35, "Tenure": 5, "Balance": 47575.50, "NumOfProducts": 5,
                               "HasCrCard": 1, "IsActiveMember": 1, "EstimatedSalary": 300000.50}):
