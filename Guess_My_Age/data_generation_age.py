@@ -1,10 +1,17 @@
 import numpy as np
 import pandas as pd
 import random
+import sys
 
 #project 4--FLIP DATA POINTS
 def flip_data(in_file="age_project_3_full.csv", out_file="age_project_4_corrupted_100_percent.csv", fraction=1):
-     data = pd.read_csv("data/" + in_file)
+
+     #set path to data/ if not provided by user 
+     path = 'data/'
+     if len(sys.argv) > 1:
+         path = sys.argv[1]
+
+     data = pd.read_csv(path + in_file)
 
      if fraction == 1:
           data.loc[data['who_am_I'] == 'adult', 'who_am_I'] = 'a'
@@ -26,12 +33,17 @@ def flip_data(in_file="age_project_3_full.csv", out_file="age_project_4_corrupte
           data = data.append(random_rows)  
 
      data_header = 'num_countries,years_school,height,who_am_I'
-     np.savetxt('data/' + out_file ,data,header=data_header, fmt='%s', delimiter=',', comments='')
+     np.savetxt(path + out_file ,data,header=data_header, fmt='%s', delimiter=',', comments='')
      print(out_file + " data saved")
 
 
 def data_generator(fraction=0.5, total_samples=2001, out_file = "medium_data.csv"):
  
+    #set path to data/ if not provided by user 
+    path = 'data/'
+    if len(sys.argv) > 1:
+         path = sys.argv[1]
+      
     #seed--large prime number
     np.random.seed(93179)
 
@@ -73,7 +85,7 @@ def data_generator(fraction=0.5, total_samples=2001, out_file = "medium_data.csv
     np.random.shuffle(dataset)
 
     data_header = 'num_countries,years_school,height,who_am_I'
-    np.savetxt('data/' + out_file ,dataset,header=data_header, fmt='%s', delimiter=',', comments='')
+    np.savetxt(path + out_file ,dataset,header=data_header, fmt='%s', delimiter=',', comments='')
     print(out_file + " data saved")
 
 if __name__ == "__main__":
