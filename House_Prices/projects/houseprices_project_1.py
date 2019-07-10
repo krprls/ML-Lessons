@@ -4,7 +4,7 @@ import numpy as np
 
 
 def main():
-    print("Hello! Today we are going to estimate the price of a house with a Machine Learning model!")
+    print("Hello! Today we are going to estimate the median price of houses in an area with a Machine Learning model!")
 
     url = input("What is your endpoint URL?\n")
     url = url.strip()
