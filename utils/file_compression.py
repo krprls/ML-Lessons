@@ -3,7 +3,7 @@ import zlib
 import zipfile
 import sys
 
-def compress_files(regex="age_project*", out_file="age_project.zip"):
+def compress_files(regex, out_file):
      """
           Zips files matching a regex
           Args:
