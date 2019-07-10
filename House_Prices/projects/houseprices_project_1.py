@@ -27,7 +27,7 @@ def main():
 
 #calculate and print out the prediction
 def get_prediction(url, data={"longitude":-122.5,"latitude":37.79,"housing_median_age":52,
-                              "total_rooms":8,"total_bedrooms":1,"population":13,"households":1,"median_income":15.0001}):
+                              "total_rooms":8,"total_bedrooms":1,"population":13,"households":1, "median_income":15.0001,"median_house_value":300000}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
