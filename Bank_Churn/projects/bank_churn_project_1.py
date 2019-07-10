@@ -22,7 +22,7 @@ def main():
 
     #pass in the data
     data = {"CreditScore": credit_score, "Age": age, "Tenure": tenure, "Balance": balance, "NumOfProducts": products,
-                "HasCrCard": is_credit_card_holder, "IsActiveMember": is_active_member, "EstimatedSalary": salary}
+            "HasCrCard": is_credit_card_holder, "IsActiveMember": is_active_member, "EstimatedSalary": salary}
     
     get_prediction(url, data)
     print("(1.0 means \"exited\", 0.0 means \"has not exited\")")
