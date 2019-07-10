@@ -11,8 +11,13 @@ def main():
     expression = input("What's on your mind?\n")
     data ={"Expression": expression}
 
-    get_prediction(url, data)
-    print("Sentiment is on a scale from 0-4, with 0=negative, 2=neutral, and 4=positive.")
+    prediction = get_prediction(url, data)
+
+    if int(prediction) == 4:
+        print("This is a positive sentiment.")
+    elif int(prediction) == 0:
+        print("This is a negative sentiment.")
+
 
 #calculate and print out the prediction
 def get_prediction(url, data={"Expression": "@DaRealSunisaKim Thanks for the Twitter add, Sunisa!" 
