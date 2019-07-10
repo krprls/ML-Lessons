@@ -41,16 +41,21 @@ def generate_data(total_samples=50, file_name="guess_mood_0.csv", fileRead="Gues
     data.to_csv("data/" + file_name, index=False) #Don't forget to add '.csv' at the end of the path
 
 if __name__ == "__main__": 
-    generate_data(total_samples=50, file_name="mood_project_1_and_2.csv") #LESSSON 1 AND 2
 
-    #project 3 IS JUST THE ORIGINAL DATASET (300 samples, bigger is better)
+    
+    #COMMENTED THIS OUT BECAUSE I DON'T WANT TO OVERWRITE OLD DATAFILES
+    #UNCOMMENT CODE BELOW IF YOU WANT TO GENERATE NEW AGE DATASETS
+        
+    # generate_data(total_samples=50, file_name="mood_project_1_and_2.csv") #LESSSON 1 AND 2
 
-    #project 4 --SKEW DATA
-    skew_data(150) #only one sad example
-    skew_data(150, 0.1, out_file="mood_project_4_10_percent_sad.csv")
-    skew_data(150, 0.3, out_file="mood_project_4_30_percent_sad.csv")
-    skew_data(150, 0.5, out_file="mood_project_4_50_percent_sad.csv")
-    skew_data(150, 0.75, out_file="mood_project_4_75_percent_sad.csv")
+    # #project 3 IS JUST THE ORIGINAL DATASET (300 samples, bigger is better)
 
+    # #project 4 --SKEW DATA
+    # skew_data(150) #only one sad example
+    # skew_data(150, 0.1, out_file="mood_project_4_10_percent_sad.csv")
+    # skew_data(150, 0.3, out_file="mood_project_4_30_percent_sad.csv")
+    # skew_data(150, 0.5, out_file="mood_project_4_50_percent_sad.csv")
+    # skew_data(150, 0.75, out_file="mood_project_4_75_percent_sad.csv")
+    print("")
 
 
