@@ -15,7 +15,7 @@ def main():
     total_bedrooms = input("What are the total number of bedrooms in the block?\n")
     population = input("What is the total population in this block?\n")
     households = input("What is the number of households in this block?\n")
-    median_income = input("What is the median income in this block?\n")
+    median_income = input("What is the median household income in this block?\n")
 
     #pass in the data
     data = {"longitude": longitude, "latitude": latitude, "housing_median_age": housing_median_age,
@@ -38,6 +38,7 @@ def get_prediction(url, data={"longitude":-122.5,"latitude":37.79,"housing_media
     print("ML prediction") 
     print("\tLabel: ", label)
     print("\tModel: ", prediction_object['Model'])
+    # print("\tMessage: ", prediction_object['Message']) #UNCOMMENT WHEN MESSAGE KEY EXISTS FOR REGRESSION MODELS
     return label
 
 if __name__ == "__main__":
