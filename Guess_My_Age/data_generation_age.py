@@ -1,9 +1,6 @@
 import numpy as np
 import pandas as pd
-import glob
-import zlib
-import zipfile
-import os
+import random
 
 #project 4--FLIP DATA POINTS
 def flip_data(in_file="age_project_3_full.csv", out_file="age_project_4_corrupted_100_percent.csv", fraction=1):
@@ -28,17 +25,16 @@ def flip_data(in_file="age_project_3_full.csv", out_file="age_project_4_corrupte
           #add the random rows back
           data = data.append(random_rows)  
 
-     
-   
      data_header = 'num_countries,years_school,height,who_am_I'
      np.savetxt('data/' + out_file ,data,header=data_header, fmt='%s', delimiter=',', comments='')
      print(out_file + " data saved")
 
 
-
-
 def data_generator(fraction=0.5, total_samples=2001, out_file = "medium_data.csv"):
-
+ 
+    #seed--large prime number
+    np.random.seed(93179)
+    
     #sample number should be greater than 10
     if total_samples <= 10:
         print("Please choose a number of samples greater than 10")
@@ -74,67 +70,28 @@ def data_generator(fraction=0.5, total_samples=2001, out_file = "medium_data.csv
     score[score == '0'] = 'child'
 
     dataset = np.concatenate((num_countries, years_school, height, score),axis=1)
-    np.random.shuffle(dataset)
-
-    # print(dataset)
-
+#     np.random.shuffle(dataset)
 
     data_header = 'num_countries,years_school,height,who_am_I'
     np.savetxt('data/' + out_file ,dataset,header=data_header, fmt='%s', delimiter=',', comments='')
     print(out_file + " data saved")
-    # print(dataset)
-
-
-def compress_files(regex="age_project*", out_file="age_project.zip"):
-     """
-          Zips files matching a regex
-          Args:
-               regex (str): pattern you want to match to filter out files
-               out_file (str): The name of the zip file you want to generate.
-          Returns: N/A
-     """
-     files = glob.glob('data/' + regex)  # get all files you want to zip
-
-     # Select the compression mode ZIP_DEFLATED for compression
-     # or zipfile.ZIP_STORED to just store the file
-     compression = zipfile.ZIP_DEFLATED
-     # create the zip file first parameter path/name, second mode
-     zf = zipfile.ZipFile('data/' + out_file, mode="w") 
-
-     try:
-          for file_name in files:
-               # Add file to the zip file
-               # first parameter file to zip, second filename in zip
-               zf.write(file_name, file_name, compress_type=compression)
-               os.remove(file_name) #remove file from data/ directory because already added to zipfile
-     except FileNotFoundError:
-          print("An error occurred")
-     finally:
-          zf.close() # Don't forget to close the file!
-
-     print(out_file + " has been zipped") # let user know file has been zipped
 
 if __name__ == "__main__":
 
-     #COMMENTED THIS OUT BECAUSE I DON'T WANT TO OVERWRITE OLD DATAFILES
-     #UNCOMMENT CODE BELOW IF YOU WANT TO GENERATE NEW AGE DATASETS
+     #project 1 and 2 DATASETS
+     data_generator(total_samples=1000, out_file="age_project_1_and_2.csv") #1000 in total
 
-     # #project 1 and 2 DATASETS
-     # data_generator(total_samples=1000, out_file="age_project_1_and_2.csv") #1000 in total
+     #project 3 DATASETS
+     data_generator(0.0004, 2500, out_file="age_3_project_one_adult.csv") #only one adult example
+     data_generator(0.1, 2500, out_file="age_project_3_10_percent_adults.csv")
+     data_generator(0.3, 2500, out_file="age_project_3_30_percent_adults.csv")
+     data_generator(0.5, 2500, out_file="age_project_3_50_percent_adults.csv")
+     data_generator(0.75, 2500, out_file="age_project_3_75_percent_adults.csv")
 
-     # #project 3 DATASETS
-     # data_generator(0.0004, 2500, out_file="age_3_project_one_adult.csv") #only one adult example
-     # data_generator(0.1, 2500, out_file="age_project_3_10_percent_adults.csv")
-     # data_generator(0.3, 2500, out_file="age_project_3_30_percent_adults.csv")
-     # data_generator(0.5, 2500, out_file="age_project_3_50_percent_adults.csv")
-     # data_generator(0.75, 2500, out_file="age_project_3_75_percent_adults.csv")
+     #project 4 DATASET
+     flip_data(out_file="age_project_4_corrupted_10_percent.csv", fraction=0.1)
+     flip_data(out_file="age_project_4_corrupted_50_percent.csv", fraction=0.5)
+     flip_data() #100% of data flipped
 
-     # #project 4 DATASET
-     # flip_data(out_file="age_project_4_corrupted_10_percent.csv", fraction=0.1)
-     # flip_data(out_file="age_project_4_corrupted_50_percent.csv", fraction=0.5)
-     # flip_data() #100% of data flipped
-
-     compress_files("age_project_3*", "age_project_3.zip")
-     compress_files("age_project_4*", "age_project_4.zip")
 
 
