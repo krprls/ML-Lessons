@@ -16,18 +16,17 @@ def main():
     population = input("What is the total population in this block?\n")
     households = input("What is the number of households in this block?\n")
     median_income = input("What is the median income in this block?\n")
-    median_house_value = input("What is the median household value in this block?\n")
 
     #pass in the data
     data = {"longitude": longitude, "latitude": latitude, "housing_median_age": housing_median_age,
             "total_rooms": total_rooms, "total_bedrooms": total_bedrooms, "population": population,
-            "households": households, "median_income": median_income, "median_house_value": median_house_value}
+            "households": households, "median_income": median_income}
 
     get_prediction(url, data)
 
 #calculate and print out the prediction
 def get_prediction(url, data={"longitude":-122.5,"latitude":37.79,"housing_median_age":52,
-                              "total_rooms":8,"total_bedrooms":1,"population":13,"households":1, "median_income":15.0001,"median_house_value":300000}):
+                              "total_rooms":8,"total_bedrooms":1,"population":13,"households":1, "median_income":15.0001}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
