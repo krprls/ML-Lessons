@@ -117,20 +117,23 @@ def compress_files(regex="age_project*", out_file="age_project.zip"):
 
 if __name__ == "__main__":
 
-     #project 1 and 2 DATASETS
-     data_generator(total_samples=1000, out_file="age_project_1_and_2.csv") #1000 in total
+     #COMMENTED THIS OUT BECAUSE I DON'T WANT TO OVERWRITE OLD DATAFILES
+     #UNCOMMENT CODE BELOW IF YOU WANT TO GENERATE NEW AGE DATASETS
 
-     #project 3 DATASETS
-     data_generator(0.0004, 2500, out_file="age_3_project_one_adult.csv") #only one adult example
-     data_generator(0.1, 2500, out_file="age_project_3_10_percent_adults.csv")
-     data_generator(0.3, 2500, out_file="age_project_3_30_percent_adults.csv")
-     data_generator(0.5, 2500, out_file="age_project_3_50_percent_adults.csv")
-     data_generator(0.75, 2500, out_file="age_project_3_75_percent_adults.csv")
+     # #project 1 and 2 DATASETS
+     # data_generator(total_samples=1000, out_file="age_project_1_and_2.csv") #1000 in total
 
-     #project 4 DATASET
-     flip_data(out_file="age_project_4_corrupted_10_percent.csv", fraction=0.1)
-     flip_data(out_file="age_project_4_corrupted_50_percent.csv", fraction=0.5)
-     flip_data() #100% of data flipped
+     # #project 3 DATASETS
+     # data_generator(0.0004, 2500, out_file="age_3_project_one_adult.csv") #only one adult example
+     # data_generator(0.1, 2500, out_file="age_project_3_10_percent_adults.csv")
+     # data_generator(0.3, 2500, out_file="age_project_3_30_percent_adults.csv")
+     # data_generator(0.5, 2500, out_file="age_project_3_50_percent_adults.csv")
+     # data_generator(0.75, 2500, out_file="age_project_3_75_percent_adults.csv")
+
+     # #project 4 DATASET
+     # flip_data(out_file="age_project_4_corrupted_10_percent.csv", fraction=0.1)
+     # flip_data(out_file="age_project_4_corrupted_50_percent.csv", fraction=0.5)
+     # flip_data() #100% of data flipped
 
      compress_files("age_project_3*", "age_project_3.zip")
      compress_files("age_project_4*", "age_project_4.zip")
