@@ -1,7 +1,10 @@
 import pandas as pd
 import csv
 import numpy as np
-
+import glob
+import zlib
+import zipfile
+import os
 
 def skew_data(total_sample_size, fraction=0.01, in_file="Guess_My_Mood_Full_Dataset.csv", out_file="mood_project_4_one_sad.csv"):
 
@@ -40,9 +43,37 @@ def generate_data(total_samples=50, file_name="guess_mood_0.csv", fileRead="Gues
     data = data.sample(n=total_samples, replace=False).reset_index(drop=True)
     data.to_csv("data/" + file_name, index=False) #Don't forget to add '.csv' at the end of the path
 
-if __name__ == "__main__": 
+def compress_files(regex="age_project*", out_file="age_project.zip"):
+     """
+          Zips files matching a regex
+          Args:
+               regex (str): pattern you want to match to filter out files
+               out_file (str): The name of the zip file you want to generate.
+          Returns: N/A
+     """
+     files = glob.glob('data/' + regex)  # get all files you want to zip
 
-    
+     # Select the compression mode ZIP_DEFLATED for compression
+     # or zipfile.ZIP_STORED to just store the file
+     compression = zipfile.ZIP_DEFLATED
+     # create the zip file first parameter path/name, second mode
+     zf = zipfile.ZipFile('data/' + out_file, mode="w") 
+
+     try:
+          for file_name in files:
+               # Add file to the zip file
+               # first parameter file to zip, second filename in zip
+               zf.write(file_name, file_name, compress_type=compression)
+               os.remove(file_name) #remove file from data/ directory because already added to zipfile
+     except FileNotFoundError:
+          print("An error occurred")
+     finally:
+          zf.close() # Don't forget to close the file!
+
+     print(out_file + " has been zipped") # let user know file has been zipped
+
+if __name__ == "__main__": 
+  
     #COMMENTED THIS OUT BECAUSE I DON'T WANT TO OVERWRITE OLD DATAFILES
     #UNCOMMENT CODE BELOW IF YOU WANT TO GENERATE NEW AGE DATASETS
         
@@ -56,6 +87,5 @@ if __name__ == "__main__":
     # skew_data(150, 0.3, out_file="mood_project_4_30_percent_sad.csv")
     # skew_data(150, 0.5, out_file="mood_project_4_50_percent_sad.csv")
     # skew_data(150, 0.75, out_file="mood_project_4_75_percent_sad.csv")
-    print("")
-
+    compress_files("mood_project_4*", "mood_project_4.zip")
 
