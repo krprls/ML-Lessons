@@ -12,6 +12,7 @@ def main():
     data ={"Expression": expression}
 
     get_prediction(url, data)
+    print("Sentiment is on a scale from 0-4, with 0=negative, 2=neutral, and 4=positive.")
 
 #calculate and print out the prediction
 def get_prediction(url, data={"Expression": "@DaRealSunisaKim Thanks for the Twitter add, Sunisa!" 
