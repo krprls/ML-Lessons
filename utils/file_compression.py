@@ -1,7 +1,7 @@
 import glob
 import zlib
 import zipfile
-import os
+import sys
 
 def compress_files(regex="age_project*", out_file="age_project.zip"):
      """
@@ -24,7 +24,6 @@ def compress_files(regex="age_project*", out_file="age_project.zip"):
                # Add file to the zip file
                # first parameter file to zip, second filename in zip
                zf.write(file_name, file_name, compress_type=compression)
-               os.remove(file_name) #remove file from data/ directory because already added to zipfile
      except FileNotFoundError:
           print("An error occurred")
      finally:
@@ -34,7 +33,12 @@ def compress_files(regex="age_project*", out_file="age_project.zip"):
 
 
 if __name__ == "__main__":
+     
+     if len(sys.argv) < 3:
+          print("Please enter a path and regex to match files. Usage: python3 file_compression.py <path_to_files> <regex> <out_zipfile>")
 
-     #compressing age files
-     compress_files("../Guess_My_Age/data/age_project_3*", "../Guess_My_Age/data/age_project_3.zip")
-     compress_files("../Guess_My_Age/data/age_project_4*", "../Guess_My_Age/data/age_project_4.zip")
+     path = sys.argv[1] #path to where files to be compresssed are located
+     regex = sys.argv[2] #regex to be matched
+     out_zipfile = sys.argv[3] #output zipfile
+
+     compress_files(path + regex, path + out_zipfile)  
