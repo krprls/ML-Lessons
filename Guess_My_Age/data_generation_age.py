@@ -76,7 +76,6 @@ def data_generator(fraction=0.5, total_samples=2001, out_file = "medium_data.csv
     height[height > 7] = 7
     height = np.round(height,2)
 
-
     score = score.astype(str)
     score[score == '1'] = 'adult'
     score[score == '0'] = 'child'
