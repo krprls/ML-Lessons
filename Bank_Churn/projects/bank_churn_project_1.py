@@ -28,7 +28,7 @@ def main():
     print("(1.0 means \"exited\", 0.0 means \"has not exited\")")
 
 def get_prediction(url, data={"CreditScore": 600, "Age": 35, "Tenure": 5, "Balance": 47575.50, "NumOfProducts": 5,
-                                    "HasCrCard": 1, "IsActiveMember": 1, "EstimatedSalary": 300000.50}):
+                              "HasCrCard": 1, "IsActiveMember": 1, "EstimatedSalary": 300000.50}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
