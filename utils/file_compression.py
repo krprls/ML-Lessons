@@ -35,7 +35,8 @@ def compress_files(regex, out_file):
 if __name__ == "__main__":
      
      if len(sys.argv) != 3:
-          print("Please enter a path to the files, regex, and output zipfile.\nUsage: python3 file_compression.py <path_to_files> <regex> <out_zipfile>")
+          print("Please enter a path to the files, regex, and output zipfile.")
+          print("Usage: python3 file_compression.py <path_to_files> <regex> <out_zipfile>")
           exit(1)
 
      path = sys.argv[1] #path to where files to be compresssed are located
