@@ -53,7 +53,7 @@ def skew_data(desired_fraction, data, dest_file_name):
         data = data.drop(data.query('house != "Gryffindor"')
                          .sample(n=(other_labels_current-desrired_other_labels_count), random_state=104729).index)
     else:
-        desired_g_labels_num = int((total_samples - g_num_samples)*desired_fraction/(1-desired_fraction))
+        desired_g_labels_num = int(np.ceil((total_samples - g_num_samples)*desired_fraction/(1-desired_fraction)))
         data = data.drop(data.query('house == "Gryffindor"')
                          .sample(n=(g_num_samples-desired_g_labels_num), random_state=104729).index)
 
