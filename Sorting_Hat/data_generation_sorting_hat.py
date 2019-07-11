@@ -3,6 +3,9 @@ import csv
 import numpy as np
 import sys
 
+#seed for random label extraction
+RANDOM_SEED = 104729
+
 def main():
     path = 'data/'
     if (len(sys.argv)) > 1:
@@ -51,11 +54,11 @@ def skew_data(desired_fraction, data, dest_file_name):
         desrired_other_labels_count = int(g_num_samples*(1-desired_fraction)/desired_fraction)
         other_labels_current = total_samples - g_num_samples
         data = data.drop(data.query('house != "Gryffindor"')
-                         .sample(n=(other_labels_current-desrired_other_labels_count), random_state=104729).index)
+                         .sample(n=(other_labels_current-desrired_other_labels_count), random_state=RANDOM_SEED).index)
     else:
         desired_g_labels_num = int(np.ceil((total_samples - g_num_samples)*desired_fraction/(1-desired_fraction)))
         data = data.drop(data.query('house == "Gryffindor"')
-                         .sample(n=(g_num_samples-desired_g_labels_num), random_state=104729).index)
+                         .sample(n=(g_num_samples-desired_g_labels_num), random_state=RANDOM_SEED).index)
 
     # Write data to file
     data.to_csv(dest_file_name, index=False)
