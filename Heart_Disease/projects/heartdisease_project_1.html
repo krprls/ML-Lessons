@@ -18,7 +18,7 @@
         return object;
       };
 
-      var DATA = JSON.stringify($('form').serializeObject());
+      var DATA;
       function predict(data = DATA) {
         console.log('data', DATA);
         var ENDPOINT = $('[name=url]').val();
@@ -38,6 +38,7 @@
       };
 
       $('#PredictButton').click(function (data = DATA) {
+        DATA = JSON.stringify($('form').serializeObject());
         predict();
       });
     });
