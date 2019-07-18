@@ -1,0 +1,87 @@
+<html>
+
+<head>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+  <script type='text/javascript'>
+    $(document).ready(function () {
+      $('body').append(`<p id="prediction">Prediction: <p>`);
+
+      $.fn.serializeObject = function () {
+        var object = {};
+        $.each(this.serializeArray(), function () {
+          if (object[this.name] !== undefined) {
+            [object[this.name]].push(this.value || '');
+          } else {
+            object[this.name] = this.value || '';
+          }
+        });
+        return object;
+      };
+
+      var DATA;
+      function predict(data = DATA) {
+        console.log('data', DATA);
+        var ENDPOINT = $('[name=url]').val();
+        return fetch(ENDPOINT, {
+          method: 'POST',
+          body: data,
+        })
+          .then((res) => res.json())
+          .then((resJSON) => {
+            console.log('resJSON', resJSON);
+            resJSON = JSON.parse(resJSON['body']);
+            var innerHTML = $('#prediction').filter('p').text();
+            var label = innerHTML.substring(innerHTML.indexOf('Prediction:') + 'Prediction:'.length);
+            $('#prediction').html($('#prediction').html().replace(label, resJSON['predicted_label']));
+          })
+          .catch(err => console.log('err', err));
+      };
+
+      $('#PredictButton').click(function (data = DATA) {
+        DATA = JSON.stringify($('form').serializeObject());
+        predict();
+      });
+    });
+  </script>
+</head>
+
+<body>
+
+  <p>Diabetes Prediction Service</p>
+
+  Url:<br>
+  <input type="text" name="url">
+  <br>
+  <form id="myform">
+    Pregnancies:<br>
+    <input type="text" name="Pregnancies" value="37">
+    <br>
+    Glucose: <br>
+    <input type="number" name="Glucose" value="1">
+    <br>
+    BloodPressure:<br>
+    <input type="number" name="BloodPressure" value="3">
+    <br>
+    SkinThickness:<br>
+    <input type="number" name="SkinThickness" value="130">
+    <br>
+    Insulin:<br>
+    <input type="number" name="Insulin" value="250">
+    <br>
+    BMI:<br>
+    <input type="number" name="BMI" value="0">
+    <br>
+    DiabetesPedigreeFunction:<br>
+    <input type="number" name="DiabetesPedigreeFunction" value="0">
+    <br>
+    Age:<br>
+    <input type="number" name="Age" value="187">
+    <br>
+    <br>
+    <input type="button" value="Predict" id="PredictButton">
+  </form>
+
+
+</body>
+
+</html>
