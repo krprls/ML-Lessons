@@ -1,28 +1,49 @@
 <html>
-    <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script type='text/javascript'>
-            $(document).ready(function() {
-              var DATA = '{"age":37,"sex":1,"cp":3,"trestbps":130,"chol":250,"fbs":0,"restecg":0,"thalach":187,"exang":0,"oldpeak":3.5,"slop":3,"ca":0,"thal":3}';
-             $('#PredictButton').click(function(data = DATA){
-               var ENDPOINT = $('[name=url]').val();
-               return fetch(ENDPOINT, {
-                   method: 'POST',
-                   body: data,
-               })
-               .then(res => console.log('res', res))
-               .catch(err => console.log('err', err));
-             });
-           });
-         </script>
-    </head>
+
+<head>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+  <script src='Node.js'></script>
+  <script type='text/javascript'>
+    $(document).ready(function () {
+      $('body').append(`<p id="prediction">Prediction: <p>`);
+
+      $.fn.serializeObject = function () {
+        var object = {};
+        $.each(this.serializeArray(), function () {
+          if (object[this.name] !== undefined) {
+            if (!object[this.name].push) {
+              object[this.name] = [object[this.name]];
+            }
+            object[this.name].push(this.value || '');
+          } else {
+            object[this.name] = this.value || '';
+          }
+        });
+        return object;
+      };
+
+      var DATA;
+      $('#PredictButton').click(function (data = DATA) {
+        var DATA = JSON.stringify($('form').serializeObject());
+        var ENDPOINT = $('[name=url]').val();
+        var bodyResponse = makeCorsRequest('POST', ENDPOINT, DATA, function (response) {
+          var innerHTML = $('#prediction').filter('p').text()
+          var label = innerHTML.substring(innerHTML.indexOf('Prediction:') + 'Prediction:'.length);
+          $('#prediction').html($('#prediction').html().replace(label, response['predicted_label']));
+        })
+      });
+    });
+  </script>
+</head>
+
 <body>
 
   <p>Heart Disease Prediction Service</p>
 
-    Url:<br>
-    <input type="text" name="url">
-    <br>
+  Url:<br>
+  <input type="text" name="url">
+  <br>
+  <form id="myform">
     Age:<br>
     <input type="text" name="age" value="37">
     <br>
@@ -47,7 +68,7 @@
     Max Heart Rate Achieved:<br>
     <input type="number" name="thalach" value="187">
     <br>
-    Exercise Innduced Angina (1 = yes; 0 = no) :<br>
+    Exercise Induced Angina (1 = yes; 0 = no) :<br>
     <input type="number" name="exang" value="0">
     <br>
     Oldpeak:<br>
@@ -63,8 +84,8 @@
     <input type="number" name="thal" value="3">
     <br>
     <br>
-
-    <input type="button" value="Predict" id="PredictButton" >
+  <input type="button" value="Predict" id="PredictButton">
+</form>
 
 
 </body>
