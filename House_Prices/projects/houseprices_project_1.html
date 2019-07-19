@@ -52,6 +52,7 @@
         value: '15.0001',
       },
     ];
+
     $(document).ready(function () {
       function makeField(field) {
         return `
@@ -59,15 +60,18 @@
           <input type=${field.type} name=${field.name} value=${field.value} />
           <br />`;
       }
+
       FIELDS.forEach(field => $('#myform').append(makeField(field)));
       $('body').append(`<p id="prediction">Prediction: <p>`);
       $('body').append(`<input type="button" value="Predict" id="PredictButton">`);
+
       function updatePrediction(result) {
         result = JSON.parse(result['body']);
         var innerHTML = $('#prediction').filter('p').text();
         var label = innerHTML.substring(innerHTML.indexOf('Prediction:') + 'Prediction:'.length);
         $('#prediction').html($('#prediction').html().replace(label, result['predicted_label']));
       };
+
       $.fn.serializeObject = function () {
         var object = {};
         $.each(this.serializeArray(), function () {
@@ -79,6 +83,7 @@
         });
         return object;
       };
+
       function predict(data) {
         var ENDPOINT = $('[name=url]').val();
         return fetch(ENDPOINT, {
@@ -88,6 +93,7 @@
           .then((res) => res.json())
           .catch(err => console.log('err', err));
       };
+      
       $('#PredictButton').click(function (data = DATA) {
         DATA = JSON.stringify($('form').serializeObject());
         predict(DATA).then(body => updatePrediction(body));
