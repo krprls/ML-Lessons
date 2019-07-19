@@ -1,10 +1,79 @@
 <html>
 
 <head>
+
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
   <script type='text/javascript'>
+    var FIELDS = [
+      {
+        label: 'Pregancies:',
+        type: 'text',
+        name: 'Pregnancies',
+        value: '6',
+      },
+      {
+        label: 'Glucose:',
+        type: 'number',
+        name: 'Glucose',
+        value: '148',
+      },
+      {
+        label: 'BloodPressure:',
+        type: 'number',
+        name: 'BloodPressure',
+        value: '72',
+      },
+      {
+        label: 'SkinThickness:',
+        type: 'number',
+        name: 'SkinThickness',
+        value: '35',
+      },
+      {
+        label: 'Insulin:',
+        type: 'number',
+        name: 'Insulin',
+        value: '0',
+      },
+      {
+        label: 'BMI:',
+        type: 'number',
+        name: 'BMI',
+        value: '33.6',
+      },
+      {
+        label: 'DiabetesPedigreeFunction:',
+        type: 'number',
+        name: 'DiabetesPedigreeFunction',
+        value: '0.627',
+      },
+      {
+        label: 'Age:',
+        type: 'number',
+        name: 'Age',
+        value: '50',
+      },
+    ];
+
     $(document).ready(function () {
+
+      function makeField(field) {
+        return `
+          ${field.label} <br/ >
+          <input type=${field.type} name=${field.name} value=${field.value} />
+          <br />`;
+      }
+
+      FIELDS.forEach(field => $('#myform').append(makeField(field)));
       $('body').append(`<p id="prediction">Prediction: <p>`);
+      $('body').append(`<input type="button" value="Predict" id="PredictButton">`);
+
+      function updatePrediction(result) {
+        result = JSON.parse(result['body']);
+        var innerHTML = $('#prediction').filter('p').text();
+        var label = innerHTML.substring(innerHTML.indexOf('Prediction:') + 'Prediction:'.length);
+        $('#prediction').html($('#prediction').html().replace(label, result['predicted_label']));
+      };
 
       $.fn.serializeObject = function () {
         var object = {};
@@ -18,28 +87,20 @@
         return object;
       };
 
-      var DATA;
-      function predict(data = DATA) {
-        console.log('data', DATA);
+      function predict(data) {
         var ENDPOINT = $('[name=url]').val();
         return fetch(ENDPOINT, {
           method: 'POST',
           body: data,
         })
           .then((res) => res.json())
-          .then((resJSON) => {
-            console.log('resJSON', resJSON);
-            resJSON = JSON.parse(resJSON['body']);
-            var innerHTML = $('#prediction').filter('p').text();
-            var label = innerHTML.substring(innerHTML.indexOf('Prediction:') + 'Prediction:'.length);
-            $('#prediction').html($('#prediction').html().replace(label, resJSON['predicted_label']));
-          })
           .catch(err => console.log('err', err));
       };
 
       $('#PredictButton').click(function (data = DATA) {
         DATA = JSON.stringify($('form').serializeObject());
-        predict();
+        console.log("data is ", DATA);
+        predict(DATA).then(body => updatePrediction(body));
       });
     });
   </script>
@@ -53,32 +114,7 @@
   <input type="text" name="url">
   <br>
   <form id="myform">
-    Pregnancies:<br>
-    <input type="text" name="Pregnancies" value="6">
-    <br>
-    Glucose: <br>
-    <input type="number" name="Glucose" value="148">
-    <br>
-    BloodPressure:<br>
-    <input type="number" name="BloodPressure" value="72">
-    <br>
-    SkinThickness:<br>
-    <input type="number" name="SkinThickness" value="35">
-    <br>
-    Insulin:<br>
-    <input type="number" name="Insulin" value="0">
-    <br>
-    BMI:<br>
-    <input type="number" name="BMI" value="33.6">
-    <br>
-    DiabetesPedigreeFunction:<br>
-    <input type="number" name="DiabetesPedigreeFunction" value="0.627">
-    <br>
-    Age:<br>
-    <input type="number" name="Age" value="50">
-    <br>
-    <br>
-    <input type="button" value="Predict" id="PredictButton">
+    
   </form>
 
 
