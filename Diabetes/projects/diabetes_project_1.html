@@ -96,7 +96,6 @@
 
       $('#PredictButton').click(function (data = DATA) {
         DATA = JSON.stringify($('form').serializeObject());
-        console.log("data is ", DATA);
         predict(DATA).then(body => updatePrediction(body));
       });
     });
