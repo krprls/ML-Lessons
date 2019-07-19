@@ -1,11 +1,104 @@
 <html>
-
 <head>
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
   <script type='text/javascript'>
-    $(document).ready(function () {
-      $('body').append(`<p id="prediction">Prediction: <p>`);
+    var FIELDS = [
+      {
+        label: 'Age:',
+        type: 'number',
+        name: 'age',
+        value: '37',
+      },
+      {
+        label: 'Sex (0 = female; 1 = male):',
+        type: 'number',
+        name: 'sex',
+        value: '1',
+      },
+      {
+        label: 'Chest Pain Type:',
+        type: 'number',
+        name: 'cp',
+        value: '3',
+      },
+      {
+        label: 'Resting Blood Pressure (in mm Hg):',
+        type: 'number',
+        name: 'trestbps',
+        value: '130',
+      },
+      {
+        label: 'Cholesterol (mg/dl):',
+        type: 'number',
+        name: 'chol',
+        value: '250',
+      },
+      {
+        label: 'Fasting Blood Sugar > 120 mg/dl? (0 = no; 1 = yes):',
+        type: 'number',
+        name: 'fbs',
+        value: '0',
+      },
+      {
+        label: 'Resting electrocardiographic Results:',
+        type: 'number',
+        name: 'restecg',
+        value: '0',
+      },
+      {
+        label: 'Max Heart Rate Achieved:',
+        type: 'number',
+        name: 'thalach',
+        value: '187',
+      },
+      {
+        label: 'Exercise Induced Angina (0 = no; 1 = yes):',
+        type: 'number',
+        name: 'exang',
+        value: '0',
+      },
+      {
+        label: 'Oldpeak:',
+        type: 'number',
+        name: 'oldpeak',
+        value: '3.5',
+      },
+      {
+        label: 'Slope:',
+        type: 'number',
+        name: 'slop',
+        value: '3',
+      },
+      {
+        label: 'Ca (Number of major vessels (0-3) colored by fluoroscopy):',
+        type: 'number',
+        name: 'ca',
+        value: '0',
+      },
+      {
+        label: 'Thal (3 = normal; 6 = fixed defect; 7 = reversible defect):',
+        type: 'number',
+        name: 'thal',
+        value: '3',
+      },
+    ];
 
+    $(document).ready(function () {
+      function makeField(field) {
+        return `
+          ${field.label} <br />
+          <input type=${field.type} name=${field.name} value=${field.value} />
+          <br />`;
+      }
+      FIELDS.forEach(field => $('#myform').append(makeField(field)));
+      $('body').append(`<p id="prediction">Prediction: <p>`);
+      $('body').append(`<input type="button" value="Predict" id="PredictButton">`);
+      function updatePrediction(result) {
+        result = JSON.parse(result['body']);
+        var innerHTML = $('#prediction').filter('p').text();
+        var label = innerHTML.substring(innerHTML.indexOf('Prediction:') + 'Prediction:'.length);
+        $('#prediction').html($('#prediction').html().replace(label, result['predicted_label']));
+      };
       $.fn.serializeObject = function () {
         var object = {};
         $.each(this.serializeArray(), function () {
@@ -17,86 +110,28 @@
         });
         return object;
       };
-
-      var DATA;
-      function predict(data = DATA) {
-        console.log('data', DATA);
+      function predict(data) {
         var ENDPOINT = $('[name=url]').val();
         return fetch(ENDPOINT, {
           method: 'POST',
           body: data,
         })
           .then((res) => res.json())
-          .then((resJSON) => {
-            console.log('resJSON', resJSON);
-            resJSON = JSON.parse(resJSON['body']);
-            var innerHTML = $('#prediction').filter('p').text();
-            var label = innerHTML.substring(innerHTML.indexOf('Prediction:') + 'Prediction:'.length);
-            $('#prediction').html($('#prediction').html().replace(label, resJSON['predicted_label']));
-          })
           .catch(err => console.log('err', err));
       };
-
       $('#PredictButton').click(function (data = DATA) {
         DATA = JSON.stringify($('form').serializeObject());
-        predict();
+        predict(DATA).then(body => updatePrediction(body));
       });
     });
   </script>
 </head>
-
 <body>
-
   <p>Heart Disease Prediction Service</p>
-
-  Url:<br>
-  <input type="text" name="url">
-  <br>
+  Url:<br />
+  <input type="text" name="url" />
+  <br />
   <form id="myform">
-    Age:<br>
-    <input type="text" name="age" value="37">
-    <br>
-    Sex (1 = male; 0 = female) :<br>
-    <input type="number" name="sex" value="1">
-    <br>
-    Chest Pain Type:<br>
-    <input type="number" name="cp" value="3">
-    <br>
-    Resting Blood Pressure (in mm Hg):<br>
-    <input type="number" name="trestbps" value="130">
-    <br>
-    Cholesterol (mg/dl):<br>
-    <input type="number" name="chol" value="250">
-    <br>
-    Fasting Blood Sugar > 120 mg/dl? (1 = yes; 0 = no) :<br>
-    <input type="number" name="fbs" value="0">
-    <br>
-    Resting electrocardiographic Results:<br>
-    <input type="number" name="restecg" value="0">
-    <br>
-    Max Heart Rate Achieved:<br>
-    <input type="number" name="thalach" value="187">
-    <br>
-    Exercise Induced Angina (1 = yes; 0 = no) :<br>
-    <input type="number" name="exang" value="0">
-    <br>
-    Oldpeak:<br>
-    <input type="number" name="oldpeak" value="3.5">
-    <br>
-    Slope:<br>
-    <input type="number" name="slop" value="3">
-    <br>
-    Ca (Number of major vessels (0-3) colored by fluoroscopy):<br>
-    <input type="number" name="ca" value="0">
-    <br>
-    Thal (3 = normal; 6 = fixed defect; 7 = reversible defect):<br>
-    <input type="number" name="thal" value="3">
-    <br>
-    <br>
-    <input type="button" value="Predict" id="PredictButton">
   </form>
-
-
 </body>
-
 </html>
