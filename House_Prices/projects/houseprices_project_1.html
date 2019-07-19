@@ -1,10 +1,73 @@
 <html>
-
 <head>
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
   <script type='text/javascript'>
+    var FIELDS = [
+      {
+        label: 'Longitude:',
+        type: 'text',
+        name: 'longitude',
+        value: '-122.5',
+      },
+      {
+        label: 'Latitude:',
+        type: 'number',
+        name: 'latitude',
+        value: '37.79',
+      },
+      {
+        label: 'Housing Median Age:',
+        type: 'number',
+        name: 'housing_median_age',
+        value: '52',
+      },
+      {
+        label: 'Total Rooms:',
+        type: 'number',
+        name: 'total_rooms',
+        value: '8',
+      },
+      {
+        label: 'Total Bedrooms:',
+        type: 'number',
+        name: 'total_bedrooms',
+        value: '1',
+      },
+      {
+        label: 'Population:',
+        type: 'number',
+        name: 'population',
+        value: '13',
+      },
+      {
+        label: 'Households:',
+        type: 'number',
+        name: 'households',
+        value: '1',
+      },
+      {
+        label: 'Median Income:',
+        type: 'number',
+        name: 'median_income',
+        value: '15.0001',
+      },
+    ];
     $(document).ready(function () {
+      function makeField(field) {
+        return `
+          ${field.label} <br />
+          <input type=${field.type} name=${field.name} value=${field.value} />
+          <br />`;
+      }
+      FIELDS.forEach(field => $('#myform').append(makeField(field)));
       $('body').append(`<p id="prediction">Prediction: <p>`);
+      $('body').append(`<input type="button" value="Predict" id="PredictButton">`);
+      function updatePrediction(result) {
+        result = JSON.parse(result['body']);
+        var innerHTML = $('#prediction').filter('p').text();
+        var label = innerHTML.substring(innerHTML.indexOf('Prediction:') + 'Prediction:'.length);
+        $('#prediction').html($('#prediction').html().replace(label, result['predicted_label']));
+      };
       $.fn.serializeObject = function () {
         var object = {};
         $.each(this.serializeArray(), function () {
@@ -16,84 +79,28 @@
         });
         return object;
       };
-      var DATA;
-      function predict(data = DATA) {
-        console.log('data', DATA);
+      function predict(data) {
         var ENDPOINT = $('[name=url]').val();
         return fetch(ENDPOINT, {
           method: 'POST',
           body: data,
         })
           .then((res) => res.json())
-          .then((resJSON) => {
-            console.log('resJSON', resJSON);
-            resJSON = JSON.parse(resJSON['body']);
-            var innerHTML = $('#prediction').filter('p').text();
-            var label = innerHTML.substring(innerHTML.indexOf('Prediction:') + 'Prediction:'.length);
-            $('#prediction').html($('#prediction').html().replace(label, resJSON['predicted_label']));
-          })
           .catch(err => console.log('err', err));
       };
       $('#PredictButton').click(function (data = DATA) {
         DATA = JSON.stringify($('form').serializeObject());
-        predict();
+        predict(DATA).then(body => updatePrediction(body));
       });
     });
   </script>
 </head>
-
 <body>
-
-  <p>Housing Median Price Prediction Service</p>
-
-  Url:<br>
-  <input type="text" name="url">
-  <br>
+  <p>HousePrices Prediction Service (Project 1)</p>
+  Url:<br />
+  <input type="text" name="url" />
+  <br />
   <form id="myform">
-    Longitude:<br>
-    <input type="text" name="longitude" value="-122.5">
-    <br>
-    Latitude: <br>
-    <input type="number" name="latitude" value="37.79">
-    <br>
-    Housing Median Age:<br>
-    <input type="number" name="housing_median_age" value="52">
-    <br>
-    Total Rooms:<br>
-    <input type="number" name="total_rooms" value="8">
-    <br>
-    Total Bedrooms:<br>
-    <input type="number" name="total_bedrooms" value="1">
-    <br>
-    Population:<br>
-    <input type="number" name="population" value="13">
-    <br>
-    Households:<br>
-    <input type="number" name="households" value="1">
-    <br>
-    Median Income:<br>
-    <input type="number" name="median_income" value="15.0001">
-    <br>
-    Less than 1H Ocean:<br>
-    <input type="number" name="<1H OCEAN" value="187">
-    <br>
-    INLAND:<br>
-    <input type="number" name="INLAND" value="187">
-    <br>
-    ISLAND:<br>
-    <input type="number" name="ISLAND" value="187">
-    <br>
-    NEAR BAY:<br>
-    <input type="number" name="NEAR BAY" value="187">
-    <br>
-    NEAR OCEAN:<br>
-    <input type="number" name="NEAR OCEAN" value="187">
-    <br>
-    <br>
-    <input type="button" value="Predict" id="PredictButton">
   </form>
-
-
 </body>
-
 </html>
