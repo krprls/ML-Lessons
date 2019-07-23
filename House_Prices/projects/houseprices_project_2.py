@@ -44,11 +44,10 @@ def get_multiple_predictions(values, fields):
     predictions = []
     for queries in arg_list:
         prediction = json.loads(get_prediction(queries['url'],
-                                               queries['body']))
+                                               queries['body']))                                     
         pred_value = json.loads(prediction['body'])['predicted_label']
         predictions.append(pred_value)
     return predictions
-
 
 def ui_mode():
     """
@@ -58,7 +57,9 @@ def ui_mode():
     # Create a dialog box with the features
     fields = ['longitude', 'latitude', 'housing_median_age',
               'total_rooms', 'total_bedrooms',
-              'population', 'households', 'median_income']
+              'population', 'households', 'median_income', 
+              '<1H OCEAN', 'INLAND', 'ISLAND', 'NEAR BAY', 
+              'NEAR OCEAN']
     layout = [[sg.Text('url'), sg.Input('', key='url')],
               [sg.Text('longitude'), sg.Input(-122.5, key='longitude')],
               [sg.Text('latitude'), sg.Input(37.79, key='latitude')],
@@ -113,7 +114,7 @@ def get_prediction(url, data='{"longitude":-122.5,"latitude":37.79,'
                              '"total_bedrooms":1,"population":13,'
                              '"households":1, "median_income":15.0001,"'
                              '"<1H OCEAN":0", "INLAND":0,"'
-                             '"ISLAND":0", "NEAR BAY":1, "NEAR OCEAN":0"'}'):
+                             '"ISLAND":0", "NEAR BAY":1, "NEAR OCEAN":0"}'):
     r = requests.post(url, data=data)
     response = getattr(r, '_content').decode("utf-8")
     return response
@@ -132,4 +133,4 @@ if __name__ == '__main__':
         # When no arguments are provided, pop up a
         # dialog box where the user can enter 
         # arguments
-        args_list = ui_mode()
+        ui_mode()
