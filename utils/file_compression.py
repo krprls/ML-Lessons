@@ -2,6 +2,7 @@ import glob
 import zlib
 import zipfile
 import sys
+import os
 
 def compress_files(regex, out_file):
      """
@@ -11,6 +12,11 @@ def compress_files(regex, out_file):
                out_file (str): The name of the zip file you want to generate.
           Returns: N/A
      """
+     #remove zip file if already exists 
+     #if this code snippet does not exist, very slow
+     if os.path.exists(out_file):
+          os.remove(out_file)
+
      files = glob.glob(regex)  # get all files you want to zip
 
      # Select the compression mode ZIP_DEFLATED for compression
@@ -44,3 +50,4 @@ if __name__ == "__main__":
      out_zipfile = sys.argv[3] #output zipfile
 
      compress_files(path + regex, path + out_zipfile)  
+     print(out_zipfile + " compressed successfully.")
