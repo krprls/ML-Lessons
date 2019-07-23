@@ -19,18 +19,18 @@ def get_multiple_predictions(values, fields):
     Returns:
     predictions (list): Contains the list of predictions
     """
-    values_age = values['Age']
-    values_split = values_age.split(',')
+    age_list = values['Age']
+    values_split = age_list.split(',')
 
     arg_list = []
 
-    for a in range(0,len(values_split)):
+    for index in range(0,len(values_split)):
         args = {'url': values['url']}
         feature_num = 1
         body = '{'
         for feature in fields:
             if(feature == 'Age'):
-                body = body + '"' + feature + '"' + ':' + str(values_split[a]) + ','
+                body = body + '"' + feature + '"' + ':' + str(values_split[index]) + ','
             else:
                 body = body + '"' + feature + '"' + ':' + str(values[feature]) + ','
             feature_num = feature_num+1
