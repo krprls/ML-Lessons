@@ -62,7 +62,7 @@ def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
 
     print("\tLabel: ", label)
     print("\tModel: ", prediction_object['Model'])
-    print("\tMessage: ", prediction_object['Message']) #UNCOMMENT WHEN MESSAGE KEY PART OF BODY FOR REGRESSION PROJECTS
+    print("\tMessage: ", prediction_object['Message']) 
     return label
 
 #calculate and print out the prediction based on FORMULA
