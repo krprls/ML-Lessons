@@ -126,4 +126,4 @@ if __name__ == '__main__':
         # When no arguments are provided, pop up a
         # dialog box where the user can enter 
         # arguments
-        args_list = ui_mode()
+        ui_mode()
