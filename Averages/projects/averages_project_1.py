@@ -31,6 +31,7 @@ def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
     print("ML prediction") 
     print("\tLabel: ", label)
     print("\tModel: ", prediction_object['Model'])
+    print("\tMessage: ", prediction_object['Message'])
     return label
 
 
