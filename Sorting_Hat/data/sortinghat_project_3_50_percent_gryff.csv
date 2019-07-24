@@ -1,42 +1,39 @@
 house,description
 Gryffindor,"courage, bravery, nerve, and chivalry."
-Hufflepuff," hard work, patience, justice, and loyalty."
-Slytherin,"ambition, cunning, leadership, and resourcefulness."
 Slytherin,founder highly valued and favoured pure-blood students
-Slytherin,corresponds roughly with the element of water due to serpents and snakes being commonly associated with the sea and lochs
 Slytherin,"Severus Snape and The Bloody Baron held abiding but unreturned feelings for Lily Evans and Helena Ravenclaw, respectively."
-Slytherin, blood purity was a factor in selecting Slytherins. 
-Slytherin,the light in the common room is green
+Slytherin,well-known reputation for creating dark witches and wizards
+Slytherin,"For instance, when given the choice, we will always choose to save our own necks"
+Slytherin,"cunning - very crafty and sneaky, rarely ever getting caught"
 Slytherin,"resourceful - they may not have all the answers, but they know how to use what they have"
 Slytherin,"a high sense of self-preservation, ends justify the means, power hungry"
-Slytherin,"However, a Muggle-Born student from that house is considered to be quite rare."
+Slytherin,The patron ghost of the house is the Bloody Baron.
 Slytherin,pride and that sometimes makes them arrogant.
-Slytherin, believe in doing what is necessary
+Slytherin,want to be in charge and they want to be leaders.
+Ravenclaw,"Knowledge, creativity, intelligence, wisdom, and cleverness – those are the qualities of a Ravenclaw"
+Ravenclaw,The smartest and most clever people can be found in this house. 
 Ravenclaw,strive to do what is wise.
-Ravenclaw,good sense of humor and are often quirky.
-Ravenclaw,lead through wisdom and they will always use their brains to resolve any situation.
 Ravenclaw,intelligent - their biggest trait
+Ravenclaw,"good looks, provide the prettiest faces"
 Ravenclaw,"cliques - they prefer to stay to themselves and study, rarely interacting with others during assignments"
 Ravenclaw,Arrogant - they look down on others on occasion since they are attractive and have good grades
+Ravenclaw,"their mascot is an eagle, and the colors are blue and brown/bronze/black depending on the medium"
 Ravenclaw,"common room is in a tower, and their password is answering a riddle"
+Ravenclaw,points hourglass contains blue sapphires.
 Ravenclaw,the House colours were chosen; blue and bronze represent the sky and eagle feathers respectively
 Ravenclaw,"learning, wisdom, wit, and intellect in its members."
-Ravenclaw,known to be logical and rational.
-Ravenclaw,"they’re well-known for being welcoming and encouraging of creativity, eccentricity and individuality and being very accepting."
-Ravenclaw,"The emblematic animal symbol is an eagle, and blue and bronze are its colours."
+Ravenclaw,"they tended to side with Gryffindor in its rivalry with Slytherin, as did Hufflepuff house."
+Ravenclaw,corresponds roughly to the element of air
+Hufflepuff,most inclusive among the four houses
 Hufflepuff,"valuing hard work, dedication, patience, loyalty, and fair play "
-Hufflepuff,"hard-working, friendly, loyal, honest and rather impartial."
-Hufflepuff,appears to have the least rivalry with the other houses
-Hufflepuff,house that produced the fewest dark wizards through out its history
+Hufflepuff,corresponds roughly to the element of earth
+Hufflepuff,"House colours were chosen: yellow represented wheat, while black was emblematic of soil."
 Hufflepuff,dormitory is a quite cosy and welcoming place
-Hufflepuff,"are not as competitive as the other houses, and are more modest about their accomplishments. "
 Hufflepuff,Their cheerful and friendly demeanour can probably account for this property of the House.
-Hufflepuff,humble - they are modest and meek
 Hufflepuff,"benevolence -  They do the right thing because it's the right thing, not for glory or selfish reasons"
+Hufflepuff,friendly - they don't have biases based on stereotypes like the other Houses
+Hufflepuff,hard-working - they don't cheat or look for loop holes. Just good old fashioned work
 Hufflepuff,lack of drive - they have a very low competitive nature. This hurts them when it comes to points.
-Hufflepuff, take the slow route and don't always make the cut
-Hufflepuff,"However, their patient nature and their desire to make others happy are stronger."
-Hufflepuff,Earth is the element of stability and in this case deals with nature-like motherly affection
 Gryffindor,"he emblematic animal is a lion, and its colours are scarlet and gold."
 Gryffindor,"Sir Nicholas de Mimsy-Porpington, also known as ""Nearly Headless Nick"" is the House ghost."
 Gryffindor,corresponds roughly to the element of fire
@@ -76,17 +73,16 @@ Gryffindor,"devil-may-care, hotheaded; irresponsible, wild, foolhardy, headlong"
 Gryffindor,"overadventurous, over-venturesome, audacious, death-or-glory"
 Gryffindor,"injudicious, mindless, negligent"
 Gryffindor,"unconsidered, unthinking, indiscreet"
-Hufflepuff,"trusted, trustworthy, trusty"
-Hufflepuff,"unassuming, unpresuming, unostentatious, low-key"
-Hufflepuff,"diffident, timid, reserved, retiring, media-shy, reticent"
-Hufflepuff,"quiet, embarrassed, blushing"
-Ravenclaw,"brains, brainpower"
+Hufflepuff,"faithful, truehearted, devoted"
+Hufflepuff,"firm, stable, steady, unfailing, patriotic"
+Hufflepuff,"self-effacing, self-deprecating, humble, unpretentious"
+Hufflepuff,free from vanity
+Ravenclaw,"intellect, mind, brain"
 Ravenclaw,powers of reasoning
-Ravenclaw,"judgment, reason, reasoning"
-Ravenclaw,"understanding, comprehension"
 Ravenclaw,"acumen, wit"
 Ravenclaw,"perceptiveness, perception, perspicaciousness, perspicacity"
-Ravenclaw,"sharpness, quickness of mind, quick-wittedness"
+Ravenclaw," penetration, discernment"
+Ravenclaw,"brilliance, aptness, ability, giftedness, talent"
 Gryffindor,"acclaim, acclamation"
 Gryffindor,"celebrity, praise"
 Gryffindor,"accolades, laurels"
@@ -97,17 +93,21 @@ Gryffindor,"impetuous, impulsive"
 Gryffindor,daredevil
 Gryffindor,"adventurous, audacious, death-or-glory"
 Hufflepuff,"dutiful, unchanging"
+Hufflepuff,"dedicated, committed"
 Hufflepuff,keeping one's light under a bushel
-Slytherin,"devious, sly"
-Slytherin,"knowing, scheming"
+Slytherin,"artful, guileful"
+Slytherin,"slippery, slick, manipulative"
 Slytherin,"Machiavellian, deceptive, duplicitous"
-Slytherin,"canny, sharp, sharp-witted, skillful"
-Slytherin,"savvy, fiendish, sneaky"
-Slytherin,self-sustaining
-Slytherin,"self-important, opinionated"
-Slytherin,"swaggering, boastful, bumptious"
+Slytherin,"shrewd, astute, clever"
+Slytherin,"ingenious, resourceful, inventive"
+Slytherin,"imaginative, deft, adroit"
+Slytherin,"haughty, conceited, hubristic"
+Slytherin,"overbearing, pompous, high-handed"
+Slytherin,"disdainful, contemptuous, imperious"
+Slytherin,"lofty, lordly, snobbish, snobby"
 Slytherin,"pretentious, affected"
-Slytherin,"stuck-up, toffee-nosed, fancy-pants, snotty, jumped up, too big for one's boots, bigheaded"
+Slytherin,"scornful, mocking, sneering, scoffing"
+Slytherin,"high and mighty, uppity, snooty"
 Gryffindor,"knight errantry, the knightly code, knighthood"
 Gryffindor,"knightliness, courtliness, nobility"
 Gryffindor,magnanimity
