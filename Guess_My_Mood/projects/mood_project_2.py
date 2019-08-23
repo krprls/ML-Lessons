@@ -38,7 +38,7 @@ def main():
 
 
 #calculate and print out the prediction based on ML 
-def get_prediction(url, data={"description:", "I am happy"}):
+def get_prediction(url, data={"sentence:", "I am happy"}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)

@@ -25,7 +25,7 @@ def main():
         old_ml_prediction = get_prediction(old_url, data) #from smaller dataset
         print("ML prediction (bigger dataset)")
         new_ml_prediction = get_prediction(new_url, data) #from bigger dataset
-        
+
         if old_ml_prediction != "Unable to predict" and new_ml_prediction != "Unable to predict":
             tries += 1
             user_validation = input("Was the prediction based on the newer model, \"" + new_ml_prediction + "\", correct? (y/n)\n")
@@ -35,21 +35,20 @@ def main():
                     correct_old_tries += 1
             elif old_ml_prediction != new_ml_prediction:
                 correct_old_tries += 1
-        
 
         print("Correct tries, OLDER dataset: ", correct_old_tries)
         print("Correct tries, NEWER dataset: ", correct_new_tries)
         print("Total trials: ", tries)
         print("Press Ctrl + C to stop at anytime. Moving on to the next round.")
 
- 
-#calculate and print out the prediction based on ML 
+
+#calculate and print out the prediction based on ML
 def get_prediction(url, data={"description:", "I love to help others!"}):
     r = requests.post(url, data=json.dumps(data))
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
     prediction_object = json.loads(response['body'])
-    label = ""    
+    label = ""
     if 'predicted_label' in prediction_object:
         label = prediction_object['predicted_label']
 
@@ -60,4 +59,3 @@ def get_prediction(url, data={"description:", "I love to help others!"}):
 
 if __name__ == "__main__":
     main()
-    
