@@ -16,7 +16,7 @@ def main():
 
     while True:
         trial_error_new = trial_error_old = 0
-        
+
         #get user input
         num1 = input("Please enter your first number: ")
         num2 = input("Please enter your second number: ")
@@ -48,7 +48,7 @@ def main():
         print("Average Error, BIGGER dataset: ", average_error_new)
         print("Total trials: ", tries)
         print("Press Ctrl + C to stop at anytime. Moving on to the next round.")
- 
+
 
 #calculate and print out the prediction
 def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
@@ -56,13 +56,13 @@ def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
     prediction_object = json.loads(response['body'])
-    label = ""    
+    label = ""
     if 'predicted_label' in prediction_object:
         label = prediction_object['predicted_label']
 
     print("\tLabel: ", label)
     print("\tModel: ", prediction_object['Model'])
-    print("\tMessage: ", prediction_object['Message']) 
+    print("\tMessage: ", prediction_object['Message'])
     return label
 
 #calculate and print out the prediction based on FORMULA
@@ -76,12 +76,3 @@ def formula(num1=50, num2=70, num3=80, num4=90):
 
 if __name__ == "__main__":
     main()
-   
-
-    
-
-
-
-
-
-

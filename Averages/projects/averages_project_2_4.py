@@ -24,7 +24,7 @@ def main():
         ave_via_formula = formula(num1, num2, num3, num4)
 
         tries += 1
-        
+
         if float(ml_prediction):
             trial_error = abs(ml_prediction - ave_via_formula)
             average_error = (average_error + trial_error) / tries
@@ -32,7 +32,7 @@ def main():
         print("Error for this trial: ", trial_error)
         print("Average Error: ", average_error)
         print("Total trials: ", tries)
-  
+
         print("Press Ctrl + C to stop at anytime. Moving on to the next round.")
 
 #calculate and print out the prediction
@@ -41,11 +41,11 @@ def get_prediction(url, data={"A":48,"B":23,"C":38,"D":54}):
     response = getattr(r,'_content').decode("utf-8")
     response = json.loads(response)
     prediction_object = json.loads(response['body'])
-    label = ""    
+    label = ""
     if 'predicted_label' in prediction_object:
         label = prediction_object['predicted_label']
 
-    print("ML prediction") 
+    print("ML prediction")
     print("\tLabel: ", label)
     print("\tModel: ", prediction_object['Model'])
     print("\tMessage: ", prediction_object['Message'])
@@ -62,11 +62,3 @@ def formula(num1=50, num2=70, num3=80, num4=90):
 
 if __name__ == "__main__":
     main()
-
-    
-
-
-
-
-
-
