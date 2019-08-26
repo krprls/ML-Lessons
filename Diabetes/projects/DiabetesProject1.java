@@ -71,7 +71,7 @@ public class DiabetesProject1 extends JFrame implements ActionListener {
 		// set panel configuration
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(this.x, this.y, this.width, this.height);
-		setTitle("Diabetes Prediction Service");
+		setTitle("Sample JAVA program");
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(labelNames.length + 2, 2));
