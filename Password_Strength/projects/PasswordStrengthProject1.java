@@ -139,6 +139,7 @@ public class PasswordStrengthProject1 extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		getPasswordCharacteristics(userInput.get(labelNames[0] + "Input").getText());
 		// getting data from text fields and making JSON
 		data = "";
 		data += "{";
