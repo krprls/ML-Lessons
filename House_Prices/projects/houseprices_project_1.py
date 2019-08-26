@@ -6,12 +6,6 @@ import argparse
 import tkinter as tk
 import PySimpleGUI as sg
 
-# Sample format of data expected
-# {"longitude":-122.5,"latitude":37.79,"housing_median_age":52,
-# "total_rooms":8,"total_bedrooms":1,"population":13,"households":1,
-# "median_income":15.0001}):
-
-
 
 def get_multiple_predictions(values, fields):
     """

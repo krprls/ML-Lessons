@@ -6,9 +6,6 @@ import tkinter as tk
 import PySimpleGUI as sg
 
 
-# Sample format of data expected
-# {"CreditScore":619,"Age":42,"Tenure":2,"Balance":0,"NumOfProducts":1,"HasCrCard":1,"IsActiveMember":1,"EstimatedSalary":101348.88}
-
 def get_multiple_predictions(values, fields):
     """
     This function calculates the predictions on

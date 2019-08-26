@@ -1,4 +1,3 @@
-
 import requests
 import json as json
 import numpy as np
@@ -7,9 +6,6 @@ import argparse
 import tkinter as tk
 import PySimpleGUI as sg
 
-# Sample format of data expected
-# {"Pregnancies":6,"Glucose":148,"BloodPressure":72,"SkinThickness":35,
-# "Insulin":0,"BMI":33.6,"DiabetesPedigreeFunction":0.627,"Age":50}
 
 def get_multiple_predictions(values, fields):
     """
@@ -26,7 +22,7 @@ def get_multiple_predictions(values, fields):
 
     arg_list = []
 
-    for a in range(0,len(values_split)):
+    for a in range(0, len(values_split)):
         args = {'url': values['url']}
         feature_num = 1
         body = '{'

@@ -6,14 +6,6 @@ import argparse
 import tkinter as tk
 import PySimpleGUI as sg
 
-# Sample format of data expected
-# {"age":37,"sex":1,"cp":3,
-# "trestbps":130,"chol":250,
-# "fbs":0,"restecg":0,"thalach":187,
-# "exang":0, "oldpeak":3.5, "slop":3,
-# "ca":0, "thal":3}
-
-
 def get_multiple_predictions(values, fields):
     """
     This function calculates the predictions on
