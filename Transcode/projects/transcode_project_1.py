@@ -31,6 +31,8 @@ def get_multiple_predictions(values, fields):
         for feature in fields:
             if(feature == 'duration'):
                 body = body + '"' + feature + '"' + ':' + str(values_split[a]) + ','
+            elif(isinstance(values[feature], str)):
+                body = body + '"' + feature + '"' + ':' + '"' + values[feature] + '",'
             else:
                 body = body + '"' + feature + '"' + ':' + str(values[feature]) + ','
             feature_num = feature_num+1
@@ -52,29 +54,33 @@ def ui_mode():
     feature values and see responses
     """
     # Create a dialog box with the features
-    fields = ['CreditScore', 'Age', 'Tenure', 'Balance', 'NumOfProducts',
-              'HasCrCard', 'IsActiveMember', 'EstimatedSalary']
+    fields = ['id', 'duration', 'codec', 'width', 'height',
+              'bitrate', 'framerate', 'i', 'p', 'b', 'frames',
+              'i_size', 'p_size', 'b_size', 'size', 'o_codec',
+              'o_bitrate', 'o_framerate', 'o_width',
+              'o_height', 'umem']
     layout = [[sg.Text('url'), sg.Input('', key='url')],
-              [sg.Text('Id'), sg.Input(619, key='id')],
-              [sg.Text('duration', text_color='red'), sg.Input(42, key='duration')],
-              [sg.Text('codec'), sg.Input(2, key='codec')],
-              [sg.Text('width'), sg.Input(0, key='width')],
-              [sg.Text('height'), sg.Input(1, key='height')],
-              [sg.Text('bitrate'), sg.Input(1, key='bitrate')],
-              [sg.Text('framerate'), sg.Input(1, key='framerate')],
-              [sg.Text('I'), sg.Input(2, key='i')],
-              [sg.Text('P'), sg.Input(0, key='p')],
-              [sg.Text('B'), sg.Input(1, key='b')],
-              [sg.Text('Frames'), sg.Input(1, key='frames')],
-              [sg.Text('I_size'), sg.Input(1, key='i_size')],
-              [sg.Text('B_size'), sg.Input(101348.88, key='b_size')],
-              [sg.Text('Size'), sg.Input(1, key='size')],
-              [sg.Text('O_codec'), sg.Input(2, key='o_codec')],
-              [sg.Text('O_bitrate'), sg.Input(0, key='o_bitrate')],
-              [sg.Text('O_framerate'), sg.Input(1, key='o_framerate')],
-              [sg.Text('O_width'), sg.Input(1, key='o_width')],
-              [sg.Text('O_height'), sg.Input(1, key='o_height')],
-              [sg.Text('Umem'), sg.Input(101348.88, key='umem')],
+              [sg.Text('id'), sg.Input('0Yxo-eU6AjI', key='id')],
+              [sg.Text('duration', text_color='red'), sg.Input(326.583, key='duration')],
+              [sg.Text('codec'), sg.Input('vp8', key='codec')],
+              [sg.Text('width'), sg.Input(640, key='width')],
+              [sg.Text('height'), sg.Input(480, key='height')],
+              [sg.Text('bitrate'), sg.Input(1055982, key='bitrate')],
+              [sg.Text('framerate'), sg.Input(25.03, key='framerate')],
+              [sg.Text('i'), sg.Input(102, key='i')],
+              [sg.Text('p'), sg.Input(8061, key='p')],
+              [sg.Text('b'), sg.Input(0, key='b')],
+              [sg.Text('frames'), sg.Input(8163, key='frames')],
+              [sg.Text('i_size'), sg.Input(1, key='i_size')],
+              [sg.Text('p_size'), sg.Input(41239444, key='p_size')],
+              [sg.Text('b_size'), sg.Input(0, key='b_size')],
+              [sg.Text('size'), sg.Input(43108248, key='size')],
+              [sg.Text('o_codec'), sg.Input("fly", key='o_codec')],
+              [sg.Text('o_bitrate'), sg.Input(5000000, key='o_bitrate')],
+              [sg.Text('o_framerate'), sg.Input(24, key='o_framerate')],
+              [sg.Text('o_width'), sg.Input(480, key='o_width')],
+              [sg.Text('o_height'), sg.Input(360, key='o_height')],
+              [sg.Text('umem'), sg.Input(215124, key='umem')],
               [sg.Text('Prediction: ', text_color='blue', size=(40, 2), key='_PRED_')],
               [sg.RButton('Predict'), sg.Exit()]]
     window = sg.Window('Enter url and feature values', layout)
@@ -83,7 +89,6 @@ def ui_mode():
         predictions = str(get_multiple_predictions(values, fields))
         predictions.replace('"', '')
         if event == 'Predict':
-            print('entered predict event')
             # change the "output" element to be the value of "input" element
             window.Element('_PRED_').Update('duration: [' + values['duration'] + ']\n' +
                                             'Prediction: ' + predictions)
@@ -123,6 +128,7 @@ def get_prediction(url, data='{"id": 0Yxo-eU6AjI,'
                              '"frames": 8163,'
                              '"i_size": 1868804,'
                              '"b_size": 0,'
+                             '"p_size": 41239444,'
                              '"size": 43108248,'
                              '"o_codec": flv,'
                              '"o_bitrate": 5000000,'
