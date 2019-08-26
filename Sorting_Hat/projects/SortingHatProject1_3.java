@@ -115,7 +115,7 @@ public class SortingHatProject1_3 extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		SortingHatProject1_3 SortingHat = new SortingHatProject1_3(0, 0, 1600, 600);
+		SortingHatProject1_3 SortingHat = new SortingHatProject1_3(0, 0, 400, 200);
 		SortingHat.generatePanelContent();
 		SortingHat.setVisible(true);
 	}

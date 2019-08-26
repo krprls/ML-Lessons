@@ -156,7 +156,7 @@ public class PasswordStrengthProject1 extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		PasswordStrengthProject1 PasswordStrength = new PasswordStrengthProject1(0, 0, 1600, 600);
+		PasswordStrengthProject1 PasswordStrength = new PasswordStrengthProject1(0, 0, 400, 200);
 		PasswordStrength.generatePanelContent();
 		PasswordStrength.setVisible(true);
 	}
