@@ -80,7 +80,7 @@ public class PasswordStrengthProject1 extends JFrame implements ActionListener {
 		// set panel configuration
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(this.x, this.y, this.width, this.height);
-		setTitle("Customer Churn Prediction Service");
+		setTitle("Password Strength Prediction Service");
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(labelNames.length + 2, 2));
