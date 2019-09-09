@@ -1,6 +1,4 @@
 
-# https://7b7qhlx1yh.execute-api.us-east-1.amazonaws.com/Predict/cf09696a-e6f6-482a-ac75-fd1ad61772a4
-
 import requests
 import json as json
 import numpy as np
