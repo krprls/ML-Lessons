@@ -1,0 +1,120 @@
+<html>
+<head>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+  <script type='text/javascript'>
+  
+ //Text type values must be entered with quotes
+    var FIELDS = [
+      {
+        label: 'Daily Time Spent on Site":',
+        type: 'number',
+        name: 'Daily Time Spent on Site"',
+        value: '80.23',
+      },
+      {
+        label: 'Age:',
+        type: 'number',
+        name: 'Age',
+        value: '31',
+      },
+      {
+        label: 'Area Income:',
+        type: 'number',
+        name: 'Area Income',
+        value: '68441.85',
+      },
+      {
+        label: 'Daily Internet Usage:',
+        type: 'number',
+        name: 'Daily Internet Usage',
+        value: '193.77',
+      },
+      {
+        label: 'Ad Topic Line:',
+        type: 'text',
+        name: 'Ad Topic Line',
+        value: '"Monitored national standardization"',
+      },
+      {
+        label: 'City:',
+        type: 'text',
+        name: 'City',
+        value: '"West Jodi"',
+      },
+      {
+        label: 'Male:',
+        type: 'number',
+        name: 'Male',
+        value: '1',
+      },
+      {
+        label: 'Country:',
+        type: 'text',
+        name: 'Country',
+        value: '"Nauru"',
+      },
+      {
+        label: 'Timestamp:',
+        type: 'text',
+        name: 'Timestamp',
+        value: '"2016-04-04 01:39:02"',
+      },
+    ];
+
+    $(document).ready(function () {
+      function makeField(field) {
+        return `
+          ${field.label} <br />
+          <input type=${field.type} name=${field.name} value=${field.value} />
+          <br />`;
+      }
+
+      FIELDS.forEach(field => $('#myform').append(makeField(field)));
+      $('body').append(`<p id="prediction">Prediction: <p>`);
+      $('body').append(`<input type="button" value="Predict" id="PredictButton">`);
+
+      function updatePrediction(result) {
+        result = JSON.parse(result['body']);
+        var innerHTML = $('#prediction').filter('p').text();
+        var label = innerHTML.substring(innerHTML.indexOf('Prediction:') + 'Prediction:'.length);
+        $('#prediction').html($('#prediction').html().replace(label, result['predicted_label']));
+      };
+		
+      $.fn.serializeObject = function () {
+        var object = {};
+        $.each(this.serializeArray(), function () {
+          if (object[this.name] !== undefined) {
+            [object[this.name]].push(this.value || '');
+          } else {
+            object[this.name] = this.value || '';
+          }
+        });
+        return object;
+      };
+
+      function predict(data) {
+        var ENDPOINT = $('[name=url]').val();
+        return fetch(ENDPOINT, {
+          method: 'POST',
+          body: data,
+        })
+          .then((res) => res.json())
+          .catch(err => console.log('err', err));
+      };
+
+      $('#PredictButton').click(function (data = DATA) {
+        DATA = JSON.stringify($('form').serializeObject());
+        predict(DATA).then(body => updatePrediction(body));
+      });
+    });
+  </script>
+</head>
+<body>
+  <p>Ad Clicks Prediction Service</p>
+  Url:<br />
+  <input type="text" name="url" />
+  <br />
+  <form id="myform">
+  </form>
+</body>
+</html>
