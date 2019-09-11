@@ -113,7 +113,7 @@ public class AdClicksProject1 extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		AdClicksProject1 clicks = new DiabetesProject1(0, 0, 400, 400);
+		AdClicksProject1 clicks = new AdClicksProject1(0, 0, 400, 400);
 		clicks.generatePanelContent();
 		clicks.setVisible(true);
 	}
