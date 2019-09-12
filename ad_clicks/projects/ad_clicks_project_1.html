@@ -6,40 +6,40 @@
  //Text type values must be entered with quotes
     var FIELDS = [
       {
-        label: 'Daily Time Spent on Site":',
+        label: 'Daily Time Spent on Site:',
         type: 'number',
         name: 'Daily Time Spent on Site"',
-        value: '80.23',
+        value: '83.07',
       },
       {
         label: 'Age:',
         type: 'number',
         name: 'Age',
-        value: '31',
+        value: '37',
       },
       {
         label: 'Area Income:',
         type: 'number',
         name: 'Area Income',
-        value: '68441.85',
+        value: '62491.01',
       },
       {
         label: 'Daily Internet Usage:',
         type: 'number',
         name: 'Daily Internet Usage',
-        value: '193.77',
+        value: '230.87',
       },
       {
         label: 'Ad Topic Line:',
         type: 'text',
         name: 'Ad Topic Line',
-        value: '"Monitored national standardization"',
+        value: 'Team-oriented grid-enabled Local Area Network',
       },
       {
         label: 'City:',
         type: 'text',
         name: 'City',
-        value: '"West Jodi"',
+        value: 'East Theresashire',
       },
       {
         label: 'Male:',
@@ -51,13 +51,13 @@
         label: 'Country:',
         type: 'text',
         name: 'Country',
-        value: '"Nauru"',
+        value: 'Burundi',
       },
       {
         label: 'Timestamp:',
         type: 'text',
         name: 'Timestamp',
-        value: '"2016-04-04 01:39:02"',
+        value: '2016-05-08 08:10:10',
       },
     ];
 
@@ -65,7 +65,7 @@
       function makeField(field) {
         return `
           ${field.label} <br />
-          <input type=${field.type} name=${field.name} value=${field.value} />
+          <input type=${field.type} name=${field.name} value=${'"'+field.value+'"'} />
           <br />`;
       }
 
