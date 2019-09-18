@@ -1,0 +1,178 @@
+<html>
+<head>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+  <script type='text/javascript'>
+    var FIELDS = [
+      {
+        label: 'gender:',
+        type: 'text',
+        name: 'gender',
+        value: 'Male',
+      },
+      {
+        label: 'SeniorCitizen:',
+        type: 'number',
+        name: 'SeniorCitizen',
+        value: '0',
+      },
+      {
+        label: 'tenure:',
+        type: 'number',
+        name: 'tenure',
+        value: '34',
+      },
+      {
+        label: 'Partner:',
+        type: 'text',
+        name: 'Partner',
+        value: 'No',
+      },
+      {
+        label: 'Dependents:',
+        type: 'text',
+        name: 'Dependents',
+        value: 'No',
+      },
+      {
+        label: 'PhoneService',
+        type: 'text',
+        name: 'PhoneService',
+        value: 'Yes',
+      },
+      {
+        label: 'MultipleLines:',
+        type: 'text',
+        name: 'MultipleLines',
+        value: 'No',
+      },
+      {
+        label: 'InternetService:',
+        type: 'text',
+        name: 'InternetService',
+        value: 'DSL',
+      },
+      {
+        label: 'OnlineSecurity:',
+        type: 'text',
+        name: 'OnlineSecurity',
+        value: 'Yes',
+      },
+      {
+        label: 'OnlineBackup:',
+        type: 'text',
+        name: 'OnlineBackup',
+        value: 'No',
+      },
+      {
+        label: 'DeviceProtection:',
+        type: 'text',
+        name: 'DeviceProtection',
+        value: 'Yes',
+      },
+      {
+        label: 'TechSupport:',
+        type: 'text',
+        name: 'TechSupport',
+        value: 'No',
+      },
+      {
+        label: 'StreamingTV:',
+        type: 'text',
+        name: 'StreamingTV',
+        value: 'No',
+      },
+      {
+        label: 'StreamingMovies:',
+        type: 'text',
+        name: 'StreamingMovies',
+        value: 'No',
+      },
+      {
+        label: 'Contract:',
+        type: 'text',
+        name: 'Contract',
+        value: 'One year',
+      },
+      {
+        label: 'PaperlessBilling:',
+        type: 'text',
+        name: 'PaperlessBilling',
+        value: 'No',
+      },
+      {
+        label: 'PaymentMethod:',
+        type: 'text',
+        name: 'PaymentMethod',
+        value: 'Mailed check',
+      },
+      {
+        label: 'MonthlyCharges:',
+        type: 'number',
+        name: 'MonthlyCharges',
+        value: '56.95',
+      },
+      {
+        label: 'TotalCharges:',
+        type: 'number',
+        name: 'TotalCharges',
+        value: '1889.5',
+      },
+    ];
+
+    $(document).ready(function () {
+      function makeField(field) {
+        return `
+          ${field.label} <br />
+          <input type=${field.type} name=${field.name} value=${'"'+field.value+'"'} />
+          <br />`;
+      }
+
+      FIELDS.forEach(field => $('#myform').append(makeField(field)));
+      $('body').append(`<p id="prediction">Prediction: <p>`);
+      $('body').append(`<input type="button" value="Predict" id="PredictButton">`);
+
+      function updatePrediction(result) {
+        result = JSON.parse(result['body']);
+        var innerHTML = $('#prediction').filter('p').text();
+        var label = innerHTML.substring(innerHTML.indexOf('Prediction:') + 'Prediction:'.length);
+        $('#prediction').html($('#prediction').html().replace(label, result['predicted_label']));
+      };
+
+      $.fn.serializeObject = function () {
+        var object = {};
+        $.each(this.serializeArray(), function () {
+          if (object[this.name] !== undefined) {
+            [object[this.name]].push(this.value || '');
+          } else {
+            object[this.name] = this.value || '';
+          }
+        });
+        return object;
+      };
+
+      function predict(data) {
+        var ENDPOINT = $('[name=url]').val();
+        return fetch(ENDPOINT, {
+          method: 'POST',
+          body: data,
+        })
+          .then((res) => res.json())
+          .catch(err => console.log('err', err));
+      };
+
+      $('#PredictButton').click(function (data = DATA) {
+        DATA = JSON.stringify($('form').serializeObject());
+        predict(DATA).then(body => updatePrediction(body));
+      });
+    });
+  </script>
+</head>
+<body>
+  <p>Telecom Customer Churn Prediction Service</p>
+  Url:<br />
+  <input type="text" name="url" />
+  <br />
+  <form id="myform">
+  </form>
+</body>
+</html>
