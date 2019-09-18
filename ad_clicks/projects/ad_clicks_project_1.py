@@ -1,4 +1,5 @@
 
+
 import requests
 import json as json
 import numpy as np
@@ -8,21 +9,13 @@ import tkinter as tk
 import PySimpleGUI as sg
 
 
-# Sample format of data expected
-# {"Pregnancies":6,"Glucose":148,"BloodPressure":72,"SkinThickness":35,
-# "Insulin":0,"BMI":33.6,"DiabetesPedigreeFunction":0.627,"Age":50}
-
-def mystr(inp_val, inp_feature):
-    tmp_val = inp_val
-    if (inp_feature == 'Ad Topic Line') or (inp_feature == 'City') or (inp_feature == 'Country') or (inp_feature == 'Timestamp'):
-#   if (str(tmp_val).isalnum()):
-        print(tmp_val)
-        tmp_val.replace('"','')
-        print(tmp_val)
-        return '"' + tmp_val + '"' 
+def wrap_string_in_quotes(inp_val):
+    if isinstance(inp_val, str):
+        inp_val.replace('"', '')
+        return '"' + inp_val + '"'
     else:
-        return tmp_val
-		
+        return inp_val
+
 def get_multiple_predictions(values, fields):
     """
     This function calculates the predictions on
@@ -34,7 +27,6 @@ def get_multiple_predictions(values, fields):
     predictions (list): Contains the list of predictions
     """
     values_age = values['Age']
-    #print(values_age)
     values_split = values_age.split(',')
 
     arg_list = []
@@ -44,11 +36,10 @@ def get_multiple_predictions(values, fields):
         feature_num = 1
         body = '{'
         for feature in fields:
-            if(feature == 'Age'):	
+            if(feature == 'Age'):
                 body = body + '"' + feature + '"' + ':' + str(values_split[a]) + ','
             else:
-                #body = body + '"' + feature + '"' + ':' + str(values[feature]) + ','
-                body = body + '"' + feature + '"' + ':' + mystr(values[feature], str(feature)) + ','
+                body = body + '"' + feature + '"' + ':' + wrap_string_in_quotes(values[feature]) + ','
             feature_num = feature_num+1
         body = body[0:-1] + '}'
         args['body'] = body
@@ -56,9 +47,8 @@ def get_multiple_predictions(values, fields):
     predictions = []
     my_index = 0
     for queries in arg_list:
-        #print(my_index)
         my_index += 1
-        print("What gets sent: ", queries['body'])	  	
+        print("What gets sent: ", queries['body'])
         prediction = json.loads(get_prediction(queries['url'], queries['body']))
         print(prediction)
         pred_value = json.loads(prediction['body'])['predicted_label']
@@ -80,7 +70,6 @@ def ui_mode():
               [sg.Text('Area Income'), sg.Input(61833.9, key='Area Income')],
               [sg.Text('Daily Internet Usage'), sg.Input(256.09, key='Daily Internet Usage')],
               [sg.Text('Ad Topic Line'), sg.Input('Cloned 5thgeneration orchestration', key='Ad Topic Line')],
-#             [sg.Text('Ad Topic Line'), sg.Input('', key='Ad Topic Line')],
               [sg.Text('City'), sg.Input('Wrightburgh', key='City')],
               [sg.Text('Male'), sg.Input(0, key='Male')],
               [sg.Text('Country'), sg.Input('Tunisia', key='Country')],
@@ -94,7 +83,6 @@ def ui_mode():
         if event is None or event == 'Exit':
             break
 
-        print("from GUI:", values)
         predictions = str(get_multiple_predictions(values, fields))
         predictions.replace('"', '')
         if event == 'Predict':
