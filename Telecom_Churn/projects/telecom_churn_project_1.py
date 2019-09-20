@@ -63,7 +63,7 @@ def ui_mode():
     fields = ['gender','SeniorCitizen','Partner','Dependents','tenure','PhoneService','MultipleLines','InternetService',
               'OnlineSecurity','OnlineBackup','DeviceProtection','TechSupport','StreamingTV','StreamingMovies','Contract',
               'PaperlessBilling','PaymentMethod','MonthlyCharges','TotalCharges']
-    layout = [[sg.Text('url'), sg.Input('', key='url')],
+    layout = [[sg.Text('url'), sg.Input('https://7b7qhlx1yh.execute-api.us-east-1.amazonaws.com/Predict/9f5c170d-f2ca-432e-b658-dc12f03327aa', key='url')],
               [sg.Text('gender'), sg.Input('Male', key='gender')],
               [sg.Text('SeniorCitizen'), sg.Input(0, key='SeniorCitizen')],
               [sg.Text('Partner', text_color='red'), sg.Input('No', key='Partner')],
