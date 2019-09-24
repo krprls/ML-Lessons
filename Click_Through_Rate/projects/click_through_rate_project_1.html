@@ -1,0 +1,120 @@
+<html>
+<head>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+  <script type='text/javascript'>
+
+ //Text type values must be entered with quotes
+    var FIELDS = [
+      {
+        label: 'title_proximity_tfidf:',
+        type: 'number',
+        name: 'title_proximity_tfidf',
+        value: '11.874042',
+      },
+      {
+        label: 'description_proximity_tfidf:',
+        type: 'number',
+        name: 'description_proximity_tfidf',
+        value: '0.04363703',
+      },
+      {
+        label: 'main_query_tfidf:',
+        type: 'number',
+        name: 'main_query_tfidf',
+        value: '2.5270805',
+      },
+      {
+        label: 'query_jl_score:',
+        type: 'number',
+        name: 'query_jl_score',
+        value: '0.011935319',
+      },
+      {
+        label: 'query_title_score:',
+        type: 'number',
+        name: 'query_title_score',
+        value: '0.011208009',
+      },
+      {
+        label: 'city_match:',
+        type: 'number',
+        name: 'city_match',
+        value: '0.0',
+      },
+      {
+        label: 'job_age_days:',
+        type: 'number',
+        name: 'job_age_days',
+        value: '5.0',
+      },
+      {
+        label: 'search_date_pacific:',
+        type: 'text',
+        name: 'search_date_pacific',
+        value: '2018-01-21',
+      },
+      {
+        label: 'class_id:',
+        type: 'number',
+        name: 'class_id',
+        value: '-7613806991329176388',
+      },
+    ];
+
+    $(document).ready(function () {
+      function makeField(field) {
+        return `
+          ${field.label} <br />
+          <input type=${field.type} name=${field.name} value=${'"'+field.value+'"'} />
+          <br />`;
+      }
+
+      FIELDS.forEach(field => $('#myform').append(makeField(field)));
+      $('body').append(`<p id="prediction">Prediction: <p>`);
+      $('body').append(`<input type="button" value="Predict" id="PredictButton">`);
+
+      function updatePrediction(result) {
+        result = JSON.parse(result['body']);
+        var innerHTML = $('#prediction').filter('p').text();
+        var label = innerHTML.substring(innerHTML.indexOf('Prediction:') + 'Prediction:'.length);
+        $('#prediction').html($('#prediction').html().replace(label, result['predicted_label']));
+      };
+
+      $.fn.serializeObject = function () {
+        var object = {};
+        $.each(this.serializeArray(), function () {
+          if (object[this.name] !== undefined) {
+            [object[this.name]].push(this.value || '');
+          } else {
+            object[this.name] = this.value || '';
+          }
+        });
+        return object;
+      };
+
+      function predict(data) {
+        var ENDPOINT = $('[name=url]').val();
+        return fetch(ENDPOINT, {
+          method: 'POST',
+          body: data,
+        })
+          .then((res) => res.json())
+          .catch(err => console.log('err', err));
+      };
+
+      $('#PredictButton').click(function (data = DATA) {
+        DATA = JSON.stringify($('form').serializeObject());
+        predict(DATA).then(body => updatePrediction(body));
+      });
+    });
+  </script>
+</head>
+<body>
+  <p>Click Through Rate Prediction Service</p>
+  Url:<br />
+  <input type="text" name="url" />
+  <br />
+  <form id="myform">
+  </form>
+</body>
+</html>
