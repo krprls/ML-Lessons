@@ -71,7 +71,7 @@ def ui_mode():
               [sg.Text('query_title_score'), sg.Input(0.014705882, key='query_title_score')],
               [sg.Text('city_match'), sg.Input(1.0, key='city_match')],
               [sg.Text('job_age_days'), sg.Input(16.0, key='job_age_days')],
-              [sg.Text('search_date_pacific', text_color='red'), sg.Input('2018-01-24', key='search_date_pacific')],
+              [sg.Text('search_date_pacific'), sg.Input('2018-01-24', key='search_date_pacific')],
               [sg.Text('class_id', text_color='red'), sg.Input(-1305520379511432611, key='class_id')],
               [sg.Text('Prediction: ', text_color='blue', size=(40, 2), key='_PRED_')],
               [sg.RButton('Predict'), sg.Exit()]]
