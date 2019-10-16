@@ -1,0 +1,107 @@
+<html>
+<head>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+  <script type='text/javascript'>
+    //IF no value for any field, enter 'NaN' into 'value' field. 
+    var FIELDS = [
+      {
+        label: 'airline_sentiment_confidence:',
+        type: 'number',
+        name: 'Airline Sentiment Confidence',
+        value: '1.0',
+      },
+      {
+        label: 'negativereason:',
+        type: 'text',
+        name: 'Negative Reason',
+        value: 'NaN',
+      },
+      {
+        label: 'negativereason_confidence:',
+        type: 'number',
+        name: 'Negative Reason Confidence',
+        value: 'NaN',
+      },
+      {
+        label: 'airline:',
+        type: 'text',
+        name: 'Airline',
+        value: 'Virgin America',
+      },
+      {
+        label: 'airline_sentiment_gold:',
+        type: 'text',
+        name: 'Airline Sentiment Gold',
+        value: 'NaN',
+      },
+      {
+        label: 'retweet_count:',
+        type: 'number',
+        name: 'Retweet Count',
+        value: '0',
+      },
+      {
+        label: 'text:',
+        type: 'text',
+        name: 'Text',
+        value: '@VirginAmerica What @dhepburn said.',
+      },
+    ];
+
+    $(document).ready(function () {
+      function makeField(field) {
+        return `
+          ${field.label} <br />
+          <input type=${field.type} name=${field.name} value=${'"'+field.value+'"'} />
+          <br />`;
+      }
+
+      FIELDS.forEach(field => $('#myform').append(makeField(field)));
+      $('body').append(`<p id="prediction">Prediction: <p>`);
+      $('body').append(`<input type="button" value="Predict" id="PredictButton">`);
+
+      function updatePrediction(result) {
+        result = JSON.parse(result['body']);
+        var innerHTML = $('#prediction').filter('p').text();
+        var label = innerHTML.substring(innerHTML.indexOf('Prediction:') + 'Prediction:'.length);
+        $('#prediction').html($('#prediction').html().replace(label, result['predicted_label']));
+      };
+
+      $.fn.serializeObject = function () {
+        var object = {};
+        $.each(this.serializeArray(), function () {
+          if (object[this.name] !== undefined) {
+            [object[this.name]].push(this.value || '');
+          } else {
+            object[this.name] = this.value || '';
+          }
+        });
+        return object;
+      };
+
+      function predict(data) {
+        var ENDPOINT = $('[name=url]').val();
+        return fetch(ENDPOINT, {
+          method: 'POST',
+          body: data,
+        })
+          .then((res) => res.json())
+          .catch(err => console.log('err', err));
+      };
+
+      $('#PredictButton').click(function (data = DATA) {
+        DATA = JSON.stringify($('form').serializeObject());
+        predict(DATA).then(body => updatePrediction(body));
+      });
+    });
+  </script>
+</head>
+<body>
+  <p>Airline Sentiment Prediction Service</p>
+  Url:<br />
+  <input type="text" name="url" />
+  <br />
+  <form id="myform">
+  </form>
+</body>
+</html>
