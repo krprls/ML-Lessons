@@ -113,7 +113,7 @@ public class CellPhonePricesProject1 extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		CellPhonePricesProject1 price_range = new Cell_Phone_Prices_1(0, 0, 400, 400);
+		CellPhonePricesProject1 price_range = new Cell_Phone_Prices_Project_1(0, 0, 400, 400);
 		price_range.generatePanelContent();
 		price_range.setVisible(true);
 	}
