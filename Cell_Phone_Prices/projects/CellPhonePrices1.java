@@ -5,7 +5,7 @@ import java.net.*;
 import java.util.*;
 import javax.swing.*;
 
-public class CellPhonePricesProject1 extends JFrame implements ActionListener {
+public class CellPhonePrices1 extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private String[] labelNames = {"battery_power","blue","clock_speed","dual_sim","fc","four_g","int_memory","m_dep","mobile_wt","n_cores",
@@ -23,7 +23,7 @@ public class CellPhonePricesProject1 extends JFrame implements ActionListener {
 	private JLabel prediction;
 	private JTextField endpointURL;
 
-	public CellPhonePricesProject1(int x, int y, int width, int height) {
+	public CellPhonePrices1(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -113,7 +113,7 @@ public class CellPhonePricesProject1 extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		CellPhonePricesProject1 price_range = new Cell_Phone_Prices_Project_1(0, 0, 400, 400);
+		CellPhonePrices1 price_range = new CellPhonePrices1(0, 0, 400, 400);
 		price_range.generatePanelContent();
 		price_range.setVisible(true);
 	}
