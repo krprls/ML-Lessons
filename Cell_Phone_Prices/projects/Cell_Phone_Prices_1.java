@@ -5,7 +5,7 @@ import java.net.*;
 import java.util.*;
 import javax.swing.*;
 
-public class ClickThroughRateProject1 extends JFrame implements ActionListener {
+public class CellPhonePricesProject1 extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private String[] labelNames = {"battery_power","blue","clock_speed","dual_sim","fc","four_g","int_memory","m_dep","mobile_wt","n_cores",
