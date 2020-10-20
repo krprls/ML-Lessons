@@ -4,21 +4,22 @@ import random
 import sys
 
 
-#path to datafiles 
-path = 'data/'
+
 
 def main():
+     #path to datafiles 
+     path = 'data/'
 
      #project 1 and 2 DATASETS
-     data_generator(total_samples=1000, out_file="age_project_1_and_2.csv") #1000 in total
+     data_generator(total_samples=1000, out_file="data/age_project_1_and_2.csv") #1000 in total
 
      #project 3 DATASETS
-     data_generator(total_samples=5000, out_file="age_project_3_full.csv")
-     data_generator(0.0004, 2500, out_file="age_3_project_one_adult.csv") #only one adult example
-     data_generator(0.1, 2500, out_file="age_project_3_10_percent_adults.csv")
-     data_generator(0.3, 2500, out_file="age_project_3_30_percent_adults.csv")
-     data_generator(0.5, 2500, out_file="age_project_3_50_percent_adults.csv")
-     data_generator(0.75, 2500, out_file="age_project_3_75_percent_adults.csv")
+     data_generator(total_samples=5000, out_file="data/age_project_3_full.csv")
+     data_generator(0.0004, 2500, out_file="data/age_3_project_one_adult.csv") #only one adult example
+     data_generator(0.1, 2500, out_file="data/age_project_3_10_percent_adults.csv")
+     data_generator(0.3, 2500, out_file="data/age_project_3_30_percent_adults.csv")
+     data_generator(0.5, 2500, out_file="data/age_project_3_50_percent_adults.csv")
+     data_generator(0.75, 2500, out_file="data/age_project_3_75_percent_adults.csv")
 
      #project 4 DATASET
      flip_data(out_file="age_project_4_corrupted_10_percent.csv", fraction=0.1)
@@ -26,7 +27,7 @@ def main():
      flip_data() #100% of data flipped
      
 #project 4--FLIP DATA POINTS
-def flip_data(in_file="age_project_3_full.csv", out_file="age_project_4_corrupted_100_percent.csv", fraction=1):
+def flip_data(path = "data/", in_file="age_project_3_full.csv", out_file="age_project_4_corrupted_100_percent.csv", fraction=1):
 
      #path is just data/ if not provided by user 
      if len(sys.argv) > 1:
@@ -71,40 +72,58 @@ def data_generator(fraction=0.5, total_samples=2001, out_file = "medium_data.csv
     if total_samples <= 10:
         print("Please choose a number of samples greater than 10")
         return
+    num_samples = total_samples*2
+    # Generate random numbers for countries
+    mu = 2
+    sigma = 5
+    num_countries = np.random.normal(mu, sigma, num_samples)
+    num_countries = num_countries.astype('int')
+    num_countries[num_countries<0] = 0
 
-    #We will make half of the data kids and the other half adults.
-    num_samples_adults = int((total_samples) * fraction)
-    num_samples_kids = total_samples - num_samples_adults
+    # Generate random numbers for height
+    mu = 4
+    sigma = 2
+    height =  np.random.normal(mu, sigma, num_samples)
+    height[height<0] = 6-height[height<0]
+    height[height>6.5] = height[height>6.5] - 3
 
-    #generate the score first
-    score = np.concatenate((np.zeros((num_samples_kids,1)), np.ones((num_samples_adults,1))))
-    #convert score to integers
-    score = score.astype(int)
+    # Generate random numbers for years in school
+    years_school = np.zeros((num_samples,))
+    who_am_I = []
+    for a in range(0, num_samples):
+         if height[a] <= 3:
+              years_school[a] = 0
+              who_am_I.append('Child')
+         if height[a] > 3 and height[a] < 4.2:
+               years_school[a] = random.randint(0,4)
+               who_am_I.append('Child')
+         if height[a] >= 4.2:
+               years_school[a] = random.randint(0,25)
+               if years_school[a] > 15:
+                    who_am_I.append('Adult')
+               elif random.randint(0,1):
+                    who_am_I.append('Child')
+               else:
+                    who_am_I.append('Adult')
+    who_am_I = np.array(who_am_I)
+    dataset = np.squeeze(np.array([num_countries, years_school, height, who_am_I]))
+    
+    # Create a dataset with above data
+    adult_child_dataset = pd.DataFrame(dataset.T,
+                                       columns = ['num_countries', 'years_school', 'height', 'who_am_I'],
+                                       index = np.arange(num_samples))
+    # Create the fraction of samples needed
+    adult_df = adult_child_dataset[adult_child_dataset['who_am_I']=='Adult']
+    child_df = adult_child_dataset[adult_child_dataset['who_am_I']=='Child']
+    num_adult_needed = int(total_samples * fraction)
+    num_child_needed = total_samples - num_adult_needed
 
-    #height follows a gaussian distribution
-    height = np.array([np.random.normal(5.5,0.3) if i == 1 else np.random.uniform(2,6) for i in score]).reshape(-1,1)
-    num_countries = np.array([np.random.randint(0,i+5) if i < 3 else np.random.randint(0,10) for i in height]).reshape(-1,1)
-    years_school = np.array([np.random.randint(0,i) if i <= 4 else np.random.randint(0,20) for i in height]).reshape(-1,1)
+    adult_df = adult_df.sample(n=num_adult_needed, replace = True)
+    child_df = child_df.sample(n=num_child_needed, replace = True)
 
-    #reshaping arrays 
-    height.shape
-    years_school.shape
-    num_countries.shape
+    adult_child_dataset = pd.concat([adult_df, child_df], ignore_index = True)
+    adult_child_dataset.to_csv(out_file, index=False)
 
-    #child if score is less than 0, otherwise adult
-    height[height < 2] = 2
-    height[height > 7] = 7
-    height = np.round(height,2)
-
-    score = score.astype(str)
-    score[score == '1'] = 'adult'
-    score[score == '0'] = 'child'
-
-    dataset = np.concatenate((num_countries, years_school, height, score),axis=1)
-    np.random.shuffle(dataset)
-
-    data_header = 'num_countries,years_school,height,who_am_I'
-    np.savetxt(path + out_file ,dataset,header=data_header, fmt='%s', delimiter=',', comments='')
     print(out_file + " data saved")
 
 if __name__ == "__main__":
